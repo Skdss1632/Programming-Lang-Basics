@@ -1,7 +1,7 @@
 n = int(input("enter a natural number:"))
-total = 1
+total = 0
 i = 1
 while i <= n:
-    total = total + i
+    total = total + i * i
     i += 1
 print("squares of %d is %d" % (n, total))
