@@ -1,3 +1,4 @@
+# print all prime number under 100.
 N = 1
 while N <= 100:
     count = 0
