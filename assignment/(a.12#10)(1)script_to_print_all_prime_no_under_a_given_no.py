@@ -1,5 +1,5 @@
-# printing first prime no under a given number.
-x = int(input("enter a number"))
+# printing first prime no under a given number with the help of while loop.
+x = int(input("enter a number:"))
 prime = 2
 while prime <= x:
     i = 2
