@@ -1,0 +1,12 @@
+# script_to_print_indices_of_all_occurrence_of_a_given_element_in_a_given_list.
+l1 = eval(input("enter a list:-"))
+e = int(input("enter a element from list:-"))
+count = l1.count(e)
+for i in range(0, count):
+    print(l1.index(e))
+    l1.remove(e)
+    if type(e) == int or float or bool:
+        l1.insert(0, " ")
+    else:
+        l1.insert(0, 1)
+
