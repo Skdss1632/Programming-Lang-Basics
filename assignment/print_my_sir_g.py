@@ -1,1 +1,1 @@
-print('"teacher'sday"')
+print("teacher's day")
