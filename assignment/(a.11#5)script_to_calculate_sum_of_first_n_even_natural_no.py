@@ -1,3 +1,4 @@
+# script to calculate sum of first n even natural number.
 n = int(input("enter a natural number:"))
 i = 1
 total = 0

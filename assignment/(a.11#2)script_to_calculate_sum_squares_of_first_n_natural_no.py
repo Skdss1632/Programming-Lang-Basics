@@ -1,3 +1,4 @@
+# script to calculate sum of squares of first n natural number.
 n = int(input("enter a natural number:"))
 total = 0
 i = 1

@@ -1,3 +1,4 @@
+# script to calculate factorial of a number.
 n = int(input("enter a number:"))
 f = 1
 i = 1
