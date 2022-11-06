@@ -2,4 +2,4 @@
 st = eval(input("enter a set:-"))
 item = eval(input("enter an item which you want to remove:-"))
 st.discard(item)
-print(st)
+print("new set is:-", st)
