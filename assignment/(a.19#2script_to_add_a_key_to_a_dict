@@ -1,0 +1,5 @@
+# script to add a key to a dict.
+dict1 = eval(input("enter a dict:-"))
+print("original dict given by user\n", dict1)
+dict1.update({200: 100})
+print("after adding key in original dict\n", dict1)
