@@ -2,7 +2,7 @@
 def n_natural(n):
     if n == 0:
         return 0
-    numbers = n+n_natural(n - 1)
+    numbers = n + n_natural(n - 1)
     print("first n natural numbers are:-", numbers)
     return 0
 
