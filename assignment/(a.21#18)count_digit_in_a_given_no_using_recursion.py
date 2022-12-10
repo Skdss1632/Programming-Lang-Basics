@@ -4,7 +4,6 @@ def count_num(n):
     if n > 0:
         count += 1
         return count_num(n//10)
-    return count
 
 
 count = 0
