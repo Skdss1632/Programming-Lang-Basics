@@ -29,6 +29,7 @@
 #
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
+
 # print(emp_1.email)
 # print(emp_2.email)
 # print(emp_2.fullname())
@@ -49,9 +50,10 @@
 #
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
+
 # print(emp_1.email)
 # print(emp_2.email)
-# # automatically passing emp_2 in full name instance fun we need to pass self for expected result
+# automatically passing emp_2 in full name instance function we need to pass self for expected result
 # print(emp_2.fullname())
 
 
