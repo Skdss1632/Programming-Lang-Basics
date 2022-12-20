@@ -30,7 +30,7 @@
 # print(emp_1.raise_amount)
 # print(emp_2.raise_amount)
 
-# ............................................................................
+# .......................................................................................................................
 
 # class Employee:
 #     no_of_emp = 0
@@ -73,7 +73,9 @@
 # print(new_emp_1.email)
 # print(new_emp_1.pay)
 
-# staticmethod examples,static methods do not take the instance or class methods as the first argument:--
+# .......................................................................................................................
+
+# staticmethod examples are given below,static methods do not take the instance or class methods as the first argument:--
 
 # class Employee:
 #
@@ -116,4 +118,4 @@
 # my_date = datetime.date(2016, 7, 10)
 # print(Employee.is_working(my_date))
 
-# end.....................
+# end..................................................................
