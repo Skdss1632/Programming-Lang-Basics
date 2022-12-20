@@ -16,6 +16,7 @@
 #
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
+
 # print(emp_1.pay)
 # emp_1.apply_raise()
 # print(emp_1.pay)
@@ -38,6 +39,7 @@
 #       self.pay = int(self.pay * Employee.raise_amount)
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
+
 # print(Employee.raise_amount)
 # print(emp_1.raise_amount)
 # print(emp_2.raise_amount)

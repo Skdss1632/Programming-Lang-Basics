@@ -22,7 +22,7 @@
 #
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
-# # doubt:...
+#  doubt:...
 #
 # emp_1.set_raise_amt(1.05)
 #
@@ -61,9 +61,9 @@
 #
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
-# # doubt:...
+#  doubt:...
 # emp_1.set_raise_amt(1.05)
-#
+
 # emp_str_1 = 'john-doe-70000'
 # emp_str_2 = 'steve-smith-30000'
 # emp_str_3 = 'jane-doe-90000'
