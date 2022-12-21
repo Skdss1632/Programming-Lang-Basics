@@ -37,6 +37,7 @@
 #
 #     def apply_raise(self):
 #       self.pay = int(self.pay * Employee.raise_amount)
+
 # emp_1 = Employee('corey', 'schafer', 50000)
 # emp_2 = Employee('test', 'user', 60000)
 
