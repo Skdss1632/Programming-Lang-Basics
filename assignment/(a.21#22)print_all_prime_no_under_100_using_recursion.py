@@ -9,4 +9,4 @@ def prime(num, i):
         return prime(num, i-1)
 
 
-prime(100, 100//2)
+prime(100, 100 //2)
