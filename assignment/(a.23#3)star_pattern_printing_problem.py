@@ -13,3 +13,14 @@ for i in range(0, n):
             for k in range(1, 2*i+2):
                 print('*', end='')
     print()
+
+# 2nd approach
+# n = int(input('enter a no:--'))
+# for i in range(0, n):
+#     for j in range(1, n-i):
+#         print(' ', end='')
+#     for k in range(1, (2*i+1)+1):
+#         print('*', end='')
+#     for l1 in range(1, n-i):
+#         print(' ', end='')
+#     print()
