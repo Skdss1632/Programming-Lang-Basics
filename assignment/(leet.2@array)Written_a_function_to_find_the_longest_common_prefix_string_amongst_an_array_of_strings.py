@@ -6,19 +6,39 @@ class Solution:
         common_prefix = ''
         string_0 = strs[0]
         index1 = 0
-        for i in string_0:
+        for letter in string_0:
             count_common_e = 0
             for j in range(1, len(strs)):
-                if i in strs[j][index1]:
+                if letter in strs[j][index1]:
                     count_common_e += 1
                     if count_common_e == len(strs)-1:
-                        common_prefix = common_prefix+i
+                        common_prefix = common_prefix+letter
                         index1 += 1
             if count_common_e == 0:
                 break
-        return f"'{common_prefix}'"
+        return f'longest common prefix is:- {common_prefix}'
 
 
 s1 = Solution()
-final_output = s1.longest_common_prefix(["flower", "flow", "flight"])
-print(final_output)
+commonprefix = s1.longest_common_prefix(["fl", "flight"])
+print(commonprefix)
+# ........................................................................................................................
+
+# 2nd approach
+
+# class Solution:
+#
+#     def longestCommonPrefix(self, strs: list[str]) -> str:
+#         res = ""
+#         for a in zip(*strs):
+#             if len(set(a)) == 1:
+#                 res += a[0]
+#             else:
+#                 return res
+#
+#
+# s1 = Solution()
+# x = s1.longestCommonPrefix(["flower", "flower", "flight"])
+# print(x)
+
+
