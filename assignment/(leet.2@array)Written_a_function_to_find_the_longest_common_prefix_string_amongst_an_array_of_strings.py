@@ -32,7 +32,7 @@ print(commonprefix)
 #         result = ""
 #         for i in zip(*strs):
 #             if len(set(i)) == 1:
-#                 result += result[0]
+#                 result += i[0]
 #             else:
 #                 return result
 #
