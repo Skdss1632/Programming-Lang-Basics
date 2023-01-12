@@ -61,4 +61,15 @@ print(commonprefix)
 # s1 = Solution()
 # s1.longestCommonPrefix(['flower', 'flow', 'flight'])
 
+# 4th approach
+# class Solution:
+#     def lengthOfLastWord(self, s: str) -> int:
+#         words = s.split()
+#         return len(words[-1])
+#
+#
+# s1 = Solution()
+# x = s1.lengthOfLastWord("   fly me   to   the moon  ")
+# print(x)
+
 
