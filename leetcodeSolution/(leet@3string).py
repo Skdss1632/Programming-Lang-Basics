@@ -10,3 +10,33 @@ class Solution:
 s1 = Solution()
 result = s1.lengthOfLastWord('fly me   to   the moon    ')
 print(result)
+
+# ........................................................................................................................
+# 2nd approach
+
+# class Solution:
+#     def lengthOfLastWord(self, s: str) -> int:
+#         words = s.split()
+#         return len(words[-1])
+#
+#
+# s1 = Solution()
+# result = s1.lengthOfLastWord("   fly me   to   the moon  ")
+# print(result)
+
+# ........................................................................................................................
+# 3rd approach
+
+# class Solution:
+#     def lengthOfLastWord(self, s: str) -> int:
+#         ans = s.split(" ")
+#         for i in range(len(ans)):
+#             if ans[-1] == '':
+#                 ans.pop()
+#             else:
+#                 return len(ans[-1])
+#
+#
+# s1 = Solution()
+# result = s1.lengthOfLastWord(' fly me   to   the moon ')
+# print(result)
