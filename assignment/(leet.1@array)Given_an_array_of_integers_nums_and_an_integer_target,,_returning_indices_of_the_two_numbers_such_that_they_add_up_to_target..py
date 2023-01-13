@@ -12,3 +12,5 @@ class Solution:
 s1 = Solution()
 x = s1.twosum([2, 2], 4)
 print(x)
+
+
