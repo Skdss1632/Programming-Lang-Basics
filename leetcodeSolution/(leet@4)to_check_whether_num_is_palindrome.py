@@ -1,4 +1,4 @@
-# Given an integer x, returning true if x is a palindrome, and false otherwise.
+# Given an integer x, returning true if x is a palindrome, and false otherwise and without converting int into str
 class Solution:
     def isPalindrome(self, x: int) -> bool:
         l1 = []  # empty list 1
