@@ -7,7 +7,7 @@
 #     print('no')
 
 # .........................................................................................................................
-# set property, if we give the same elements in the set then it's length will be 1
+# set property:-- if we give the same elements in the set then it's length will always 1
 
 # d1 = {'flight', 'flight', 'flight'}
 # print(len(d1))
