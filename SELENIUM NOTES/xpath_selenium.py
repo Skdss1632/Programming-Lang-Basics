@@ -20,7 +20,9 @@ driver = webdriver.Chrome(r'C:\drivers of browser\chromedriver_win32\chromedrive
 driver.get("https://automationexercise.com/")
 driver.maximize_window()
 time.sleep(5)
-driver.find_element(By.XPATH, '//*[@id="header"]/div/div/div/div[2]/div/ul/li[7]/a').click()
+Portfolio_Status_widget = driver.find_element(By.NAME, "kill_switch")
+driver.execute_script('arguments[0].scrollIntoView(true)', Portfolio_Status_widget)
+assert Portfolio_Status_widget.is_displayed()
 time.sleep(5)
 
 
