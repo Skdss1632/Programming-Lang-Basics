@@ -9,3 +9,8 @@ def test_2():
     title = 'selenium for the web automation'
     assert name in title
 
+def test_3():
+    name = 'jenkins '
+    title = 'jenkins is ci server'
+    assert name is title, 'title does not match'
+
