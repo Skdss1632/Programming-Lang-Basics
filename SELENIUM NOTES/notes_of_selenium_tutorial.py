@@ -10,3 +10,7 @@
 # 7. verify title of the page
 # 8. close browser
 # .....................................................................................................................
+
+# DOM stands for Document Object Model.
+# Document: The top-level object in the DOM hierarchy is the document object, which represents the entire HTML or XML document.
+# web element == element
