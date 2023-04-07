@@ -4,7 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
-#
 # @pytest.fixture()
 # def driver():
 #     driver = webdriver.Edge(r'"C:\Users\91707\Downloads\edgedriver_win64\msedgedriver.exe"')
