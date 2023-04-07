@@ -5,6 +5,5 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 driver = webdriver.Edge()
-driver.get("https://www.yatra.com/")
+driver.get("https://www.amazon.in/")
 driver.maximize_window()
-
