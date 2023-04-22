@@ -18,7 +18,7 @@ def load():
     driver = webdriver.Edge(r'"C:\Users\91707\Downloads\edgedriver_win64\msedgedriver.exe"')
     driver.get("https://www.yatra.com/")
     driver.maximize_window()
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(5)
     driver.find_element(By.XPATH, "//a[@title='https://www.yatra.com']//i[@class='ico-newHeaderLogo']").is_displayed()
     widget = driver.find_element(By.XPATH, "//p[@class='cmpyLinks ']")
 
