@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome()
 driver.get("https://demo.nopcommerce.com/")
+driver.maximize_window()
 
 # find element():- return single webelement
 
