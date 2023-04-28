@@ -15,5 +15,21 @@ time.sleep(2)
 drp_country = Select(driver.find_element(By.ID, "nooftrav"))
 
 # selecting option form dropdown
-drp_country.select_by_visible_text("1-3 Traveller")
+# drp_country.select_by_visible_text("1-3 Traveller")
+# time.sleep(2)
+
+# capture all the ele and print them
+alloptions = drp_country.options
+print("total no of options", len(alloptions))
+
+for opt in alloptions:
+    print(opt.text)
+
+
+# select option from dropdown without using built in method
+for opt in alloptions:
+    if opt.text == "8-11 Traveller":
+        opt.click()
+        break
 time.sleep(2)
+
