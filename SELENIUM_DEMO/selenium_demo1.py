@@ -8,7 +8,7 @@ import time
 # we can automate the web using this driver path
 # serv_obj = Service(r'"C:\Users\91707\Downloads\edgedriver_win64\msedgedriver.exe"')
 # driver = webdriver.Edge(service=serv_obj)
-"""if we do not want to give the driver path again and again,we need to save the driver of any browser in python
+"""if we do not want to give the driver path again and again then we need to save the driver of any browser in python
  script directory first then we can simply use the below line of code
  """
 

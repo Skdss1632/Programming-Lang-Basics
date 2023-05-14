@@ -12,8 +12,6 @@ search_box = driver.find_element(By.NAME, "field-keywords")
 search_box.clear()
 search_box.send_keys("watch")
 
-# text and get_attribute:-
-
 print("result of text:", search_box.text) # text return inner text,inner text is not present that's why it does not return anything
 print("result of get_attribute():", search_box.get_attribute('value')) # watch
 print("result of get_attribute():", search_box.get_attribute('id'))
