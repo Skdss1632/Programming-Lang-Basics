@@ -17,5 +17,7 @@ print("display status:", hotels.is_enabled()) #true
 rd_btn_student_fare = driver.find_element(By.XPATH, "//a[normalize-space()='Student Fare']")
 rd_btn_armed_forces = driver.find_element(By.XPATH, "//a[normalize-space()='Armed Forces']")
 rd_btn_student_fare.click() # it will selcet the student fare radio button
+time.sleep(2)
 rd_btn_armed_forces.click() # it will select the armed forces radio button
+time.sleep(2)
 print(rd_btn_student_fare.is_selected()) # true
