@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Shape(ABC):
     # if we use abstractmethod and whatever fun has defined just below the absmthd
-    # then we should also def exactly that name fun in another class"""
+    # then we should also def exactly that name fun in another class
     @abstractmethod
     def printarea(self):
         return 0
