@@ -2,9 +2,12 @@
 class Solution:
 
     def lengthOfLastWord(self, s: str):
-        new_str = s.strip()  # removing the leading and trailing whitespace:-'fly me   to   the moon'
-        list_of_str = new_str.split(' ')  # list of the strings['fly', 'me', 'to', 'the', 'moon']
-        return len(list_of_str[-1])  # returning the len of the last word
+        # remove the leading and trailing whitespace:-'fly me   to   the moon'
+        trimmed_string = s.strip()
+        # Split the string into a list of words['fly', 'me', 'to', 'the', 'moon']
+        words_list = trimmed_string.split(' ')
+        # return the len of the last word
+        return len(words_list[-1])
 
 
 s1 = Solution()
