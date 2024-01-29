@@ -2,7 +2,10 @@
 // Created by 91707 on 9/28/2023.
 //
 
-#pragma once
+#ifndef UNTITLED_PROGRAM_TO_FIND_THE_GREATEST_NUM_FROM_THE_GIVEN_ARRAY_H
+#define UNTITLED_PROGRAM_TO_FIND_THE_GREATEST_NUM_FROM_THE_GIVEN_ARRAY_H
+
+
 #include <stdio.h>
 
 // Function to find the greatest number in an array
@@ -23,3 +26,7 @@ int findGreatest(int arr[], int size) {
 
     return greatest;
 }
+
+
+
+#endif //UNTITLED_PROGRAM_TO_FIND_THE_GREATEST_NUM_FROM_THE_GIVEN_ARRAY_H

@@ -6,7 +6,7 @@
 #define UNTITLED_SUM_OF_TWO_NUMBERS_H
 #include "stdio.h"
 
-// function defination
+// function definition
 void sum(int a,int b){
     int c = a + b;
     printf("sum of two num is: %d", c);
