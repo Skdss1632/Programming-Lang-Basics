@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <header></header>
+    <main>
+
+         <!-- placeholder -->
+         <form action="/action.php">
+            <input type="text" placeholder="enter your username" name="username">
+            <input type="text" placeholder="password" name="password">
+            <br><br>
+            
+            <!-- Radio buttons for selecting class -->
+            <label for="101">
+                <input type="radio" value="class x1" name="class" id="101"> class x1
+            </label>
+            <br>
+            
+            <label for="102">
+                <input type="radio" value="class x11" name="class" id="102"> class x11
+            </label>
+            <br>
+            
+            <!-- Checkboxes -->
+            <h5>Select your fav Subject</h5>
+            
+            <label for="cs">
+                <input type="checkbox" value="cs" name="subject" id="103"> computer science
+            </label>
+            <br>
+            
+            <label for="phy">
+                <input type="checkbox" value="phy" name="subject" id="104"> physics
+            </label>
+            <br>
+            
+            <label for="chem">
+                <input type="checkbox" value="chem" name="subject" id="105"> chemistry
+            </label>
+            <br>
+    
+            <!--dropdown-->
+            <h5> select your city </h5>
+            <select name="city">
+                <option value="delhi">delhi</option>
+                <option value="mumbai">mumbai</option>
+                <option value="patna">patna</option>
+                <option value="jaipur">jaipur</option>
+            </select>
+            <br><br>
+    
+            <!-- Label for textarea -->
+            <label for="feedback">Your Feedback:</label>
+            <textarea 
+                name="feedback" id="feedback" placeholder="Please give your valuable feedback here"></textarea>
+    
+            <input type="submit" value="Submit">
+        </form>
+    
+    <footer></footer>
+    
+</body>
+</html>
