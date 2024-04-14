@@ -1,0 +1,32 @@
+
+/* div{
+    height: 100px;
+    width: 100px;
+    background-color: green;
+    border-radius: 50%;
+} */
+
+#navbar{
+    height: 60px;
+    background-color: black;
+}
+
+a{
+    font-size: 30px;
+    text-decoration: none;
+    color: white;
+    text-align: right;
+}
+
+#nav1{
+    color: yellow;
+    
+}
+
+button{
+    color: yellowgreen;
+}
+
+a{
+    margin-right: 200px;
+}
