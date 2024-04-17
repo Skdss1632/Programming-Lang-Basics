@@ -11,7 +11,7 @@ def click_on_browsers():
 
 def click_on_login_btn():
     pyautogui.moveTo(543, 140)
-    pyautogui.sleep(2)
+    pyautogui.sleep(1)
     pyautogui.click()
 
 
@@ -24,8 +24,10 @@ def open_new_tab():
 
 def open_url():
     pyautogui.write("https://www.irctc.co.in/nget/train-search")
-    pyautogui.sleep(3)
+    pyautogui.sleep(1)
     pyautogui.press('enter')
+    pyautogui.sleep(1)
+
 
 
 def get_image_txt():
@@ -44,12 +46,16 @@ def get_image_txt():
 
 def click_on_sinin_btn():
     pyautogui.moveTo(639, 867)
-    pyautogui.sleep(2)
+    pyautogui.sleep(1)
     pyautogui.click()
 
 
 def click_on_avalible_btn():
-    pyautogui.click(x=644, y=599)
+    pyautogui.moveTo(651, 603)
+    pyautogui.sleep(1)
+    pyautogui.click()
+
+
 
 
 def click_on_book_now():
@@ -57,28 +63,44 @@ def click_on_book_now():
 
 
 def click_on_passenger_name_input_fld():
-    pyautogui.click(x=156, y=676)
+    pyautogui.click(x=214, y=737)
+    pyautogui.sleep(1)
 
 
 def select_passenger_name():
     pyautogui.click(x=201, y=719)
+    pyautogui.sleep(1)
+    pyautogui.press("shift")
+    pyautogui.sleep(1)
+    pyautogui.press("down", presses=7)
+    pyautogui.sleep(1)
+    pyautogui.press("shift")
+    pyautogui.press("enter")
 
 
 def click_on_book_only_if_confirm_berth_are_alloted_checkbox():
-    pyautogui.click(x=563, y=588)
+    pyautogui.moveTo(768, 413)
+    pyautogui.sleep(2)
+    pyautogui.click()
 
 
 def click_on_continue_btn_inside_passenger_details():
-    pyautogui.click(x=213, y=621)
+    pyautogui.click(x=199, y=935)
+    pyautogui.sleep(1)
 
 
 def click_on_continue_btn_inside_review_journey(sleep_time_to_fill_captcha: int):
     pyautogui.sleep(sleep_time_to_fill_captcha)
-    pyautogui.click(x=230, y=603)
+    pyautogui.moveTo(205, 517)
+    pyautogui.sleep(1)
+    pyautogui.click()
 
 
 def click_on_irctc_ewallet():
-    pyautogui.click(x=220, y=482)
+    pyautogui.moveTo(173, 476)
+    pyautogui.sleep(1)
+    pyautogui.click()
+    pyautogui.sleep(1)
 
 
 def click_on_pay_and_book():
@@ -92,9 +114,10 @@ def click_on_search_btn():
 
 
 def input_station_name(catch_train_station_name: str, to: str):
-    pyautogui.moveTo(309, 422)
+    pyautogui.moveTo(280, 424)
     pyautogui.sleep(1)
     pyautogui.click()
+    clear_input_fld()
     pyautogui.write(catch_train_station_name)
     pyautogui.press("shift")
     pyautogui.press("down")
@@ -103,9 +126,10 @@ def input_station_name(catch_train_station_name: str, to: str):
     pyautogui.press("enter")
 
 
-    pyautogui.moveTo(247, 498)
+    pyautogui.moveTo(250, 495)
     pyautogui.sleep(1)
     pyautogui.click()
+    clear_input_fld()
     pyautogui.write(to)
     pyautogui.press("shift")
     pyautogui.press("down")
@@ -116,18 +140,19 @@ def input_station_name(catch_train_station_name: str, to: str):
 
 def select_coach_type_for_booking_from_dropdown(coach_type: str):
     if coach_type == "sleeper":
-        pyautogui.moveTo(714, 494)
-        pyautogui.sleep(2)
+        pyautogui.moveTo(691, 489)
+        pyautogui.sleep(1)
         pyautogui.click()
         pyautogui.press("shift")
-        pyautogui.sleep(2)
+        pyautogui.sleep(1)
         pyautogui.press("down", presses=11)
-        pyautogui.sleep(2)
+        pyautogui.sleep(1)
         pyautogui.press("shift")
+        pyautogui.sleep(1)
         pyautogui.press("enter")
 
     if coach_type == "ac 3 tier":
-        pyautogui.moveTo(714, 494)
+        pyautogui.moveTo(691, 489)
         pyautogui.sleep(2)
         pyautogui.click()
         pyautogui.press("shift")
@@ -138,12 +163,32 @@ def select_coach_type_for_booking_from_dropdown(coach_type: str):
         pyautogui.press("enter")
 
 def select_date_for_tatakal_booking():
-    pyautogui.moveTo(690, 423)
+    pyautogui.moveTo(764, 426)
+    pyautogui.sleep(1)
     pyautogui.click()
-    pyautogui.sleep(2)
-    pyautogui.moveTo(850, 647)
-    pyautogui.click()
-    pyautogui.sleep(2)
+    pyautogui.sleep(1)
+    clear_input_fld()
+    pyautogui.sleep(1)
+    pyautogui.write("01/08/2024")
+    pyautogui.sleep(1)
+    pyautogui.press("enter")
+
+
+
+
+    # pyautogui.click()
+    # pyautogui.sleep(2)
+    # pyautogui.moveTo(850, 647)
+    # pyautogui.click()
+    # pyautogui.sleep(2)
+
+def clear_input_fld():
+    # Press and hold Ctrl, then press A (to select all)
+    pyautogui.keyDown('ctrl')
+    pyautogui.press('a')
+    pyautogui.keyUp('ctrl')
+    # Press Backspace to delete the selected text
+    pyautogui.press('backspace')
 
 
 def select_tatkal_from_dropdown():
@@ -158,7 +203,7 @@ def select_tatkal_from_dropdown():
 
 def select_coach_type_for_booking(coach_type: str):
     if coach_type == "sleeper":
-        pyautogui.moveTo(597, 567)
+        pyautogui.moveTo(617, 571)
         pyautogui.sleep(1)
         pyautogui.click()
 
@@ -173,6 +218,15 @@ def click_on_username_input_fld():
     pyautogui.sleep(1)
     pyautogui.press("shift")
     pyautogui.press("enter")
+
+
+def scroll_to_continue_btn():
+    # pyautogui.scroll(-10)
+    scrolls = 20
+    # Loop to simulate scrolling down
+    for _ in range(scrolls):
+        pyautogui.press('down')  # Simulate pressing the down arrow key
+    pyautogui.sleep(2)
 
 
 
