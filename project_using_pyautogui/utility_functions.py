@@ -1,18 +1,28 @@
 import pyautogui
-import pyautogui
 import pytesseract
-from PIL import Image
-from future.moves import sys
+# from PIL import Image
+# import schedule
+# import time
+# import datetime
+#
+# from selenium.webdriver.edge.webdriver import WebDriver
+# from selenium.webdriver.support.wait import WebDriverWait
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support import expected_conditions as EC
 
 
 def click_on_browsers():
-    pyautogui.click(x=21, y=125)
+    pyautogui.moveTo(74, 175)
+    # pyautogui.click(x=74, y=175)
+    pyautogui.sleep(2)
+    pyautogui.click()
 
 
 def click_on_login_btn():
     pyautogui.moveTo(543, 140)
     pyautogui.sleep(1)
     pyautogui.click()
+    pyautogui.sleep(1)
 
 
 def open_new_tab():
@@ -23,25 +33,31 @@ def open_new_tab():
 
 
 def open_url():
-    pyautogui.write("https://www.irctc.co.in/nget/train-search")
-    pyautogui.sleep(1)
-    pyautogui.press('enter')
-    pyautogui.sleep(1)
+    # pyautogui.write("https://www.irctc.co.in/nget/train-search")
+    # pyautogui.sleep(3)
+    # pyautogui.press('enter')
+    # pyautogui.sleep(1)
+    url = "https://www.irctc.co.in/nget/train-search"
+
+    # Iterate through each character in the URL and type it slowly
+    for char in url:
+        pyautogui.write(char)
+    pyautogui.press("enter")
 
 
 
-def get_image_txt():
-    # Take a screenshot of the area containing the text
-    # screenshot = pyautogui.screenshot(region=(x, y, 559, 716))   # Adjust x, y, width, height as needed
-
-    # Save the screenshot image temporarily
-    # screenshot.save('screenshot.png')
-
-    # Perform OCR on the saved image
-    text = pytesseract.image_to_string(Image.open('screenshot.png'))
-
-    # Print the extracted text
-    print(text)
+# def get_image_txt():
+#     # Take a screenshot of the area containing the text
+#     # screenshot = pyautogui.screenshot(region=(x, y, 559, 716))   # Adjust x, y, width, height as needed
+#
+#     # Save the screenshot image temporarily
+#     # screenshot.save('screenshot.png')
+#
+#     # Perform OCR on the saved image
+#     text = pytesseract.image_to_string(Image.open('screenshot.png'))
+#
+#     # Print the extracted text
+#     print(text)
 
 
 def click_on_sinin_btn():
@@ -50,7 +66,7 @@ def click_on_sinin_btn():
     pyautogui.click()
 
 
-def click_on_avalible_btn():
+def click_on_available_btn():
     pyautogui.moveTo(651, 603)
     pyautogui.sleep(1)
     pyautogui.click()
@@ -91,13 +107,13 @@ def click_on_continue_btn_inside_passenger_details():
 
 def click_on_continue_btn_inside_review_journey(sleep_time_to_fill_captcha: int):
     pyautogui.sleep(sleep_time_to_fill_captcha)
-    pyautogui.moveTo(205, 517)
+    pyautogui.moveTo(200, 516)
     pyautogui.sleep(1)
     pyautogui.click()
 
 
 def click_on_irctc_ewallet():
-    pyautogui.moveTo(173, 476)
+    pyautogui.moveTo(159, 481)
     pyautogui.sleep(1)
     pyautogui.click()
     pyautogui.sleep(1)
@@ -187,7 +203,6 @@ def clear_input_fld():
     pyautogui.keyDown('ctrl')
     pyautogui.press('a')
     pyautogui.keyUp('ctrl')
-    # Press Backspace to delete the selected text
     pyautogui.press('backspace')
 
 
@@ -208,16 +223,27 @@ def select_coach_type_for_booking(coach_type: str):
         pyautogui.click()
 
 
-def click_on_username_input_fld():
+def input_username_and_password_of_irctc_account(username: str, password: str) -> object:
     pyautogui.moveTo(611, 341)
     pyautogui.sleep(1)
     pyautogui.click()
-    pyautogui.press("shift")
+    pyautogui.keyDown('ctrl')
+    pyautogui.press('a')
+    pyautogui.keyUp('ctrl')
+    pyautogui.press('backspace')
+    pyautogui.write(username)
     pyautogui.sleep(1)
-    pyautogui.press("down")
+
+    pyautogui.moveTo(558, 391)
     pyautogui.sleep(1)
-    pyautogui.press("shift")
-    pyautogui.press("enter")
+    pyautogui.click()
+    pyautogui.keyDown('ctrl')
+    pyautogui.press('a')
+    pyautogui.keyUp('ctrl')
+    pyautogui.press('backspace')
+    pyautogui.write(username)
+    pyautogui.sleep(1)
+
 
 
 def scroll_to_continue_btn():
@@ -227,6 +253,11 @@ def scroll_to_continue_btn():
     for _ in range(scrolls):
         pyautogui.press('down')  # Simulate pressing the down arrow key
     pyautogui.sleep(2)
+
+
+
+
+
 
 
 
