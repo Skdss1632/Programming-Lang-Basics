@@ -6,8 +6,8 @@ pyautogui.scroll(-1000)
 
 
 pyautogui.sleep(3)
-pyautogui.scroll(-1000)
+pyautogui.scroll(1000)
 
 # these can't work on windows
-pyautogui.hscroll()
-pyautogui.vscroll()
+# pyautogui.hscroll()
+# pyautogui.vscroll()
