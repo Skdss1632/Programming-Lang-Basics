@@ -12,20 +12,17 @@ import pytesseract
 
 
 def click_on_browsers():
-    pyautogui.click(x=35, y=69)
+    pyautogui.click(x=484, y=1045)
 
 
 def click_on_login_btn():
     pyautogui.sleep(1)
     pyautogui.click(x=543, y=140)
-    pyautogui.sleep(1)
+    # pyautogui.click(x=516, y=194)
 
 
 def open_new_tab():
-    pyautogui.keyDown('ctrl')
-    pyautogui.press('t')
-    pyautogui.keyUp('ctrl')
-
+    pyautogui.hotkey("ctrl", "t")
 
 
 def open_url():
@@ -56,8 +53,9 @@ def open_url():
 #     print(text)
 
 
+
 def click_on_sinin_btn():
-    pyautogui.click(x=639, y=867)
+    pyautogui.press("enter")
 
 
 def click_on_available_btn():
@@ -66,7 +64,7 @@ def click_on_available_btn():
 
 
 def click_on_book_now():
-    pyautogui.click(x=600, y=709)
+    pyautogui.click(x=546, y=711)
 
 
 def click_on_passenger_name_input_fld():
@@ -86,26 +84,23 @@ def select_passenger_name():
 
 def click_on_book_only_if_confirm_berth_are_alloted_checkbox():
     pyautogui.sleep(1)
-    pyautogui.click(x=768, y=413)
+    pyautogui.click(x=727, y=374)
 
 
 
 def click_on_continue_btn_inside_passenger_details():
     pyautogui.sleep(1)
-    pyautogui.click(x=199, y=935)
+    pyautogui.click(x=137, y=888)
 
 
 def click_on_continue_btn_inside_review_journey(sleep_time_to_fill_captcha: int):
     pyautogui.sleep(sleep_time_to_fill_captcha)
-    pyautogui.moveTo(x=200, y=516)
-    pyautogui.sleep(1)
-    pyautogui.click()
+    pyautogui.click(130, 450)
 
 
 def click_on_irctc_ewallet():
     pyautogui.sleep(1)
     pyautogui.click(x=159, y=481)
-
 
 
 def click_on_pay_and_book():
@@ -117,11 +112,11 @@ def click_on_search_btn():
     pyautogui.click(x=238, y=690)
 
 
-def input_station_name(catch_train_station_name: str, to: str):
+def input_station_name(from_: str, to: str):
     pyautogui.sleep(1)
     pyautogui.click(x=280, y=424)
     clear_input_fld()
-    pyautogui.write(catch_train_station_name)
+    pyautogui.write(from_)
     pyautogui.press("shift")
     pyautogui.press("down")
     pyautogui.press("shift")
@@ -141,8 +136,7 @@ def input_station_name(catch_train_station_name: str, to: str):
 def select_coach_type_for_booking_from_dropdown(coach_type: str):
     if coach_type == "sleeper":
         pyautogui.sleep(1)
-        pyautogui.moveTo(x=691, y=489)
-        pyautogui.click()
+        pyautogui.click(x=691, y=489)
         pyautogui.press("shift")
         pyautogui.press("down", presses=11)
         pyautogui.press("shift")
@@ -150,8 +144,8 @@ def select_coach_type_for_booking_from_dropdown(coach_type: str):
 
     if coach_type == "ac 3 tier":
         pyautogui.sleep(1)
-        pyautogui.moveTo(x=691, y=489)
-        pyautogui.click()
+        pyautogui.sleep(1)
+        pyautogui.click(x=691, y=489)
         pyautogui.press("shift")
         pyautogui.press("down", presses=7)
         pyautogui.press("shift")
@@ -185,29 +179,37 @@ def select_coach_type_for_booking(coach_type: str):
 
 
 def input_username_and_password_of_irctc_account(username: str, password: str):
-    pyautogui.sleep(1)
-    pyautogui.click(x=540, y=346)
-    pyautogui.keyDown('ctrl')
-    pyautogui.press('a')
-    pyautogui.keyUp('ctrl')
+    pyautogui.sleep(3)
+    pyautogui.click(x=537, y=317)
+    pyautogui.sleep(2)
+    pyautogui.hotkey("ctrl", "a")
     pyautogui.press('backspace')
     pyautogui.write(username)
 
-    pyautogui.click(x=571, y=390)
-    pyautogui.keyDown('ctrl')
-    pyautogui.press('a')
-    pyautogui.keyUp('ctrl')
+    pyautogui.sleep(2)
+    pyautogui.click(x=514, y=361)
+    pyautogui.hotkey("ctrl", "a")
     pyautogui.press('backspace')
     pyautogui.write(password)
 
 
-def scroll_to_continue_btn():
-    # pyautogui.scroll(-10)
-    scrolls = 20
-    # Loop to simulate scrolling down
-    for _ in range(scrolls):
-        pyautogui.press('down')  # Simulate pressing the down arrow key
-    pyautogui.sleep(2)
+def scroll_to_continue_btn(no_of_scroll: float):
+    pyautogui.scroll(no_of_scroll)
+
+def click_and_pay():
+    pyautogui.sleep(1)
+    pyautogui.click(771, 883)
+
+
+def wait_until_image_found(image_path):
+    while True:
+        try:
+            if pyautogui.locateCenterOnScreen(image_path, confidence=0.90) is not None:
+                return True
+        except pyautogui.ImageNotFoundException:
+            # Image not found, continue loop
+            pass
+
 
 
 
