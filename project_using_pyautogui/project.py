@@ -17,13 +17,14 @@ def schedule_task_at_specific_time():
     pyautogui.sleep(3)
     # click_browsers()
     # click_search_btn()
+    pyautogui.sleep(1)
     # input_journey_details(from_="NEW DELHI", to="SAMASTIPUR", booking_date="22/04/2024")
 
 
 
     # Define paths to images used in automation
-    train_name_img_path = parent_img_path + "vaisahli_exp.png"
-    coach_type_img_path = parent_img_path + "vaishali_exp_sleeper_with_tym.png"
+    train_name_img_path = parent_img_path + "garib_rath.png"
+    coach_type_img_path = parent_img_path + "ac_tier_3.png"
     wl_or_available_img_path = parent_img_path + "WL.png"
 
     # function to select train for booking
@@ -32,8 +33,8 @@ def schedule_task_at_specific_time():
 
     # # Select passenger name by index and navigate
     passenger_detail_img_path = parent_img_path + "passenger_detail.png"
-    click_passenger_name_fld(img_path=passenger_detail_img_path)
-    select_passenger_name(input_passenger_name_index=7)
+    pyautogui.locateCenterOnScreen(passenger_detail_img_path, confidence=0.90, minSearchTime=60)
+    select_passenger_name(input_passenger_name_index=3)
 
 
     txt_img = parent_img_path + "txt_img.png"

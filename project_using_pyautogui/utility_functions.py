@@ -58,11 +58,6 @@ def click_book_now(img_path: str):
     pyautogui.click(book_now_location)
 
 
-def click_passenger_name_fld(img_path: str):
-    name_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    # pyautogui.click(name_location)
-
-
 def select_passenger_name(input_passenger_name_index: int):
     pyautogui.press("down", presses=input_passenger_name_index)
     pyautogui.press("enter")
