@@ -3,46 +3,63 @@ from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
 
 
 def schedule_task_at_specific_time():
-    """This program is designed to function correctly only on the Chrome browser with the page zoom set to 100%.
+    """This function is designed to function correctly only on the Chrome browser with the page zoom set to 100%.
     If the browser or page size is changed,
     the program may not operate properly and also do not change the browser position on home page."""
 
-    open_chrome_browser_with_irctc_page()
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/login_btn.png"):
-        login_irctc_account(username="skdss16321",
-                          password="Sourav99#", captcha_fill_delay=10)
+    parent_img_path: str = "/home/intern/Pictures/Screenshots/"
+
+    # open_chrome_browser_with_irctc_page()
+    # img_path: str = parent_img_path + "login_btn.png"
+    # pyautogui.locateCenterOnScreen(img_path, confidence=0.90, minSearchTime=120)
+    # username = "skdss16321"
+    # password = "Sourav99#"
+    # login_irctc_account(username=username, password=password, captcha_fill_delay=10)
 
 
-    # pyautogui.sleep(2)
+    pyautogui.sleep(3)
     # click_browsers()
-    input_journey_details(from_="NEW DELHI", to="SAMASTIPUR", booking_date="01/08/2024")
+    # click_search_btn()
+    # input_journey_details(from_="NEW DELHI", to="SAMASTIPUR", booking_date="22/04/2024")
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/sleeper_refresh.png"):
-        select_coach_type_for_booking(coach_type="sleeper")
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/available_ticket.png"):
-        click_available_btn()
-        click_book_now()
+    # Define paths to images used in automation
+    train_name_img_path = parent_img_path + "swantatra_s_exp_with_btn.png"
+    coach_type_img_path = parent_img_path + "sleeper_refresh_with_time.png"
+    wl_or_available_img_path = parent_img_path + "WL.png"
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/add_infant_without_berth.png"):
-        click_passenger_name_fld()
-        select_passenger_name(input_passenger_name_index=7)
-        scroll_to_continue_btn(-7)
-        click_book_only_if_confirm_berth_alloted()
-        click_continue_btn_inside_passenger_details()
+    # function to select train for booking
+    select_train_for_booking(train_name_img_path=train_name_img_path, coach_type_img_path=coach_type_img_path,
+                             wl_or_available_img_path=wl_or_available_img_path)
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/view_cancellation_policy.png"):
-        scroll_to_continue_btn(-6)
+    # # Select passenger name by index and navigate
+    passenger_detail_img_path = parent_img_path + "passenger_detail.png"
+    click_passenger_name_fld(img_path=passenger_detail_img_path)
+    select_passenger_name(input_passenger_name_index=7)
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/continue_btn.png"):
-        click_continue_btn_inside_review_journey(captcha_fill_delay=10, image_path="/home/intern/Pictures/Screenshots/continue_btn.png")
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/irctc_ewallet.png"):
-        click_irctc_e_wallet()
-        click_pay_and_book()
+    # scroll_to_view(-7)
+    txt_img = parent_img_path + "txt_img.png"
+    # click_book_only_if_confirm_berth_alloted(img_path=txt_img)
+    continue_btn_img_path = parent_img_path + "continue_btn.png"
+    click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
 
-    if wait_until_image_visible("/home/intern/Pictures/Screenshots/confirm_btn.png"):
-        click_confirm_btn_inside_otp(otp_fill_delay=10)
+    # View cancellation policy and continue journey review
+    view_cancellation_img_path = parent_img_path + "view_cancellation_policy.png"
+    pyautogui.locateOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=60)
+    # scroll_to_view(-6)
+
+    continue_btn_img_path = parent_img_path + "continue_btn.png"
+    click_continue_btn_inside_review_journey(captcha_fill_delay=10, img_path=continue_btn_img_path)
+
+    # Payment options and booking
+    irctc_e_wallet_img_path = parent_img_path + "irctc_e_wallet.png"
+    click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
+    pay_n_book_img_path = parent_img_path + "pay_n_book.png"
+    click_pay_n_book(img_path=pay_n_book_img_path)
+
+    confirm_btn_img_path = parent_img_path + "confirm_btn.png"
+    click_confirm_btn_inside_otp(otp_fill_delay=10, img_path=confirm_btn_img_path)
 
 
 # # Schedule the task to run at 11:00 AM every day
