@@ -49,18 +49,18 @@ def click_on_sinin_btn():
 
 
 def click_available_btn(img_path: str):
-    pyautogui.locateOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     pyautogui.click(x=651, y=603)
 
 
 def click_book_now(img_path: str):
-    book_now_location = pyautogui.locateOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    book_now_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     pyautogui.click(book_now_location)
 
 
 def click_passenger_name_fld(img_path: str):
-    name_location = pyautogui.locateOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(name_location)
+    name_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    # pyautogui.click(name_location)
 
 
 def select_passenger_name(input_passenger_name_index: int):
@@ -88,7 +88,8 @@ def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: 
 
 
 def click_irctc_e_wallet(img_path: str):
-    wallet_location = pyautogui.locateOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    pyautogui.sleep(1)
+    wallet_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=60)
     pyautogui.click(wallet_location)
 
 
@@ -182,8 +183,8 @@ def scroll_to_view(no_of_scroll: float):
 
 
 def click_pay_n_book(img_path: str):
-    pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
-    pyautogui.click(771, 883)
+    pay_n_book_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    pyautogui.click(pay_n_book_location)
 
 
 def wait_until_image_visible(image_path: str):
@@ -198,8 +199,8 @@ def wait_until_image_visible(image_path: str):
 
 def click_confirm_btn_inside_otp(otp_fill_delay: int, img_path: str):
     pyautogui.sleep(otp_fill_delay)
-    pyautogui.locateOnScreen(image=img_path, confidence=0.80, minSearchTime=60)
-    pyautogui.click(711, 541)
+    btn_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=60)
+    pyautogui.click(btn_location)
 
 
 def close_login_popup():
@@ -223,12 +224,12 @@ def scroll_until_train_name_image_visible(img_path: str):
             pass
 
 
-
 def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str, wl_or_available_img_path: str):
     scroll_until_train_name_image_visible(img_path=train_name_img_path)
-    coach_type_location = pyautogui.locateOnScreen(image=coach_type_img_path, confidence=0.90, minSearchTime=60)
+    # pass img path of train name with time and sleeper visible
+    coach_type_location = pyautogui.locateCenterOnScreen(image=coach_type_img_path, confidence=0.90, minSearchTime=60)
     pyautogui.click(coach_type_location)
-    wl_or_available_location = pyautogui.locateOnScreen(image=wl_or_available_img_path, confidence=0.90,
+    wl_or_available_location = pyautogui.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
                                                         minSearchTime=60)
     pyautogui.click(wl_or_available_location)
     img_path: str = "/home/intern/Pictures/Screenshots/book_now.png"
