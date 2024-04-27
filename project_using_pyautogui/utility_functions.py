@@ -6,8 +6,12 @@ import pytesseract
 # import datetime
 
 
+
+parent_img_path = "/home/intern/Pictures/Screenshots/"
+
+
 def click_browsers():
-    pyautogui.click(x=535, y=1044)
+    pyautogui.click(x=564, y=1052)
 
 
 def click_on_login_btn():
@@ -58,8 +62,11 @@ def click_book_now(img_path: str):
     pyautogui.click(book_now_location)
 
 
-def select_passenger_name(input_passenger_name_index: int):
-    pyautogui.press("down", presses=input_passenger_name_index)
+def input_passenger_name(passenger_name: str):
+    pyautogui.sleep(0.1)
+    pyautogui.click(147, 739)
+    pyautogui.write(passenger_name)
+    pyautogui.press("down", presses=1)
     pyautogui.press("enter")
 
 
@@ -132,30 +139,29 @@ def select_tatkal_from_dropdown():
 
 
 def input_username_irctc_account(username: str, username_image_path: str):
-    username_fld = pyautogui.locateCenterOnScreen(username_image_path)
-    pyautogui.click(username_fld)
+    # username_fld = pyautogui.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=60)
+    # pyautogui.click(username_fld)
+    pyautogui.click(705, 935)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press('backspace')
     pyautogui.write(username)
 
 
 def input_password_irctc_account(password: str, password_image_path: str):
-    password_fld = pyautogui.locateCenterOnScreen(password_image_path)
-    pyautogui.click(password_fld)
+    # password_fld = pyautogui.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=60)
+    # pyautogui.click(password_fld)
+    pyautogui.click(555, 355)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press('backspace')
     pyautogui.write(password)
 
 
-def login_irctc_account(username: str, password: str, captcha_fill_delay: int):
+def login_irctc_account(username: str, password: str, captcha_fill_delay: int, img_path: str):
     click_on_login_btn()
     pyautogui.sleep(2)
-    if wait_until_image_visible(image_path="/home/intern/Pictures/Screenshots/username_fld.png"):
-        input_username_irctc_account(username=username, username_image_path="/home/intern/Pictures/Screenshots/username_fld.png")
-
-    if wait_until_image_visible(image_path="/home/intern/Pictures/Screenshots/password_fld.png"):
-        input_password_irctc_account(password=password, password_image_path="/home/intern/Pictures/Screenshots/password_fld.png")
-
+    pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    input_username_irctc_account(username=username, username_image_path=parent_img_path + "username_fld.png")
+    input_password_irctc_account(password=password, password_image_path=parent_img_path + "password_fld.png")
     pyautogui.sleep(captcha_fill_delay)
     click_on_sinin_btn()
 
@@ -163,7 +169,7 @@ def login_irctc_account(username: str, password: str, captcha_fill_delay: int):
 def input_journey_details(from_: str, to: str, booking_date: str):
     input_station_name(from_=from_, to=to)
     select_tatkal_from_dropdown()
-    tatkal_book_date(booking_date)
+    tatkal_booking_date(booking_date)
     click_search_btn()
 
 
@@ -209,12 +215,9 @@ def scroll_until_train_name_image_visible(img_path: str):
         i -= 1
         scroll_to_view(no_of_scroll=i)
         try:
-            if pyautogui.locateCenterOnScreen(img_path, confidence=0.80) is not None:
+            if pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
                 return True
         except pyautogui.ImageNotFoundException:
-            if i == -7:
-                return "pyautogui.ImageNotFoundException"
-                # print(pyautogui.ImageNotFoundException)
             # Image not found, continue loop
             pass
 
@@ -227,7 +230,7 @@ def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str,
     wl_or_available_location = pyautogui.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
                                                         minSearchTime=60)
     pyautogui.click(wl_or_available_location)
-    img_path: str = "/home/intern/Pictures/Screenshots/book_now.png"
+    img_path: str = parent_img_path + "book_now.png"
     click_book_now(img_path=img_path)
 
 
