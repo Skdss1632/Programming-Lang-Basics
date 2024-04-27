@@ -24,28 +24,7 @@ def open_new_tab():
 
 
 def open_url():
-    # pyautogui.write("https://www.irctc.co.in/nget/train-search")
-    # pyautogui.sleep(3)
-    # pyautogui.press('enter')
-    # pyautogui.sleep(1)
-    url = "https://www.irctc.co.in/nget/train-search"
-    for char in url:
-        pyautogui.write(char)
-    pyautogui.press("enter")
-
-
-# def get_image_txt():
-#     # Take a screenshot of the area containing the text
-#     # screenshot = pyautogui.screenshot(region=(x, y, 559, 716))   # Adjust x, y, width, height as needed
-#
-#     # Save the screenshot image temporarily
-#     # screenshot.save('screenshot.png')
-#
-#     # Perform OCR on the saved image
-#     text = pytesseract.image_to_string(Image.open('screenshot.png'))
-#
-#     # Print the extracted text
-#     print(text)
+    pyautogui.write("https://www.irctc.co.in/nget/train-search", interval=0.1)
 
 
 def click_on_sinin_btn():
