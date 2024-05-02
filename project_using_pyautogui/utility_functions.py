@@ -11,7 +11,8 @@ parent_img_path = "/home/intern/Pictures/Screenshots/"
 
 
 def click_browsers():
-    pyautogui.click(x=564, y=1052)
+    browser_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "chrome.png", confidence=0.80, minSearchTime=5)
+    pyautogui.click(browser_location)
 
 
 def click_on_login_btn():
@@ -42,11 +43,24 @@ def click_book_now(img_path: str):
 
 
 def input_passenger_name(passenger_name: str):
+    try:
+        pyautogui.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=1)
+    except pyautogui.ImageNotFoundException:
+        location = pyautogui.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90,
+                                                      minSearchTime=5)
+        pyautogui.click(location)
+        add_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90,
+                                                          minSearchTime=5)
+        pyautogui.click(add_location)
+
     pyautogui.sleep(0.1)
     pyautogui.click(147, 739)
     pyautogui.write(passenger_name)
-    pyautogui.press("down", presses=1)
+    pyautogui.sleep(0.5)
+    pyautogui.press("down")
+    pyautogui.sleep(0.5)
     pyautogui.press("enter")
+    pyautogui.sleep(0.5)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
@@ -111,10 +125,20 @@ def clear_input_fld():
     pyautogui.press('backspace')
 
 
-def select_tatkal_from_dropdown():
+def select_ticket_type_from_dropdown(image_path: str):
     pyautogui.sleep(1)
-    pyautogui.click(x=255, y=561)
-    pyautogui.click(x=255, y=764)
+    if image_path == "general.png":
+        pass  # Do nothing for "general.png"
+    else:
+        pyautogui.click(255, 561)
+
+    if image_path == "premium_tatkal.png":
+        pyautogui.moveTo(237, 633)
+        pyautogui.scroll(-1)
+
+    ticket_type_location = pyautogui.locateCenterOnScreen(image=image_path, confidence=0.90, minSearchTime=5)
+    pyautogui.click(ticket_type_location)
+
 
 
 def input_username_irctc_account(username: str, username_image_path: str):
@@ -145,11 +169,10 @@ def login_irctc_account(username: str, password: str, captcha_fill_delay: int, i
     click_on_sinin_btn()
 
 
-def input_journey_details(from_: str, to: str, booking_date: str):
+def input_journey_details(from_: str, to: str, booking_date: str, ticket_type_img_path: str):
     input_station_name(from_=from_, to=to)
-    select_tatkal_from_dropdown()
+    select_ticket_type_from_dropdown(image_path=ticket_type_img_path)
     tatkal_booking_date(booking_date)
-    click_search_btn()
 
 
 def open_chrome_browser_with_irctc_page():
