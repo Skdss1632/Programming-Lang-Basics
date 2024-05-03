@@ -45,22 +45,20 @@ def click_book_now(img_path: str):
 def input_passenger_name(passenger_name: str):
     try:
         pyautogui.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=1)
+
     except pyautogui.ImageNotFoundException:
-        location = pyautogui.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90,
-                                                      minSearchTime=5)
+        location = pyautogui.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90, minSearchTime=5)
         pyautogui.click(location)
-        add_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90,
-                                                          minSearchTime=5)
+        add_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90, minSearchTime=5)
         pyautogui.click(add_location)
 
     pyautogui.sleep(0.1)
     pyautogui.click(147, 739)
-    pyautogui.write(passenger_name)
-    pyautogui.sleep(0.5)
+    pyautogui.typewrite(message=passenger_name, interval=0.2)
+    pyautogui.sleep(1)
     pyautogui.press("down")
-    pyautogui.sleep(0.5)
     pyautogui.press("enter")
-    pyautogui.sleep(0.5)
+    # pyautogui.locateCenterOnScreen(image=parent_img_path + "filled_pass_name.png", confidence=0.90, minSearchTime=3)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
