@@ -2,39 +2,47 @@ import schedule
 from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
 
 
+parent_img_path: str = "/home/intern/Pictures/Screenshots/"
+
+
+def input_details():
+    # open_chrome_browser_with_irctc_page()
+    click_browsers()
+    ticket_type_img_path = parent_img_path + "tatkal.png"
+    input_journey_details(from_="NEW DELHI", to="SAMASTIPUR", booking_date="29/04/2024",
+                          ticket_type_img_path=ticket_type_img_path)
+    # click_search_btn()
+
+# input_details()
+
+
 def schedule_task_at_specific_time():
     """This function is designed to function correctly only on the Chrome browser with the page zoom set to 100%.
     If the browser or page size is changed,
     the program may not operate properly and also do not change the browser position on home page."""
 
-    parent_img_path: str = "/home/intern/Pictures/Screenshots/"
-    # open_chrome_browser_with_irctc_page()
-    # img_path: str = parent_img_path + "login_btn.png"
-    # pyautogui.locateCenterOnScreen(img_path, confidence=0.90, minSearchTime=60)
-    # username = "skdss16321"
-    # password = "Sourav99#"
-    # login_irctc_account(username=username, password=password, captcha_fill_delay=10)
-    pyautogui.sleep(3)
-    # click_browsers()
-    # click_search_btn()
-    pyautogui.sleep(1)
-    # input_journey_details(from_="NEW DELHI", to="SAMASTIPUR", booking_date="22/04/2024")
 
 
+    click_browsers()
+    click_search_btn()
+    modify_search_img_path = parent_img_path + "modify_search.png"
+    pyautogui.locateCenterOnScreen(image=modify_search_img_path, confidence=0.80, minSearchTime=60)
 
     # Define paths to images used in automation
-    train_name_img_path = parent_img_path + "garib_rath.png"
-    coach_type_img_path = parent_img_path + "ac_tier_3.png"
-    wl_or_available_img_path = parent_img_path + "WL.png"
+    # pyautogui.sleep(2)
+    train_name_img_path = parent_img_path + "swantatra_s_exp_with_btn.png"
+    coach_type_img_path = parent_img_path + "swantatra_exp_sleeper_with_tym.png"
+    wl_or_available_img_path = parent_img_path + "wl.png"
+
 
     # function to select train for booking
     select_train_for_booking(train_name_img_path=train_name_img_path, coach_type_img_path=coach_type_img_path,
                              wl_or_available_img_path=wl_or_available_img_path)
 
-    # # Select passenger name by index and navigate
+    # Select passenger name by index and navigate
     passenger_detail_img_path = parent_img_path + "passenger_detail.png"
-    pyautogui.locateCenterOnScreen(passenger_detail_img_path, confidence=0.90, minSearchTime=60)
-    select_passenger_name(input_passenger_name_index=3)
+    pyautogui.locateCenterOnScreen(image=passenger_detail_img_path, confidence=0.90, minSearchTime=60)
+    input_passenger_name(passenger_name="SO")
 
 
     txt_img = parent_img_path + "txt_img.png"
@@ -54,19 +62,18 @@ def schedule_task_at_specific_time():
     irctc_e_wallet_img_path = parent_img_path + "irctc_ewallet.png"
     click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
     pay_n_book_img_path = parent_img_path + "pay_n_book.png"
-    # click_pay_n_book(img_path=pay_n_book_img_path)
-    # confirm_btn_img_path = parent_img_path + "confirm_btn.png"
+    click_pay_n_book(img_path=pay_n_book_img_path)
+    confirm_btn_img_path = parent_img_path + "confirm_btn.png"
     # click_confirm_btn_inside_otp(otp_fill_delay=10, img_path=confirm_btn_img_path)
 
 
-# # Schedule the task to run at 11:00 AM every day
-# schedule.every().day.at("15:56").do(Schedule_task_at_specific_time)
+# Schedule the task to run at 07:25 AM every day
+schedule.every().day.at("07:29").do(schedule_task_at_specific_time)
 
-# while True:
-#     schedule.run_pending()
+while True:
+    schedule.run_pending()
+    schedule_task_at_specific_time()  # Move the function call inside the loop
 
-
-schedule_task_at_specific_time()
 
 
 

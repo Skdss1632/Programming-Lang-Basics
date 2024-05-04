@@ -6,8 +6,13 @@ import pytesseract
 # import datetime
 
 
+
+parent_img_path = "/home/intern/Pictures/Screenshots/"
+
+
 def click_browsers():
-    pyautogui.click(x=535, y=1044)
+    browser_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "chrome.png", confidence=0.80, minSearchTime=5)
+    pyautogui.click(browser_location)
 
 
 def click_on_login_btn():
@@ -20,28 +25,7 @@ def open_new_tab():
 
 
 def open_url():
-    # pyautogui.write("https://www.irctc.co.in/nget/train-search")
-    # pyautogui.sleep(3)
-    # pyautogui.press('enter')
-    # pyautogui.sleep(1)
-    url = "https://www.irctc.co.in/nget/train-search"
-    for char in url:
-        pyautogui.write(char)
-    pyautogui.press("enter")
-
-
-# def get_image_txt():
-#     # Take a screenshot of the area containing the text
-#     # screenshot = pyautogui.screenshot(region=(x, y, 559, 716))   # Adjust x, y, width, height as needed
-#
-#     # Save the screenshot image temporarily
-#     # screenshot.save('screenshot.png')
-#
-#     # Perform OCR on the saved image
-#     text = pytesseract.image_to_string(Image.open('screenshot.png'))
-#
-#     # Print the extracted text
-#     print(text)
+    pyautogui.write("https://www.irctc.co.in/nget/train-search", interval=0.1)
 
 
 def click_on_sinin_btn():
@@ -58,9 +42,23 @@ def click_book_now(img_path: str):
     pyautogui.click(book_now_location)
 
 
-def select_passenger_name(input_passenger_name_index: int):
-    pyautogui.press("down", presses=input_passenger_name_index)
+def input_passenger_name(passenger_name: str):
+    try:
+        pyautogui.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=1)
+
+    except pyautogui.ImageNotFoundException:
+        location = pyautogui.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90, minSearchTime=5)
+        pyautogui.click(location)
+        add_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90, minSearchTime=5)
+        pyautogui.click(add_location)
+
+    pyautogui.sleep(0.1)
+    pyautogui.click(147, 739)
+    pyautogui.typewrite(message=passenger_name, interval=0.2)
+    pyautogui.sleep(1)
+    pyautogui.press("down")
     pyautogui.press("enter")
+    # pyautogui.locateCenterOnScreen(image=parent_img_path + "filled_pass_name.png", confidence=0.90, minSearchTime=3)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
@@ -125,46 +123,54 @@ def clear_input_fld():
     pyautogui.press('backspace')
 
 
-def select_tatkal_from_dropdown():
+def select_ticket_type_from_dropdown(image_path: str):
     pyautogui.sleep(1)
-    pyautogui.click(x=255, y=561)
-    pyautogui.click(x=255, y=764)
+    if image_path == "general.png":
+        pass  # Do nothing for "general.png"
+    else:
+        pyautogui.click(255, 561)
+
+    if image_path == "premium_tatkal.png":
+        pyautogui.moveTo(237, 633)
+        pyautogui.scroll(-1)
+
+    ticket_type_location = pyautogui.locateCenterOnScreen(image=image_path, confidence=0.90, minSearchTime=5)
+    pyautogui.click(ticket_type_location)
+
 
 
 def input_username_irctc_account(username: str, username_image_path: str):
-    username_fld = pyautogui.locateCenterOnScreen(username_image_path)
-    pyautogui.click(username_fld)
+    # username_fld = pyautogui.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=60)
+    # pyautogui.click(username_fld)
+    pyautogui.click(705, 935)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press('backspace')
     pyautogui.write(username)
 
 
 def input_password_irctc_account(password: str, password_image_path: str):
-    password_fld = pyautogui.locateCenterOnScreen(password_image_path)
-    pyautogui.click(password_fld)
+    # password_fld = pyautogui.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=60)
+    # pyautogui.click(password_fld)
+    pyautogui.click(555, 355)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press('backspace')
     pyautogui.write(password)
 
 
-def login_irctc_account(username: str, password: str, captcha_fill_delay: int):
+def login_irctc_account(username: str, password: str, captcha_fill_delay: int, img_path: str):
     click_on_login_btn()
     pyautogui.sleep(2)
-    if wait_until_image_visible(image_path="/home/intern/Pictures/Screenshots/username_fld.png"):
-        input_username_irctc_account(username=username, username_image_path="/home/intern/Pictures/Screenshots/username_fld.png")
-
-    if wait_until_image_visible(image_path="/home/intern/Pictures/Screenshots/password_fld.png"):
-        input_password_irctc_account(password=password, password_image_path="/home/intern/Pictures/Screenshots/password_fld.png")
-
+    pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    input_username_irctc_account(username=username, username_image_path=parent_img_path + "username_fld.png")
+    input_password_irctc_account(password=password, password_image_path=parent_img_path + "password_fld.png")
     pyautogui.sleep(captcha_fill_delay)
     click_on_sinin_btn()
 
 
-def input_journey_details(from_: str, to: str, booking_date: str):
+def input_journey_details(from_: str, to: str, booking_date: str, ticket_type_img_path: str):
     input_station_name(from_=from_, to=to)
-    select_tatkal_from_dropdown()
-    tatkal_book_date(booking_date)
-    click_search_btn()
+    select_ticket_type_from_dropdown(image_path=ticket_type_img_path)
+    tatkal_booking_date(booking_date)
 
 
 def open_chrome_browser_with_irctc_page():
@@ -209,12 +215,9 @@ def scroll_until_train_name_image_visible(img_path: str):
         i -= 1
         scroll_to_view(no_of_scroll=i)
         try:
-            if pyautogui.locateCenterOnScreen(img_path, confidence=0.80) is not None:
+            if pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
                 return True
         except pyautogui.ImageNotFoundException:
-            if i == -7:
-                return "pyautogui.ImageNotFoundException"
-                # print(pyautogui.ImageNotFoundException)
             # Image not found, continue loop
             pass
 
@@ -227,7 +230,7 @@ def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str,
     wl_or_available_location = pyautogui.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
                                                         minSearchTime=60)
     pyautogui.click(wl_or_available_location)
-    img_path: str = "/home/intern/Pictures/Screenshots/book_now.png"
+    img_path: str = parent_img_path + "book_now.png"
     click_book_now(img_path=img_path)
 
 
