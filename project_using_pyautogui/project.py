@@ -2,9 +2,6 @@ import schedule
 from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
 
 
-parent_img_path: str = "/home/intern/Pictures/Screenshots/"
-
-
 def input_details():
     # open_chrome_browser_with_irctc_page()
     click_browsers()
@@ -26,7 +23,7 @@ def schedule_task_at_specific_time():
     click_browsers()
     click_search_btn()
     modify_search_img_path = parent_img_path + "modify_search.png"
-    pyautogui.locateCenterOnScreen(image=modify_search_img_path, confidence=0.80, minSearchTime=60)
+    pyautogui.locateCenterOnScreen(image=modify_search_img_path, confidence=0.80, minSearchTime=10)
 
     # Define paths to images used in automation
     # pyautogui.sleep(2)
@@ -41,7 +38,7 @@ def schedule_task_at_specific_time():
 
     # Select passenger name by index and navigate
     passenger_detail_img_path = parent_img_path + "passenger_detail.png"
-    pyautogui.locateCenterOnScreen(image=passenger_detail_img_path, confidence=0.90, minSearchTime=60)
+    pyautogui.locateCenterOnScreen(image=passenger_detail_img_path, confidence=0.90, minSearchTime=10)
     input_passenger_name(passenger_name="SO")
 
 
@@ -52,7 +49,7 @@ def schedule_task_at_specific_time():
 
     # View cancellation policy and continue journey review
     view_cancellation_img_path = parent_img_path + "view_cancellation_policy.png"
-    pyautogui.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=60)
+    pyautogui.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=10)
 
 
     continue_btn_img_path = parent_img_path + "continue_btn.png"
@@ -67,12 +64,13 @@ def schedule_task_at_specific_time():
     # click_confirm_btn_inside_otp(otp_fill_delay=10, img_path=confirm_btn_img_path)
 
 
-# Schedule the task to run at 07:25 AM every day
-schedule.every().day.at("07:29").do(schedule_task_at_specific_time)
 
-while True:
-    schedule.run_pending()
-    schedule_task_at_specific_time()  # Move the function call inside the loop
+# # Schedule the task to run at 07:25 AM every day
+# schedule.every().day.at("07:29").do(schedule_task_at_specific_time)
+#
+# while True:
+#     schedule.run_pending()
+#     schedule_task_at_specific_time()  # Move the function call inside the loop
 
 
 
