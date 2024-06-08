@@ -1,166 +1,183 @@
-import pyautogui
+import pyautogui as py
 import pytesseract
-# from PIL import Image
-# import schedule
-# import time
-# import datetime
+from PIL import Image
+import schedule
+import time
+import datetime
 parent_img_path = "/home/intern/Pictures/Screenshots/"
 
 
 def click_browsers():
-    browser_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "chrome.png", confidence=0.80, minSearchTime=5)
-    pyautogui.click(browser_location)
+    browser_location = py.locateCenterOnScreen(image=parent_img_path + "chrome.png", confidence=0.80, minSearchTime=5)
+    py.click(browser_location)
 
 
 def click_on_login_btn():
-    pyautogui.sleep(1)
-    pyautogui.click(x=543, y=140)
+    py.sleep(1)
+    py.click(x=543, y=140)
 
 
 def open_new_tab():
-    pyautogui.hotkey("ctrl", "t")
+    py.hotkey("ctrl", "t")
 
 
 def open_url():
-    pyautogui.write("https://www.irctc.co.in/nget/train-search", interval=0.1)
+    py.write("https://www.irctc.co.in/nget/train-search", interval=0.1)
 
 
 def click_on_sinin_btn():
-    pyautogui.press("enter")
+    py.press("enter")
 
 
 def click_available_btn(img_path: str):
-    pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(x=651, y=603)
+    py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    py.click(x=651, y=603)
 
 
 def click_book_now(img_path: str):
-    book_now_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(book_now_location)
+    book_now_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    py.click(book_now_location)
 
 
 def input_passenger_name(passenger_name: str):
+    py.scroll(-1)
     try:
-        pyautogui.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=1)
+        py.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=1)
 
-    except pyautogui.ImageNotFoundException:
-        location = pyautogui.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90, minSearchTime=5)
-        pyautogui.click(location)
-        add_location = pyautogui.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90, minSearchTime=5)
-        pyautogui.click(add_location)
+    except py.ImageNotFoundException:
+        cross_location = py.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90, minSearchTime=5)
+        py.click(cross_location)
+        add_passenger_location = py.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90, minSearchTime=5)
+        py.click(add_passenger_location)
+        print(add_passenger_location)
 
-    pyautogui.sleep(0.1)
-    pyautogui.click(147, 739)
-    pyautogui.typewrite(message=passenger_name, interval=0.2)
-    pyautogui.sleep(1)
-    pyautogui.press("down")
-    pyautogui.press("enter")
-    # pyautogui.locateCenterOnScreen(image=parent_img_path + "filled_pass_name.png", confidence=0.90, minSearchTime=3)
+    # py.sleep(0.1)
+    # # click on passenger name fld
+    # py.click(147, 739)
+    # py.sleep(0.1)
+    # # 0.118 s == 118 milliseconds
+    # py.typewrite(message=passenger_name, interval=0.1)
+    # py.sleep(0.125)
+    # py.press("down")
+    # py.sleep(0.1)
+    # py.press("enter")
+    # # py.locateCenterOnScreen(image=parent_img_path + "filled_pass_name.png", confidence=0.90, minSearchTime=3)
+
+    passenger_name_input_fld_location = py.locateOnScreen(image=parent_img_path + "passenger_name_input_fld.png",
+                                                confidence=0.75,
+                                                minSearchTime=5)
+    py.click(passenger_name_input_fld_location)
+    passenger_name_location = py.locateOnScreen(image=parent_img_path + "passenger_name_from_dropdown.png", confidence=0.80,
+                                                     minSearchTime=5)
+    py.click(passenger_name_location)
+
+
+
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
-    scroll_until_train_name_image_visible(img_path=img_path)
-    txt_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(txt_location)
+    scroll_until_element_visible_not_visible(img_path=img_path)
+    txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    py.click(txt_location)
 
 
 def click_continue_btn_inside_passenger_details(continue_btn_img_path: str):
-    scroll_until_train_name_image_visible(img_path=continue_btn_img_path)
-    btn_location = pyautogui.locateCenterOnScreen(image=continue_btn_img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(btn_location)
+    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path)
+    btn_location = py.locateCenterOnScreen(image=continue_btn_img_path, confidence=0.90, minSearchTime=10)
+    py.click(btn_location)
 
 
 def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: str):
-    scroll_until_train_name_image_visible(img_path=img_path)
-    pyautogui.sleep(captcha_fill_delay)
-    button_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(button_location)
+    scroll_until_element_visible_not_visible(img_path=img_path)
+    py.sleep(captcha_fill_delay)
+    button_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    py.click(button_location)
 
 
 def click_irctc_e_wallet(img_path: str):
-    pyautogui.sleep(1)
-    wallet_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
-    pyautogui.click(wallet_location)
+    py.sleep(1)
+    wallet_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
+    py.click(wallet_location)
 
 
 def click_search_btn():
-    pyautogui.click(x=238, y=690)
+    py.click(x=238, y=690)
 
 
 def input_station_name(from_: str, to: str):
-    pyautogui.sleep(1)
-    pyautogui.click(x=280, y=424)
+    py.sleep(1)
+    py.click(x=280, y=424)
     clear_input_fld()
-    pyautogui.write(from_)
-    pyautogui.press("shift")
-    pyautogui.press("down")
-    pyautogui.press("shift")
-    pyautogui.press("enter")
+    py.write(from_)
+    py.press("shift")
+    py.press("down")
+    py.press("shift")
+    py.press("enter")
 
 
-    pyautogui.sleep(1)
-    pyautogui.click(x=250, y=495)
+    py.sleep(1)
+    py.click(x=250, y=495)
     clear_input_fld()
-    pyautogui.write(to)
-    pyautogui.press("shift")
-    pyautogui.press("down")
-    pyautogui.press("shift")
-    pyautogui.press("enter")
+    py.write(to)
+    py.press("shift")
+    py.press("down")
+    py.press("shift")
+    py.press("enter")
 
 
 def tatkal_booking_date(tatkal_book_date: str):
-    pyautogui.click(x=764, y=426)
+    py.click(x=764, y=426)
     clear_input_fld()
-    pyautogui.write(tatkal_book_date)
-    pyautogui.press("enter")
+    py.write(tatkal_book_date)
+    py.press("enter")
 
 
 def clear_input_fld():
-    pyautogui.hotkey("ctrl", "a")
-    pyautogui.press('backspace')
+    py.hotkey("ctrl", "a")
+    py.press('backspace')
 
 
 def select_ticket_type_from_dropdown(image_path: str):
-    pyautogui.sleep(1)
+    py.sleep(1)
     if image_path == "general.png":
         pass  # Do nothing for "general.png"
     else:
-        pyautogui.click(255, 561)
+        py.click(255, 561)
 
     if image_path == "premium_tatkal.png":
-        pyautogui.moveTo(237, 633)
-        pyautogui.scroll(-1)
+        py.moveTo(237, 633)
+        py.scroll(-1)
 
-    ticket_type_location = pyautogui.locateCenterOnScreen(image=image_path, confidence=0.90, minSearchTime=5)
-    pyautogui.click(ticket_type_location)
+    ticket_type_location = py.locateCenterOnScreen(image=image_path, confidence=0.90, minSearchTime=5)
+    py.click(ticket_type_location)
 
 
 
 def input_username_irctc_account(username: str, username_image_path: str):
-    # username_fld = pyautogui.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=10)
-    # pyautogui.click(username_fld)
-    pyautogui.click(705, 935)
-    pyautogui.hotkey("ctrl", "a")
-    pyautogui.press('backspace')
-    pyautogui.write(username)
+    # username_fld = py.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=10)
+    # py.click(username_fld)
+    py.click(705, 935)
+    py.hotkey("ctrl", "a")
+    py.press('backspace')
+    py.write(username)
 
 
 def input_password_irctc_account(password: str, password_image_path: str):
-    # password_fld = pyautogui.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=10)
-    # pyautogui.click(password_fld)
-    pyautogui.click(555, 355)
-    pyautogui.hotkey("ctrl", "a")
-    pyautogui.press('backspace')
-    pyautogui.write(password)
+    # password_fld = py.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=10)
+    # py.click(password_fld)
+    py.click(555, 355)
+    py.hotkey("ctrl", "a")
+    py.press('backspace')
+    py.write(password)
 
 
 def login_irctc_account(username: str, password: str, captcha_fill_delay: int, img_path: str):
     click_on_login_btn()
-    pyautogui.sleep(2)
-    pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    py.sleep(2)
+    py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
     input_username_irctc_account(username=username, username_image_path=parent_img_path + "username_fld.png")
     input_password_irctc_account(password=password, password_image_path=parent_img_path + "password_fld.png")
-    pyautogui.sleep(captcha_fill_delay)
+    py.sleep(captcha_fill_delay)
     click_on_sinin_btn()
 
 
@@ -177,58 +194,66 @@ def open_chrome_browser_with_irctc_page():
 
 
 def scroll_to_view(no_of_scroll: float):
-    pyautogui.scroll(no_of_scroll)
+    py.scroll(no_of_scroll)
 
 
 def click_pay_n_book(img_path: str):
-    pay_n_book_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(pay_n_book_location)
+    pay_n_book_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    py.click(pay_n_book_location)
 
 
 def wait_until_image_visible(image_path: str):
     while True:
         try:
-            if pyautogui.locateCenterOnScreen(image_path, confidence=0.80) is not None:
+            if py.locateCenterOnScreen(image_path, confidence=0.80) is not None:
                 return True
-        except pyautogui.ImageNotFoundException:
+        except py.ImageNotFoundException:
             # Image not found, continue loop
             pass
 
 
 def click_confirm_btn_inside_otp(otp_fill_delay: int, img_path: str):
-    pyautogui.sleep(otp_fill_delay)
-    btn_location = pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
-    pyautogui.click(btn_location)
+    py.sleep(otp_fill_delay)
+    btn_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
+    py.click(btn_location)
 
 
 def close_login_popup():
-    pyautogui.click(1494, 229)
+    py.click(1494, 229)
     click_on_login_btn()
 
 
-def scroll_until_train_name_image_visible(img_path: str):
+def scroll_until_element_visible_not_visible(img_path: str):
     i = -1
     while True:
         i -= 1
         scroll_to_view(no_of_scroll=i)
         try:
-            if pyautogui.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
+            if py.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
                 return True
-        except pyautogui.ImageNotFoundException:
+        except py.ImageNotFoundException:
             # Image not found, continue loop
             pass
 
 
 def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str, wl_or_available_img_path: str):
-    scroll_until_train_name_image_visible(img_path=train_name_img_path)
+    # TODO: bug in this func, except of this all funcnatlies of automation is working fine
+    scroll_until_element_visible_not_visible(img_path=train_name_img_path)
+
     # pass img path of train name with time and sleeper visible
-    coach_type_location = pyautogui.locateCenterOnScreen(image=coach_type_img_path, confidence=0.90, minSearchTime=10)
-    pyautogui.click(coach_type_location)
-    wl_or_available_location = pyautogui.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
-                                                        minSearchTime=10)
-    pyautogui.click(wl_or_available_location)
-    img_path: str = parent_img_path + "book_now.png"
-    click_book_now(img_path=img_path)
+    # coach_type_location = py.locateCenterOnScreen(image=coach_type_img_path, confidence=0.90, minSearchTime=10)
+    # py.click(coach_type_location)
+    # wl_or_available_location = py.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
+    #                                                     minSearchTime=10)
+    # py.click(wl_or_available_location)
+    # img_path: str = parent_img_path + "book_now.png"
+    # click_book_now(img_path=img_path)
+
+
+
+    # py.sleep(1)
+    # sleeper_location = list(py.locate(needleImage="subimage.png", haystackImage="large_image.png", grayscale=False, confidence=0.70))
+    # py.click(sleeper_location[0])
 
 
 
