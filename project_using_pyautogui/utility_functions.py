@@ -4,7 +4,7 @@ from PIL import Image
 import schedule
 import time
 import datetime
-parent_img_path = "/home/intern/Pictures/Screenshots/"
+parent_img_path = "/home/intern/Documents/gitlearning/Programming_Lang_Basics/project_using_pyautogui/irctc_images/"
 
 
 def click_browsers():
@@ -12,20 +12,8 @@ def click_browsers():
     py.click(browser_location)
 
 
-def click_on_login_btn():
-    py.sleep(1)
-    py.click(x=543, y=140)
-
-
-def open_new_tab():
-    py.hotkey("ctrl", "t")
-
-
 def open_url():
     py.write("https://www.irctc.co.in/nget/train-search", interval=0.1)
-
-
-def click_on_sinin_btn():
     py.press("enter")
 
 
@@ -101,7 +89,7 @@ def click_irctc_e_wallet(img_path: str):
 
 
 def click_search_btn():
-    py.click(x=238, y=690)
+    py.press("enter")
 
 
 def input_station_name(from_: str, to: str):
@@ -125,7 +113,7 @@ def input_station_name(from_: str, to: str):
     py.press("enter")
 
 
-def tatkal_booking_date(tatkal_book_date: str):
+def input_booking_date(tatkal_book_date: str):
     py.click(x=764, y=426)
     clear_input_fld()
     py.write(tatkal_book_date)
@@ -137,60 +125,82 @@ def clear_input_fld():
     py.press('backspace')
 
 
-def select_ticket_type_from_dropdown(image_path: str):
-    py.sleep(1)
-    if image_path == "general.png":
+def select_ticket_type_from_dropdown(ticket_type_img_path: str, ticket_type_for_book: str):
+    # if image_path == "general.png":
+    #     pass  # Do nothing for "general.png"
+    # else:
+    #     py.click(255, 561)
+    #
+    # if image_path == "premium_tatkal.png":
+    #     py.moveTo(237, 633)
+    #     py.scroll(-1)
+
+    if ticket_type_for_book == "general.png":
         pass  # Do nothing for "general.png"
+
     else:
-        py.click(255, 561)
+        general_img_location = py.locateCenterOnScreen(image=parent_img_path + "general.png", confidence=0.90, minSearchTime=5)
+        py.click(general_img_location)
+        py.sleep(0.1)
 
-    if image_path == "premium_tatkal.png":
-        py.moveTo(237, 633)
-        py.scroll(-1)
-
-    ticket_type_location = py.locateCenterOnScreen(image=image_path, confidence=0.90, minSearchTime=5)
-    py.click(ticket_type_location)
-
+    if ticket_type_img_path:
+        ticket_type_location = py.locateCenterOnScreen(image=ticket_type_img_path, confidence=0.90, minSearchTime=5)
+        py.click(ticket_type_location)
 
 
-def input_username_irctc_account(username: str, username_image_path: str):
-    # username_fld = py.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=10)
-    # py.click(username_fld)
-    py.click(705, 935)
+
+def input_account_username(username: str, username_image_path: str):
+    username_fld_location = py.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=10)
+    py.click(username_fld_location)
     py.hotkey("ctrl", "a")
     py.press('backspace')
     py.write(username)
 
 
-def input_password_irctc_account(password: str, password_image_path: str):
-    # password_fld = py.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=10)
-    # py.click(password_fld)
-    py.click(555, 355)
+def input_account_password(password: str, password_image_path: str):
+    password_fld = py.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=10)
+    py.click(password_fld)
     py.hotkey("ctrl", "a")
     py.press('backspace')
     py.write(password)
 
 
-def login_irctc_account(username: str, password: str, captcha_fill_delay: int, img_path: str):
-    click_on_login_btn()
-    py.sleep(2)
-    py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
-    input_username_irctc_account(username=username, username_image_path=parent_img_path + "username_fld.png")
-    input_password_irctc_account(password=password, password_image_path=parent_img_path + "password_fld.png")
-    py.sleep(captcha_fill_delay)
-    click_on_sinin_btn()
+def input_irctc_account(username: str, password: str):
+    if (py.locateCenterOnScreen(image=parent_img_path + "sign_in_btn.png", confidence=0.90, minSearchTime=15) or
+        py.locateCenterOnScreen(image=parent_img_path + "sign_in_btn1.png", confidence=0.90, minSearchTime=15)):
+        pass
+        # input_account_username(username=username, username_image_path=parent_img_path + "username_fld.png")
+        # input_account_password(password=password, password_image_path=parent_img_path + "password_fld.png")
 
 
-def input_journey_details(from_: str, to: str, booking_date: str, ticket_type_img_path: str):
-    input_station_name(from_=from_, to=to)
-    select_ticket_type_from_dropdown(image_path=ticket_type_img_path)
-    tatkal_booking_date(booking_date)
+def input_source_n_destination_station(source_station: str, destination: str):
+    from_location = py.locateCenterOnScreen(image=parent_img_path + "source_station.png", confidence=0.90,
+                                            minSearchTime=25)
+    py.click(from_location)
+    py.write(source_station)
+    blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
+                                            minSearchTime=25)
+    py.click(blue_location)
+
+    destination_location = py.locateCenterOnScreen(image=parent_img_path + "destination_img.png",
+                                                   confidence=0.90,
+                                                   minSearchTime=25)
+    py.click(destination_location)
+    py.write(destination)
+    blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
+                                            minSearchTime=25)
+    py.click(blue_location)
 
 
 def open_chrome_browser_with_irctc_page():
     click_browsers()
-    open_new_tab()
+    py.hotkey("ctrl", "t")
     open_url()
+    # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
+    # not
+    login_btn_location = py.locateCenterOnScreen(image=parent_img_path + "login_btn.png", confidence=0.80,
+                                                 minSearchTime=25)
+    # py.click(login_btn_location)
 
 
 def scroll_to_view(no_of_scroll: float):
@@ -220,7 +230,6 @@ def click_confirm_btn_inside_otp(otp_fill_delay: int, img_path: str):
 
 def close_login_popup():
     py.click(1494, 229)
-    click_on_login_btn()
 
 
 def scroll_until_element_visible_not_visible(img_path: str):
@@ -249,11 +258,9 @@ def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str,
     # img_path: str = parent_img_path + "book_now.png"
     # click_book_now(img_path=img_path)
 
-
-
-    # py.sleep(1)
-    # sleeper_location = list(py.locate(needleImage="subimage.png", haystackImage="large_image.png", grayscale=False, confidence=0.70))
-    # py.click(sleeper_location[0])
+    py.sleep(1)
+    sleeper_location = list(py.locateAllOnScreen(image=parent_img_path + "sleeper_btn.png", grayscale=False, confidence=0.90))
+    py.click(sleeper_location[0])
 
 
 

@@ -3,14 +3,17 @@ from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
 
 
 def input_details():
-    # open_chrome_browser_with_irctc_page()
-    click_browsers()
-    ticket_type_img_path = parent_img_path + "tatkal.png"
-    input_journey_details(from_="NEW DELHI", to="SAMASTIPUR", booking_date="29/04/2024",
-                          ticket_type_img_path=ticket_type_img_path)
-    # click_search_btn()
+    open_chrome_browser_with_irctc_page()
+    # input_irctc_account(username="skdss16321", password="Sourav99#")
+    input_source_n_destination_station(source_station="ndls", destination="spj")
 
-# input_details()
+    tatkal_or_premium_tatkal_to_book_img_path = parent_img_path + "tatkal.png"
+    select_ticket_type_from_dropdown(ticket_type_img_path=tatkal_or_premium_tatkal_to_book_img_path, ticket_type_for_book="general")
+
+    input_booking_date(tatkal_book_date="09/06/2024")
+    click_search_btn()
+
+input_details()
 
 
 def schedule_task_at_specific_time():
