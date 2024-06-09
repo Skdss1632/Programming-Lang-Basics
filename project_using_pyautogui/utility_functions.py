@@ -139,14 +139,14 @@ def select_ticket_type_from_dropdown(ticket_type_img_path: str, ticket_type_for_
         pass  # Do nothing for "general.png"
 
     else:
+        # click on general
         general_img_location = py.locateCenterOnScreen(image=parent_img_path + "general.png", confidence=0.90, minSearchTime=5)
         py.click(general_img_location)
-        py.sleep(0.1)
 
     if ticket_type_img_path:
+        # click on whatever type of ticket you want to book
         ticket_type_location = py.locateCenterOnScreen(image=ticket_type_img_path, confidence=0.90, minSearchTime=5)
         py.click(ticket_type_location)
-
 
 
 def input_account_username(username: str, username_image_path: str):
@@ -166,11 +166,23 @@ def input_account_password(password: str, password_image_path: str):
 
 
 def input_irctc_account(username: str, password: str):
-    if (py.locateCenterOnScreen(image=parent_img_path + "sign_in_btn.png", confidence=0.90, minSearchTime=15) or
-        py.locateCenterOnScreen(image=parent_img_path + "sign_in_btn1.png", confidence=0.90, minSearchTime=15)):
-        pass
-        # input_account_username(username=username, username_image_path=parent_img_path + "username_fld.png")
-        # input_account_password(password=password, password_image_path=parent_img_path + "password_fld.png")
+    try:
+        # Try locating the images on the screen
+        sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "large_sign_in_btn.png", confidence=0.90,
+                                              minSearchTime=2)
+    except py.ImageNotFoundException:
+        sign_in_btn = None
+
+    try:
+        sign_in_btn1 = py.locateCenterOnScreen(image=parent_img_path + "small_sign_in_btn.png", confidence=0.90,
+                                               minSearchTime=2)
+    except py.ImageNotFoundException:
+        sign_in_btn1 = None
+
+    # Check if either image is found
+    if sign_in_btn or sign_in_btn1:
+        input_account_username(username=username, username_image_path=parent_img_path + "username_fld.png")
+        input_account_password(password=password, password_image_path=parent_img_path + "password_fld.png")
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
@@ -200,7 +212,7 @@ def open_chrome_browser_with_irctc_page():
     # not
     login_btn_location = py.locateCenterOnScreen(image=parent_img_path + "login_btn.png", confidence=0.80,
                                                  minSearchTime=25)
-    # py.click(login_btn_location)
+    py.click(login_btn_location)
 
 
 def scroll_to_view(no_of_scroll: float):
@@ -258,9 +270,14 @@ def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str,
     # img_path: str = parent_img_path + "book_now.png"
     # click_book_now(img_path=img_path)
 
-    py.sleep(1)
+    py.sleep(0.5)
     sleeper_location = list(py.locateAllOnScreen(image=parent_img_path + "sleeper_btn.png", grayscale=False, confidence=0.90))
     py.click(sleeper_location[0])
+    wl_or_available_location = py.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
+                                                        minSearchTime=10)
+    py.click(wl_or_available_location)
+    img_path: str = parent_img_path + "book_now.png"
+    click_book_now(img_path=img_path)
 
 
 

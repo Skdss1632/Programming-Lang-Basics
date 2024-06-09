@@ -4,32 +4,27 @@ from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
 
 def input_details():
     open_chrome_browser_with_irctc_page()
-    # input_irctc_account(username="skdss16321", password="Sourav99#")
+    input_irctc_account(username="skdss16321", password="Sourav99#")
     input_source_n_destination_station(source_station="ndls", destination="spj")
 
     tatkal_or_premium_tatkal_to_book_img_path = parent_img_path + "tatkal.png"
     select_ticket_type_from_dropdown(ticket_type_img_path=tatkal_or_premium_tatkal_to_book_img_path, ticket_type_for_book="general")
-
     input_booking_date(tatkal_book_date="09/06/2024")
-    click_search_btn()
 
 input_details()
 
 
 def schedule_task_at_specific_time():
-    """This function is designed to function correctly only on the Chrome browser with the page zoom set to 150%.
+    """This function is designed to function correctly only on the Chrome browser with the page zoom level set to 100%.
     If the browser or page size is changed,
     the program may not operate properly and also do not change the browser position on home page."""
 
-
-
-    click_browsers()
-    click_search_btn()
-    modify_search_img_path = parent_img_path + "modify_search.png"
+    # click_browsers()
+    # click_search_btn()
+    modify_search_img_path = parent_img_path + "reset_filter_txt.png"
     py.locateCenterOnScreen(image=modify_search_img_path, confidence=0.80, minSearchTime=10)
 
     # Define paths to images used in automation
-    py.sleep(2)
     train_name_img_path = parent_img_path + "swantatra_s_exp_with_btn.png"
     coach_type_img_path = parent_img_path + "swantatra_exp_sleeper_with_tym.png"
     wl_or_available_img_path = parent_img_path + "wl_or_available_img_path.png"
