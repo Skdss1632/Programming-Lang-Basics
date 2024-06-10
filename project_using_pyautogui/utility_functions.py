@@ -22,7 +22,7 @@ def click_available_btn(img_path: str):
     py.click(x=651, y=603)
 
 
-def click_book_now(book_now_img_path: str):
+def click_book_now_inside_select_train(book_now_img_path: str):
     book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=10)
     py.click(book_now_location)
 
@@ -46,16 +46,19 @@ def select_passenger_from_master_lst(passenger_name: list, passenger_details_img
                                                          minSearchTime=5)
         py.click(add_passenger_location)
 
-    passenger_name_input_fld_location = py.locateOnScreen(image=parent_img_path + "passenger_name_input_fld.png",
-                                                          confidence=0.75, minSearchTime=5)
-    py.click(passenger_name_input_fld_location)
-
     for name in passenger_name:
+        passenger_name_input_fld_location = py.locateOnScreen(image=parent_img_path + "passenger_name_input_fld.png",
+                                                              confidence=0.90, minSearchTime=5)
+
+        py.click(passenger_name_input_fld_location)
         py.write(name)
+        py.sleep(0.7)
         py.press("down")
-        passenger_name_location = py.locateOnScreen(image=blue_tick, confidence=0.80,
-                                                    minSearchTime=10)
-        py.click(passenger_name_location)
+        py.sleep(0.1)
+        py.press("enter")
+
+        # blue_tick_location = py.locateOnScreen(image=blue_tick, confidence=0.75, minSearchTime=10)
+        # py.click(blue_tick_location)
 
         if name != passenger_name[-1]:
             add_passenger_location = py.locateOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.80,
@@ -91,6 +94,7 @@ def click_search_btn():
     sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "search_btn.png", confidence=0.90,
                                           minSearchTime=10)
     py.click(sign_in_btn)
+
 
 
 def input_station_name(from_: str, to: str):
@@ -246,21 +250,11 @@ def scroll_until_element_visible_not_visible(img_path: str):
 
 def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str):
     # TODO: bug in this func, except of this all funcnatlies of automation is working fine
-    scroll_until_element_visible_not_visible(img_path=train_name_img_path)
-
-    # pass img path of train name with time and sleeper visible
-    # coach_type_location = py.locateCenterOnScreen(image=coach_type_img_path, confidence=0.90, minSearchTime=10)
-    # py.click(coach_type_location)
-    # wl_or_available_location = py.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
-    #                                                     minSearchTime=10)
-    # py.click(wl_or_available_location)
-    # img_path: str = parent_img_path + "book_now.png"
-    # click_book_now(img_path=img_path)
-
     py.sleep(0.5)
     # py.sleep(3)
     sleeper_location = list(py.locateAllOnScreen(image=parent_img_path + "sleeper_btn.png", grayscale=False, confidence=0.90))
     py.click(sleeper_location[1])
+    print("total no of sleeper btn visible on ui", len(sleeper_location))
 
 
 

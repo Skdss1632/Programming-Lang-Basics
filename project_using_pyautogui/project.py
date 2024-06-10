@@ -21,15 +21,15 @@ def schedule_task_at_specific_time():
     the program may not operate properly and also do not change the browser position on home page."""
 
     # click_browser()
-    # click_search_btn()
-    modify_search_img_path = parent_img_path + "reset_filter_txt.png"
-    py.locateCenterOnScreen(image=modify_search_img_path, confidence=0.90, minSearchTime=10)
+    py.sleep(2)
+    reset_filter_txt_img_path = parent_img_path + "reset_filter_txt.png"
+    py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=25)
 
-    # Define paths to images used in automation
+    # scrolling until train name img is not found
     train_name_img_path = parent_img_path + "swantatra_s_exp_with_btn.png"
-    coach_type_img_path = parent_img_path + "swantatra_exp_sleeper_with_tym.png"
+    scroll_until_element_visible_not_visible(img_path=train_name_img_path)
 
-    # function to select train for booking
+    coach_type_img_path = parent_img_path + "swantatra_exp_sleeper_with_tym.png"
     select_train_for_booking(train_name_img_path=train_name_img_path, coach_type_img_path=coach_type_img_path)
 
 
@@ -38,11 +38,12 @@ def schedule_task_at_specific_time():
 
 
     book_now_img_path: str = parent_img_path + "book_now.png"
-    click_book_now(book_now_img_path=book_now_img_path)
+    click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
+
     passenger_detail_img_path = parent_img_path + "passenger_details.png"
     passenger_name_img_from_dropdwn = ["passenger_1_img.png", "passenger_2_img.png", "passenger_3_img.png"]
-    passenger_name = ["sourav kumar"]
-    blue_tick = parent_img_path + "blue_tick.png"
+    passenger_name = ["sourav kumar", "mahesh ray"]
+    blue_tick = parent_img_path + "blue_img.png"
     select_passenger_from_master_lst(passenger_name=passenger_name, passenger_details_img_path=passenger_detail_img_path, blue_tick=blue_tick)
 
 
@@ -53,14 +54,14 @@ def schedule_task_at_specific_time():
 
     # View cancellation policy and continue journey review
     view_cancellation_img_path = parent_img_path + "review_journey_yellow_img.png"
-    py.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=15)
+    py.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=25)
 
 
     # continue_btn_img_path = parent_img_path + "continue_btn.png"
     # click_continue_btn_inside_review_journey(captcha_fill_delay=10, img_path=continue_btn_img_path)
 
     payment_yellow_img_path = parent_img_path + "payment_yellow_img.png"
-    py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=15)
+    py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=25)
 
     # Payment options and booking
     irctc_e_wallet_img_path = parent_img_path + "irctc_ewallet.png"
