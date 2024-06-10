@@ -7,7 +7,7 @@ import datetime
 parent_img_path = "/home/intern/Documents/gitlearning/Programming_Lang_Basics/project_using_pyautogui/irctc_images/"
 
 
-def click_browsers():
+def click_browser():
     browser_location = py.locateCenterOnScreen(image=parent_img_path + "chrome.png", confidence=0.80, minSearchTime=5)
     py.click(browser_location)
 
@@ -26,19 +26,15 @@ def click_book_now(book_now_img_path: str):
     book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=10)
     py.click(book_now_location)
 
+
 def click_on_wl_or_avalible_btn(wl_or_available_img_path: str):
     wl_or_available_location = py.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
                                                        minSearchTime=10)
     py.click(wl_or_available_location)
 
-def select_passenger_from_master_lst(passenger_detail_img_path: str):
-    # Select passenger name by index and navigate
-    py.locateCenterOnScreen(image=passenger_detail_img_path, confidence=0.90, minSearchTime=15)
-    #
-    input_passenger_name(passenger_name="SO")
 
-
-def input_passenger_name(passenger_name: str):
+def select_passenger_from_master_lst(passenger_name: list, passenger_details_img_path: str, blue_tick: str):
+    py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=15)
     py.scroll(-1)
     try:
         py.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=10)
@@ -46,33 +42,25 @@ def input_passenger_name(passenger_name: str):
     except py.ImageNotFoundException:
         cross_location = py.locateCenterOnScreen(image=parent_img_path + "cross.png", confidence=0.90, minSearchTime=5)
         py.click(cross_location)
-        add_passenger_location = py.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90, minSearchTime=5)
+        add_passenger_location = py.locateCenterOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.90,
+                                                         minSearchTime=5)
         py.click(add_passenger_location)
 
     passenger_name_input_fld_location = py.locateOnScreen(image=parent_img_path + "passenger_name_input_fld.png",
-                                                          confidence=0.75,
-                                                          minSearchTime=5)
+                                                          confidence=0.75, minSearchTime=5)
     py.click(passenger_name_input_fld_location)
-    passenger_name_location = py.locateOnScreen(image=parent_img_path + "passenger_name_from_dropdown.png",
-                                                confidence=0.80,
-                                                minSearchTime=5)
-    py.click(passenger_name_location)
 
-    # py.sleep(0.1)
-    # # click on passenger name fld
-    # py.click(147, 739)
-    # py.sleep(0.1)
-    # # 0.118 s == 118 milliseconds
-    # py.typewrite(message=passenger_name, interval=0.1)
-    # py.sleep(0.125)
-    # py.press("down")
-    # py.sleep(0.1)
-    # py.press("enter")
-    # # py.locateCenterOnScreen(image=parent_img_path + "filled_pass_name.png", confidence=0.90, minSearchTime=3)
+    for name in passenger_name:
+        py.write(name)
+        py.press("down")
+        passenger_name_location = py.locateOnScreen(image=blue_tick, confidence=0.80,
+                                                    minSearchTime=10)
+        py.click(passenger_name_location)
 
-
-
-
+        if name != passenger_name[-1]:
+            add_passenger_location = py.locateOnScreen(image=parent_img_path + "add_passenger.png", confidence=0.80,
+                                                       minSearchTime=10)
+            py.click(add_passenger_location)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
@@ -100,7 +88,9 @@ def click_irctc_e_wallet(img_path: str):
 
 
 def click_search_btn():
-    py.press("enter")
+    sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "search_btn.png", confidence=0.90,
+                                          minSearchTime=10)
+    py.click(sign_in_btn)
 
 
 def input_station_name(from_: str, to: str):
@@ -151,32 +141,16 @@ def select_ticket_type_from_dropdown(ticket_type_img_path: str, ticket_type_for_
 
     else:
         # click on general
-        general_img_location = py.locateCenterOnScreen(image=parent_img_path + "general.png", confidence=0.90, minSearchTime=5)
+        general_img_location = py.locateCenterOnScreen(image=parent_img_path + "general.png", confidence=0.90, minSearchTime=15)
         py.click(general_img_location)
 
     if ticket_type_img_path:
         # click on whatever type of ticket you want to book
-        ticket_type_location = py.locateCenterOnScreen(image=ticket_type_img_path, confidence=0.90, minSearchTime=5)
+        ticket_type_location = py.locateCenterOnScreen(image=ticket_type_img_path, confidence=0.90, minSearchTime=15)
         py.click(ticket_type_location)
 
 
-def input_account_username(username: str, username_image_path: str):
-    username_fld_location = py.locateCenterOnScreen(image=username_image_path, confidence=0.90, minSearchTime=5)
-    py.click(username_fld_location)
-    py.hotkey("ctrl", "a")
-    py.press('backspace')
-    py.write(username)
-
-
-def input_account_password(password: str, password_image_path: str):
-    password_fld = py.locateCenterOnScreen(image=password_image_path, confidence=0.90, minSearchTime=5)
-    py.click(password_fld)
-    py.hotkey("ctrl", "a")
-    py.press('backspace')
-    py.write(password)
-
-
-def input_irctc_account(username: str, password: str):
+def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
     try:
         # Try locating the images on the screen
         sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "large_sign_in_btn.png", confidence=0.90,
@@ -192,8 +166,12 @@ def input_irctc_account(username: str, password: str):
 
     # Check if either image is found
     if sign_in_btn or sign_in_btn1:
-        input_account_username(username=username, username_image_path=parent_img_path + "username_fld.png")
-        input_account_password(password=password, password_image_path=parent_img_path + "password_fld.png")
+        for image, text in [(username_image_path, username), (password_image_path, password)]:
+            field_location = py.locateCenterOnScreen(image=image, confidence=0.90, minSearchTime=25)
+            py.click(field_location)
+            py.hotkey("ctrl", "a")
+            py.press('backspace')
+            py.write(text)
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
@@ -203,6 +181,7 @@ def input_source_n_destination_station(source_station: str, destination: str):
     py.write(source_station)
     blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
                                             minSearchTime=25)
+    py.moveTo(blue_location)
     py.click(blue_location)
 
     destination_location = py.locateCenterOnScreen(image=parent_img_path + "destination_img.png",
@@ -210,18 +189,25 @@ def input_source_n_destination_station(source_station: str, destination: str):
                                                    minSearchTime=25)
     py.click(destination_location)
     py.write(destination)
+    py.sleep(0.5)
     blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
                                             minSearchTime=25)
+    py.moveTo(blue_location)
+    py.sleep(0.5)
     py.click(blue_location)
 
 
+
 def open_chrome_browser_with_irctc_page():
-    click_browsers()
+    click_browser()
     py.hotkey("ctrl", "t")
     open_url()
+
+
+def click_login_btn():
     # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
     # not
-    login_btn_location = py.locateCenterOnScreen(image=parent_img_path + "login_btn.png", confidence=0.80,
+    login_btn_location = py.locateCenterOnScreen(image=parent_img_path + "login_btn.png", confidence=0.90,
                                                  minSearchTime=25)
     py.click(login_btn_location)
 
@@ -272,8 +258,9 @@ def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str)
     # click_book_now(img_path=img_path)
 
     py.sleep(0.5)
+    # py.sleep(3)
     sleeper_location = list(py.locateAllOnScreen(image=parent_img_path + "sleeper_btn.png", grayscale=False, confidence=0.90))
-    py.click(sleeper_location[0])
+    py.click(sleeper_location[1])
 
 
 
