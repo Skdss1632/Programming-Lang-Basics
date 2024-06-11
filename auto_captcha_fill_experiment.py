@@ -1,4 +1,4 @@
-from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
+from Programming_Lang_Basics.automation_project.utility_functions import *
 
 click_browsers()
 py.sleep(2)
