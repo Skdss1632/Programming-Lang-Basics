@@ -38,10 +38,10 @@ def click_on_wl_or_avalible_btn():
     py.click(wl_or_available_location)
 
 
-def select_passenger_from_master_lst(passenger_name: list, passenger_details_img_path: str, blue_tick: str):
+def select_passenger_from_master_lst(passenger_name: list, passenger_details_img_path: str):
     py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=60)
     try:
-        py.locateCenterOnScreen(image=get_image_path("india_text_image"), confidence=0.90, minSearchTime=0.1)
+        py.locateCenterOnScreen(image=get_image_path("india_text_image"), confidence=0.90, minSearchTime=0.001)
 
     except py.ImageNotFoundException:
         cross_location = py.locateCenterOnScreen(image=get_image_path("cross_image"), confidence=0.90, minSearchTime=60)
@@ -60,10 +60,6 @@ def select_passenger_from_master_lst(passenger_name: list, passenger_details_img
         py.press("down")
         py.sleep(0.1)
         py.press("enter")
-
-        # blue_tick_location = py.locateOnScreen(image=blue_tick, confidence=0.75, minSearchTime=10)
-        # py.click(blue_tick_location)
-
         if name != passenger_name[-1]:
             add_passenger_location = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.80,
                                                        minSearchTime=60)
@@ -94,7 +90,7 @@ def click_irctc_e_wallet(img_path: str):
 
 
 def click_search_btn():
-    sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "search_btn.png", confidence=0.90,
+    sign_in_btn = py.locateCenterOnScreen(image=get_image_path("search_btn_image"), confidence=0.90,
                                           minSearchTime=60)
     py.click(sign_in_btn)
 
@@ -171,22 +167,22 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
-    from_location = py.locateCenterOnScreen(image=parent_img_path + "source_station.png", confidence=0.90,
+    from_location = py.locateCenterOnScreen(image=get_image_path("source_station_image"), confidence=0.90,
                                             minSearchTime=60)
     py.click(from_location)
     py.write(source_station)
-    blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
+    blue_location = py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.90,
                                             minSearchTime=60)
     py.moveTo(blue_location)
     py.click(blue_location)
 
-    destination_location = py.locateCenterOnScreen(image=parent_img_path + "destination_img.png",
+    destination_location = py.locateCenterOnScreen(image=get_image_path("destination_image"),
                                                    confidence=0.90,
                                                    minSearchTime=60)
     py.click(destination_location)
     py.write(destination)
     py.sleep(0.5)
-    blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
+    blue_location = py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.90,
                                             minSearchTime=60)
     py.moveTo(blue_location)
     py.sleep(0.5)
@@ -202,7 +198,7 @@ def open_chrome_browser_with_irctc_page():
 def click_login_btn():
     # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
     # not and click on it
-    login_btn_location = py.locateCenterOnScreen(image=parent_img_path + "login_btn.png", confidence=0.90,
+    login_btn_location = py.locateCenterOnScreen(image=get_image_path("login_btn_image"), confidence=0.90,
                                                  minSearchTime=25)
     py.click(login_btn_location)
 
@@ -222,7 +218,7 @@ def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
 def scroll_until_element_visible_not_visible(img_path: str):
     i = -1
     while True:
-        i -= 0.8
+        i -= 0.7
         py.scroll(i)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:

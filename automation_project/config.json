@@ -55,6 +55,11 @@
     "cross_image": "cross.png",
     "india_text_image": "india.png",
     "pay_through_bhim_upi_image": "1.png",
-    "book_only_if_get_confirm_berth": "book_only_if_get_confirm_berth.png"
+    "book_only_if_get_confirm_berth": "book_only_if_get_confirm_berth.png",
+    "search_btn_image": "search_btn.png",
+    "source_station_image": "source_station.png",
+    "blue_color_in_dropdwn_image": "blue_color_in_dropdwn.png",
+    "destination_image": "destination_img.png",
+    "login_btn_image": "login_btn.png"
   }
 }

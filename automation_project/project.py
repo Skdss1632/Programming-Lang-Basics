@@ -1,9 +1,9 @@
-import schedule
 from Programming_Lang_Basics.automation_project.utility_functions import *  # Custom utility functions
 
 
 def input_details():
-    """Automates the process of inputting details on the IRCTC page."""
+    """Automates the process of inputting details on the IRCTC page.
+    if you want to book ticket in another train take that train ss and pass the img path train_name_image"""
     open_chrome_browser_with_irctc_page()
     click_login_btn()
     # # validate login popup open or not
@@ -26,7 +26,7 @@ def input_details():
     input_travel_date(tatkal_book_date=tatkal_book_date)
 
     reset_filter_txt_img_path = get_image_path("reset_filter_image")
-    py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=25)
+    py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=60)
 
     train_name_img_path = get_image_path("train_name_image")
     scroll_until_element_visible_not_visible(img_path=train_name_img_path)
@@ -46,8 +46,7 @@ def schedule_task_at_specific_time():
     passenger_names = get_booking_details("passenger_names")
     blue_tick = get_image_path("blue_tick_image")
     select_passenger_from_master_lst(passenger_name=passenger_names,
-                                     passenger_details_img_path=passenger_detail_img_path,
-                                     blue_tick=blue_tick)
+                                     passenger_details_img_path=passenger_detail_img_path)
 
     if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
         txt_img_path = get_image_path("book_only_if_get_confirm_berth")
