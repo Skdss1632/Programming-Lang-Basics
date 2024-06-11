@@ -5,6 +5,7 @@ from PIL import Image
 import schedule
 import time
 import datetime
+
 parent_img_path = "/home/intern/Documents/gitlearning//Programming_Lang_Basics/automation_project/irctc_images/"
 # Load configuration from JSON file
 with open('config.json', 'r') as f:
@@ -122,11 +123,12 @@ def select_ticket_type_from_dropdown():
         py.click(general_img_location)
         if get_booking_details("is_premium_tatkal"):
             general_blue_location = py.locateCenterOnScreen(image=get_image_path("general_blue_image"), confidence=0.90,
-                                                           minSearchTime=15)
+                                                            minSearchTime=15)
             py.moveTo(general_blue_location)
             py.scroll(-0.3)
 
-            ticket_type_location = py.locateCenterOnScreen(image=get_image_path("premium_tatkal_image"), confidence=0.90,
+            ticket_type_location = py.locateCenterOnScreen(image=get_image_path("premium_tatkal_image"),
+                                                           confidence=0.90,
                                                            minSearchTime=15)
         if get_booking_details("is_tatkal"):
             ticket_type_location = py.locateCenterOnScreen(image=get_image_path("tatkal_image"), confidence=0.90,
@@ -143,13 +145,13 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
         try:
             # Try locating the images on the screen
             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
-                                                  minSearchTime=2)
+                                                        minSearchTime=2)
         except py.ImageNotFoundException:
             large_sign_in_btn = None
 
         try:
             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
-                                                   minSearchTime=2)
+                                                        minSearchTime=2)
         except py.ImageNotFoundException:
             small_sign_in_btn = None
 
@@ -164,7 +166,7 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
 
     enter_captcha_fld_img = get_image_path("enter_captcha_fld_image")
     enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90,
-                                                                 minSearchTime=60)
+                                                             minSearchTime=60)
     py.click(enter_captcha_fld_img_location)
 
 
@@ -258,17 +260,7 @@ def get_credentials(credentials_key: str):
 
 def click_captcha_fld():
     enter_captcha_fld_img = get_image_path("enter_captcha_fld_image")
-    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90, minSearchTime=25)
+    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90,
+                                                             minSearchTime=25)
     py.moveTo(enter_captcha_fld_img_location)
     py.click(enter_captcha_fld_img_location)
-
-
-
-
-
-
-
-
-
-
-

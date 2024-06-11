@@ -1,6 +1,6 @@
 from Programming_Lang_Basics.automation_project.utility_functions import *
 
-click_browsers()
+click_browser()
 py.sleep(2)
 
 # Define the coordinates of the region you want to capture

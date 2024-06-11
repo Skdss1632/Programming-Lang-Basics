@@ -81,12 +81,8 @@ def schedule_task_at_specific_time():
 input_details()
 schedule_task_at_specific_time()
 
-
 # Schedule the task to run at 07:25 AM every day
 # schedule.every().day.at("10:55").do(schedule_task_at_specific_time)
 #
 # while True:
 #     schedule.run_pending()
-
-
-
