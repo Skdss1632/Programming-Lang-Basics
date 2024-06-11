@@ -27,13 +27,6 @@ def click_available_btn(img_path: str):
 
 
 def click_book_now_inside_select_train(book_now_img_path: str):
-    # py.locateCenterOnScreen(image=parent_img_path + "light_color_book_now_btn.png", confidence=0.90, minSearchTime=2)
-        # for _ in range(10):
-        #     sleeper_btn_1_location = py.locateCenterOnScreen(image=parent_img_path + "sleeper_btn_1.png", confidence=0.90,
-        #                                              minSearchTime=5)
-        #     py.click(sleeper_btn_1_location)
-        #     click_on_wl_or_avalible_btn()
-
     book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=10)
     py.click(book_now_location)
 
@@ -193,7 +186,6 @@ def input_source_n_destination_station(source_station: str, destination: str):
     py.moveTo(blue_location)
     py.sleep(0.5)
     py.click(blue_location)
-
 
 
 def open_chrome_browser_with_irctc_page():
