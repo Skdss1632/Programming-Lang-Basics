@@ -141,7 +141,7 @@ def select_ticket_type_from_dropdown(img_path, ticket_type_for_book: str):
 def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
     password_filled_img_path = get_image_path(config["image_paths"]["password_filled_image"])
     try:
-        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.90, minSearchTime=8)
+        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.90, minSearchTime=5)
         # If password filled image is found, skip the rest of the code
     except py.ImageNotFoundException:
         try:
@@ -160,7 +160,7 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
         # Check if either image is found
         if sign_in_btn or sign_in_btn1:
             for image, text in [(username_image_path, username), (password_image_path, password)]:
-                field_location = py.locateCenterOnScreen(image=image, confidence=0.90, minSearchTime=25)
+                field_location = py.locateCenterOnScreen(image=image, confidence=0.85, minSearchTime=25)
                 py.click(field_location)
                 py.hotkey("ctrl", "a")
                 py.press('backspace')

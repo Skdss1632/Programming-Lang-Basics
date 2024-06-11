@@ -24,12 +24,6 @@ def input_details():
     tatkal_book_date = config["booking_details"]["booking_date"]
     input_booking_date(tatkal_book_date=tatkal_book_date)
 
-
-def schedule_task_at_specific_time():
-    """
-    This function automates the process of booking a ticket on IRCTC.
-    It is designed to work correctly only with the Chrome browser at 100% zoom level.
-    """
     reset_filter_txt_img_path = get_image_path(config["image_paths"]["reset_filter_image"])
     py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=25)
 
@@ -37,7 +31,9 @@ def schedule_task_at_specific_time():
     scroll_until_element_visible_not_visible(img_path=train_name_img_path)
     py.sleep(0.2)
 
-    coach_type_img_path = get_image_path(config["image_paths"]["ac_tier_3_btn_image"])
+
+def schedule_task_at_specific_time():
+    coach_type_img_path = get_image_path(config["image_paths"]["sleeper_btn_image"])
     click_on_coach_on_selected_train(coach_type_img_path=coach_type_img_path)
 
     wl_or_available_img_path = get_image_path(config["image_paths"]["waiting_list_image"])
@@ -79,15 +75,12 @@ def schedule_task_at_specific_time():
 # Execute the input details function
 input_details()
 
-# Schedule the task
-schedule_task_at_specific_time()
 
+# Schedule the task to run at 07:25 AM every day
+schedule.every().day.at("10:55").do(schedule_task_at_specific_time)
 
-# # Schedule the task to run at 07:25 AM every day
-# schedule.every().day.at("07:29").do(schedule_task_at_specific_time)
-#
-# while True:
-#     schedule.run_pending()
-#     schedule_task_at_specific_time()  # Move the function call inside the loop
+while True:
+    schedule.run_pending()
+
 
 
