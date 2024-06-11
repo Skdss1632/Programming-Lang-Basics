@@ -22,7 +22,7 @@ def open_url():
 
 
 def click_book_now_inside_select_train(book_now_img_path: str):
-    book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=60)
+    book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=5)
     py.click(book_now_location)
 
 
@@ -71,12 +71,11 @@ def select_passenger_from_master_lst(passenger_name: list, passenger_details_img
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
     scroll_until_element_visible_not_visible(img_path=img_path)
-    txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=10)
+    txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     py.click(txt_location)
 
 
 def click_continue_btn_inside_passenger_details(continue_btn_img_path: str):
-    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path)
     btn_location = py.locateCenterOnScreen(image=continue_btn_img_path, confidence=0.90, minSearchTime=60)
     py.click(btn_location)
 
@@ -125,7 +124,7 @@ def select_ticket_type_from_dropdown():
             general_blue_location = py.locateCenterOnScreen(image=get_image_path("general_blue_image"), confidence=0.90,
                                                            minSearchTime=15)
             py.moveTo(general_blue_location)
-            py.scroll(-1)
+            py.scroll(-0.3)
 
             ticket_type_location = py.locateCenterOnScreen(image=get_image_path("premium_tatkal_image"), confidence=0.90,
                                                            minSearchTime=15)
@@ -165,28 +164,28 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
 
     enter_captcha_fld_img = get_image_path("enter_captcha_fld_image")
     enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90,
-                                                                 minSearchTime=25)
+                                                                 minSearchTime=60)
     py.click(enter_captcha_fld_img_location)
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
     from_location = py.locateCenterOnScreen(image=parent_img_path + "source_station.png", confidence=0.90,
-                                            minSearchTime=25)
+                                            minSearchTime=60)
     py.click(from_location)
     py.write(source_station)
     blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
-                                            minSearchTime=25)
+                                            minSearchTime=60)
     py.moveTo(blue_location)
     py.click(blue_location)
 
     destination_location = py.locateCenterOnScreen(image=parent_img_path + "destination_img.png",
                                                    confidence=0.90,
-                                                   minSearchTime=25)
+                                                   minSearchTime=60)
     py.click(destination_location)
     py.write(destination)
     py.sleep(0.5)
     blue_location = py.locateCenterOnScreen(image=parent_img_path + "blue_color_in_dropdwn.png", confidence=0.90,
-                                            minSearchTime=25)
+                                            minSearchTime=60)
     py.moveTo(blue_location)
     py.sleep(0.5)
     py.click(blue_location)
@@ -206,10 +205,6 @@ def click_login_btn():
     py.click(login_btn_location)
 
 
-def scroll_to_view(no_of_scroll: float):
-    py.scroll(no_of_scroll)
-
-
 def click_pay_n_book(img_path: str):
     pay_n_book_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     py.click(pay_n_book_location)
@@ -222,15 +217,11 @@ def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
     # py.click(btn_location)
 
 
-def close_login_popup():
-    py.click(1494, 229)
-
-
 def scroll_until_element_visible_not_visible(img_path: str):
     i = -1
     while True:
-        i -= 1
-        scroll_to_view(no_of_scroll=i)
+        i -= 0.8
+        py.scroll(i)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
                 return True
@@ -244,11 +235,13 @@ def click_on_coach_on_selected_train():
     coach_type_img_path = ""
     if get_booking_details("is_sleeper"):
         coach_type_img_path = get_image_path("sleeper_btn_image")
-    elif get_booking_details("is_tier_3_ac"):
-        coach_type_img_path = get_image_path("sleeper_btn_image")
-    sleeper_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.80))
-    py.click(sleeper_location[1])
-    print("total no of sleeper btn visible on ui", len(sleeper_location))
+    elif get_booking_details("is_ac_3_tier"):
+        coach_type_img_path = get_image_path("ac_3_tier_btn_image")
+    elif get_image_path("ac_3_economy_image"):
+        coach_type_img_path = get_image_path("ac_3_economy_image")
+    btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.95))
+    py.click(btn_location[0])
+    print("total no of sleeper btn visible on ui", len(btn_location))
 
 
 def get_image_path(image_name):
@@ -263,7 +256,7 @@ def get_credentials(credentials_key: str):
     return config["credentials"][credentials_key]
 
 
-def click_enter_captcha_fld():
+def click_captcha_fld():
     enter_captcha_fld_img = get_image_path("enter_captcha_fld_image")
     enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90, minSearchTime=25)
     py.moveTo(enter_captcha_fld_img_location)

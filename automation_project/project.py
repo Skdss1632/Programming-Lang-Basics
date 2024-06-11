@@ -31,6 +31,7 @@ def input_details():
     train_name_img_path = get_image_path("train_name_image")
     scroll_until_element_visible_not_visible(img_path=train_name_img_path)
     py.sleep(0.1)
+    # py.sleep(8)
 
 
 def schedule_task_at_specific_time():
@@ -48,14 +49,19 @@ def schedule_task_at_specific_time():
                                      passenger_details_img_path=passenger_detail_img_path,
                                      blue_tick=blue_tick)
 
+    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
+        txt_img_path = get_image_path("book_only_if_get_confirm_berth")
+        click_book_only_if_confirm_berth_alloted(txt_img_path)
+
     continue_btn_img_path = get_image_path("continue_button_image")
+    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path)
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
 
     view_cancellation_img_path = get_image_path("review_journey_image")
     py.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=60)
     py.scroll(-2.5)
     py.sleep(0.1)
-    click_enter_captcha_fld()
+    click_captcha_fld()
 
     payment_yellow_img_path = get_image_path("payment_yellow_image")
     py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=60)
