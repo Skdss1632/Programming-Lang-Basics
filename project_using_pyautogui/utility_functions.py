@@ -1,10 +1,14 @@
 import pyautogui as py
+import json
 import pytesseract
 from PIL import Image
 import schedule
 import time
 import datetime
 parent_img_path = "/home/intern/Documents/gitlearning/Programming_Lang_Basics/project_using_pyautogui/irctc_images/"
+# Load configuration from JSON file
+with open('config.json', 'r') as f:
+    config = json.load(f)
 
 
 def click_browser():
@@ -23,6 +27,13 @@ def click_available_btn(img_path: str):
 
 
 def click_book_now_inside_select_train(book_now_img_path: str):
+    # py.locateCenterOnScreen(image=parent_img_path + "light_color_book_now_btn.png", confidence=0.90, minSearchTime=2)
+        # for _ in range(10):
+        #     sleeper_btn_1_location = py.locateCenterOnScreen(image=parent_img_path + "sleeper_btn_1.png", confidence=0.90,
+        #                                              minSearchTime=5)
+        #     py.click(sleeper_btn_1_location)
+        #     click_on_wl_or_avalible_btn()
+
     book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=10)
     py.click(book_now_location)
 
@@ -35,7 +46,6 @@ def click_on_wl_or_avalible_btn(wl_or_available_img_path: str):
 
 def select_passenger_from_master_lst(passenger_name: list, passenger_details_img_path: str, blue_tick: str):
     py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=15)
-    py.scroll(-1)
     try:
         py.locateCenterOnScreen(image=parent_img_path + "india.png", confidence=0.90, minSearchTime=10)
 
@@ -52,7 +62,7 @@ def select_passenger_from_master_lst(passenger_name: list, passenger_details_img
 
         py.click(passenger_name_input_fld_location)
         py.write(name)
-        py.sleep(0.7)
+        py.sleep(0.5)
         py.press("down")
         py.sleep(0.1)
         py.press("enter")
@@ -96,28 +106,6 @@ def click_search_btn():
     py.click(sign_in_btn)
 
 
-
-def input_station_name(from_: str, to: str):
-    py.sleep(1)
-    py.click(x=280, y=424)
-    clear_input_fld()
-    py.write(from_)
-    py.press("shift")
-    py.press("down")
-    py.press("shift")
-    py.press("enter")
-
-
-    py.sleep(1)
-    py.click(x=250, y=495)
-    clear_input_fld()
-    py.write(to)
-    py.press("shift")
-    py.press("down")
-    py.press("shift")
-    py.press("enter")
-
-
 def input_booking_date(tatkal_book_date: str):
     py.click(x=764, y=426)
     clear_input_fld()
@@ -130,52 +118,58 @@ def clear_input_fld():
     py.press('backspace')
 
 
-def select_ticket_type_from_dropdown(ticket_type_img_path: str, ticket_type_for_book: str):
-    # if image_path == "general.png":
-    #     pass  # Do nothing for "general.png"
-    # else:
-    #     py.click(255, 561)
-    #
-    # if image_path == "premium_tatkal.png":
-    #     py.moveTo(237, 633)
-    #     py.scroll(-1)
+def select_ticket_type_from_dropdown(img_path, ticket_type_for_book: str):
+    if ticket_type_for_book == "general":
+        pass  # Do nothing for "general"
 
-    if ticket_type_for_book == "general.png":
-        pass  # Do nothing for "general.png"
-
-    else:
-        # click on general
-        general_img_location = py.locateCenterOnScreen(image=parent_img_path + "general.png", confidence=0.90, minSearchTime=15)
+    if ticket_type_for_book in ["tatkal", "premium_tatkal"]:
+        # Click on general to reset or ensure the dropdown is in a known state
+        general_img_location = py.locateCenterOnScreen(image=parent_img_path + "general.png", confidence=0.90,
+                                                       minSearchTime=15)
         py.click(general_img_location)
+        if ticket_type_for_book == "premium_tatkal":
+            general_blue_location = py.locateCenterOnScreen(image=parent_img_path + "general_blue.png", confidence=0.90,
+                                                           minSearchTime=15)
+            py.moveTo(general_blue_location)
+            py.scroll(-1)
 
-    if ticket_type_img_path:
-        # click on whatever type of ticket you want to book
-        ticket_type_location = py.locateCenterOnScreen(image=ticket_type_img_path, confidence=0.90, minSearchTime=15)
+        ticket_type_location = py.locateCenterOnScreen(image=img_path, confidence=0.90,
+                                                       minSearchTime=15)
         py.click(ticket_type_location)
 
 
 def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
+    password_filled_img_path = get_image_path(config["image_paths"]["password_filled_image"])
     try:
-        # Try locating the images on the screen
-        sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "large_sign_in_btn.png", confidence=0.90,
-                                              minSearchTime=4)
+        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.90, minSearchTime=8)
+        # If password filled image is found, skip the rest of the code
     except py.ImageNotFoundException:
-        sign_in_btn = None
+        try:
+            # Try locating the images on the screen
+            sign_in_btn = py.locateCenterOnScreen(image=parent_img_path + "large_sign_in_btn.png", confidence=0.90,
+                                                  minSearchTime=4)
+        except py.ImageNotFoundException:
+            sign_in_btn = None
 
-    try:
-        sign_in_btn1 = py.locateCenterOnScreen(image=parent_img_path + "small_sign_in_btn.png", confidence=0.90,
-                                               minSearchTime=4)
-    except py.ImageNotFoundException:
-        sign_in_btn1 = None
+        try:
+            sign_in_btn1 = py.locateCenterOnScreen(image=parent_img_path + "small_sign_in_btn.png", confidence=0.90,
+                                                   minSearchTime=4)
+        except py.ImageNotFoundException:
+            sign_in_btn1 = None
 
-    # Check if either image is found
-    if sign_in_btn or sign_in_btn1:
-        for image, text in [(username_image_path, username), (password_image_path, password)]:
-            field_location = py.locateCenterOnScreen(image=image, confidence=0.90, minSearchTime=25)
-            py.click(field_location)
-            py.hotkey("ctrl", "a")
-            py.press('backspace')
-            py.write(text)
+        # Check if either image is found
+        if sign_in_btn or sign_in_btn1:
+            for image, text in [(username_image_path, username), (password_image_path, password)]:
+                field_location = py.locateCenterOnScreen(image=image, confidence=0.90, minSearchTime=25)
+                py.click(field_location)
+                py.hotkey("ctrl", "a")
+                py.press('backspace')
+                py.write(text)
+
+    enter_captcha_fld_img = get_image_path(config["image_paths"]["enter_captcha_fld_image"])
+    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90,
+                                                                 minSearchTime=25)
+    py.click(enter_captcha_fld_img_location)
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
@@ -225,10 +219,11 @@ def click_pay_n_book(img_path: str):
     py.click(pay_n_book_location)
 
 
-def click_confirm_btn_inside_otp(otp_fill_delay: int, img_path: str):
-    py.sleep(otp_fill_delay)
-    btn_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
-    py.click(btn_location)
+def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
+    otp_fld_location = py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=10)
+    py.click(otp_fld_location)
+    # btn_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
+    # py.click(btn_location)
 
 
 def close_login_popup():
@@ -248,13 +243,23 @@ def scroll_until_element_visible_not_visible(img_path: str):
             pass
 
 
-def select_train_for_booking(train_name_img_path: str, coach_type_img_path: str):
-    # TODO: bug in this func, except of this all funcnatlies of automation is working fine
-    py.sleep(0.5)
-    # py.sleep(3)
-    sleeper_location = list(py.locateAllOnScreen(image=parent_img_path + "sleeper_btn.png", grayscale=False, confidence=0.90))
+def click_on_coach_on_selected_train(coach_type_img_path: str):
+    """click on sleeper or third ac or any other coach if you pass img path to this func"""
+    sleeper_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.90))
     py.click(sleeper_location[1])
     print("total no of sleeper btn visible on ui", len(sleeper_location))
+
+
+# Function to get the full image path
+def get_image_path(image_name):
+    return parent_img_path + image_name
+
+
+def click_enter_captcha_fld():
+    enter_captcha_fld_img = get_image_path(config["image_paths"]["enter_captcha_fld_image"])
+    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90, minSearchTime=25)
+    py.moveTo(enter_captcha_fld_img_location)
+    py.click(enter_captcha_fld_img_location)
 
 
 

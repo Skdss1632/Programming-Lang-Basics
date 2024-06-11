@@ -1,79 +1,85 @@
 import schedule
-from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *
+from Programming_Lang_Basics.project_using_pyautogui.utility_functions import *  # Custom utility functions
 
 
 def input_details():
+    """Automates the process of inputting details on the IRCTC page."""
     open_chrome_browser_with_irctc_page()
     click_login_btn()
-    input_irctc_account(username="skdss16321", password="Sourav99#", username_image_path=parent_img_path + "username_fld.png", password_image_path=parent_img_path + "password_fld.png")
-    input_source_n_destination_station(source_station="ndls", destination="spj")
 
-    tatkal_or_premium_tatkal_to_book_img_path = parent_img_path + "tatkal.png"
-    select_ticket_type_from_dropdown(ticket_type_img_path=tatkal_or_premium_tatkal_to_book_img_path, ticket_type_for_book="general")
-    input_booking_date(tatkal_book_date="10/06/2024")
+    username = config["credentials"]["username"]
+    password = config["credentials"]["password"]
+    username_image_path = get_image_path(config["image_paths"]["username_field_image"])
+    password_image_path = get_image_path(config["image_paths"]["password_field_image"])
+    input_irctc_account(username=username, password=password, username_image_path=username_image_path,
+                        password_image_path=password_image_path)
 
-input_details()
+    source_station = config["booking_details"]["source_station"]
+    destination = config["booking_details"]["destination_station"]
+    input_source_n_destination_station(source_station=source_station, destination=destination)
+
+    ticket_type = config["image_paths"]["tatkal_image"]
+    select_ticket_type_from_dropdown(img_path=ticket_type, ticket_type_for_book="general")
+
+    tatkal_book_date = config["booking_details"]["booking_date"]
+    input_booking_date(tatkal_book_date=tatkal_book_date)
 
 
 def schedule_task_at_specific_time():
-    """This function is designed to function correctly only on the Chrome browser with the page zoom level set to 100%.
-    If the browser or page size is changed,
-    the program may not operate properly and also do not change the browser position on home page."""
-
-    # click_browser()
-    py.sleep(2)
-    reset_filter_txt_img_path = parent_img_path + "reset_filter_txt.png"
+    """
+    This function automates the process of booking a ticket on IRCTC.
+    It is designed to work correctly only with the Chrome browser at 100% zoom level.
+    """
+    reset_filter_txt_img_path = get_image_path(config["image_paths"]["reset_filter_image"])
     py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=25)
 
-    # scrolling until train name img is not found
-    train_name_img_path = parent_img_path + "swantatra_s_exp_with_btn.png"
+    train_name_img_path = get_image_path(config["image_paths"]["train_name_image"])
     scroll_until_element_visible_not_visible(img_path=train_name_img_path)
+    py.sleep(0.2)
 
-    coach_type_img_path = parent_img_path + "swantatra_exp_sleeper_with_tym.png"
-    select_train_for_booking(train_name_img_path=train_name_img_path, coach_type_img_path=coach_type_img_path)
+    coach_type_img_path = get_image_path(config["image_paths"]["ac_tier_3_btn_image"])
+    click_on_coach_on_selected_train(coach_type_img_path=coach_type_img_path)
 
-
-    wl_or_available_img_path = parent_img_path + "wl_or_available_img_path.png"
+    wl_or_available_img_path = get_image_path(config["image_paths"]["waiting_list_image"])
     click_on_wl_or_avalible_btn(wl_or_available_img_path)
 
+    dark_color_book_now_img_path = get_image_path(config["image_paths"]["book_now_image"])
+    click_book_now_inside_select_train(book_now_img_path=dark_color_book_now_img_path)
 
-    book_now_img_path: str = parent_img_path + "book_now.png"
-    click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
+    passenger_detail_img_path = get_image_path(config["image_paths"]["passenger_details_image"])
+    passenger_names = config["booking_details"]["passenger_names"]
+    blue_tick = get_image_path(config["image_paths"]["blue_tick_image"])
+    select_passenger_from_master_lst(passenger_name=passenger_names,
+                                     passenger_details_img_path=passenger_detail_img_path,
+                                     blue_tick=blue_tick)
 
-    passenger_detail_img_path = parent_img_path + "passenger_details.png"
-    passenger_name_img_from_dropdwn = ["passenger_1_img.png", "passenger_2_img.png", "passenger_3_img.png"]
-    passenger_name = ["sourav kumar", "mahesh ray"]
-    blue_tick = parent_img_path + "blue_img.png"
-    select_passenger_from_master_lst(passenger_name=passenger_name, passenger_details_img_path=passenger_detail_img_path, blue_tick=blue_tick)
-
-
-    # txt_img = parent_img_path + "txt_img.png"
-    # click_book_only_if_confirm_berth_alloted(img_path=txt_img)
-    continue_btn_img_path = parent_img_path + "continue_btn.png"
+    continue_btn_img_path = get_image_path(config["image_paths"]["continue_button_image"])
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
 
-    # View cancellation policy and continue journey review
-    view_cancellation_img_path = parent_img_path + "review_journey_yellow_img.png"
+    view_cancellation_img_path = get_image_path(config["image_paths"]["review_journey_image"])
     py.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=25)
+    py.scroll(-2.5)
+    py.sleep(0.1)
+    click_enter_captcha_fld()
 
-
-    # continue_btn_img_path = parent_img_path + "continue_btn.png"
-    # click_continue_btn_inside_review_journey(captcha_fill_delay=10, img_path=continue_btn_img_path)
-
-    payment_yellow_img_path = parent_img_path + "payment_yellow_img.png"
+    payment_yellow_img_path = get_image_path(config["image_paths"]["payment_yellow_image"])
     py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=25)
 
-    # Payment options and booking
-    irctc_e_wallet_img_path = parent_img_path + "irctc_ewallet.png"
+    irctc_e_wallet_img_path = get_image_path(config["image_paths"]["irctc_ewallet_image"])
     click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
-    # pay_n_book_img_path = parent_img_path + "pay_n_book.png"
-    # click_pay_n_book(img_path=pay_n_book_img_path)
-    # confirm_btn_img_path = parent_img_path + "confirm_btn.png"
-    # click_confirm_btn_inside_otp(otp_fill_delay=10, img_path=confirm_btn_img_path)
+
+    pay_n_book_img_path = get_image_path(config["image_paths"]["pay_n_book_img_image"])
+    click_pay_n_book(img_path=pay_n_book_img_path)
+
+    confirm_btn_img_path = get_image_path(config["image_paths"]["confirm_btn_image"])
+    otp_fld_img_path = get_image_path(config["image_paths"]["otp_image"])
+    click_confirm_btn_inside_otp(img_path=confirm_btn_img_path, otp_fld_img_path=otp_fld_img_path)
 
 
+# Execute the input details function
+input_details()
 
-
+# Schedule the task
 schedule_task_at_specific_time()
 
 
@@ -83,39 +89,5 @@ schedule_task_at_specific_time()
 # while True:
 #     schedule.run_pending()
 #     schedule_task_at_specific_time()  # Move the function call inside the loop
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

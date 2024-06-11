@@ -1,0 +1,36 @@
+{
+    "credentials": {
+        "username": "skdss16321",
+        "password": "Sourav99#"
+    },
+    "booking_details": {
+        "source_station": "ndls",
+        "destination_station": "spj",
+        "booking_date": "11/06/2024",
+        "passenger_names": ["sourav kumar"]
+    },
+    "image_paths": {
+        "username_field_image": "username_fld.png",
+        "password_field_image": "password_fld.png",
+        "premium_tatkal_image": "premium_tatkal.png",
+        "tatkal_image": "tatkal.png",
+        "reset_filter_image": "reset_filter_txt.png",
+        "train_name_image": "swantatra_s_exp_with_btn.png",
+        "coach_type_image": "sleeper_btn.png",
+        "ac_tier_3_btn_image" : "ac_tier_3_btn.png",
+        "waiting_list_image": "waiting_list.png",
+        "available_ticket_image": "available_ticket.png",
+        "book_now_image": "book_now.png",
+        "passenger_details_image": "passenger_details.png",
+        "blue_tick_image": "blue_img.png",
+        "continue_button_image": "continue_btn.png",
+        "review_journey_image": "review_journey_yellow_img.png",
+        "payment_yellow_image": "payment_yellow_img.png",
+        "irctc_ewallet_image": "irctc_ewallet.png",
+        "pay_n_book_img_image": "pay_n_book.png",
+        "confirm_btn_image" : "confirm_btn.png",
+        "otp_image": "otp_fld.png",
+        "enter_captcha_fld_image": "enter_captcha_fld.png",
+        "password_filled_image": "password_filled.png"
+    }
+}
