@@ -6,6 +6,7 @@ def input_details():
     if you want to book ticket in another train take that train ss and pass the img path train_name_image"""
     open_chrome_browser_with_irctc_page()
     click_login_btn()
+    py.sleep(3)
     # # validate login popup open or not
     # otp_fld_location = py.locateCenterOnScreen(image=, confidence=0.80, minSearchTime=10)
 
@@ -27,6 +28,7 @@ def input_details():
 
     reset_filter_txt_img_path = get_image_path("reset_filter_image")
     py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=60)
+    py.sleep(1)
 
     train_name_img_path = get_image_path("train_name_image")
     scroll_until_element_visible_not_visible(img_path=train_name_img_path)
@@ -80,7 +82,7 @@ input_details()
 schedule_task_at_specific_time()
 
 # Schedule the task to run at 07:25 AM every day
-# schedule.every().day.at("10:55").do(schedule_task_at_specific_time)
+# schedule.every().day.at("07:18:00").do(schedule_task_at_specific_time)
 #
 # while True:
 #     schedule.run_pending()

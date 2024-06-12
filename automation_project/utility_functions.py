@@ -163,11 +163,8 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
     captcha_fld_img = get_image_path("enter_captcha_fld_image")
     captcha_fld_img_location = py.locateCenterOnScreen(image=captcha_fld_img, confidence=0.90,
                                                   minSearchTime=60)
-    py.sleep(0.2)
+
     py.moveTo(captcha_fld_img_location)
-    py.sleep(0.2)
-    if py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=10):
-        py.sleep(0.5)
     py.click(captcha_fld_img_location)
 
 
@@ -223,7 +220,7 @@ def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
 def scroll_until_element_visible_not_visible(img_path: str):
     i = -1
     while True:
-        i -= 0.7
+        i -= 1
         py.scroll(i)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
@@ -244,8 +241,8 @@ def click_on_coach_on_selected_train():
         coach_type_img_path = get_image_path("ac_3_economy_image")
 
     btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.95))
-    py.moveTo(btn_location[0])
-    py.click(btn_location[0])
+    py.moveTo(btn_location[1])
+    py.click(btn_location[1])
     print("total no of sleeper btn visible on ui", len(btn_location))
 
 
