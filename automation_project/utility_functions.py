@@ -135,19 +135,19 @@ def select_ticket_type_from_dropdown():
 def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
     password_filled_img_path = get_image_path("password_filled_image")
     try:
-        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=2)
+        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=10)
         # If password filled image is found, skip the rest of the code
     except py.ImageNotFoundException:
         try:
             # Try locating the images on the screen
             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
-                                                        minSearchTime=2)
+                                                        minSearchTime=10)
         except py.ImageNotFoundException:
             large_sign_in_btn = None
 
         try:
             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
-                                                        minSearchTime=2)
+                                                        minSearchTime=10)
         except py.ImageNotFoundException:
             small_sign_in_btn = None
 
@@ -166,7 +166,7 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
     py.sleep(0.2)
     py.moveTo(captcha_fld_img_location)
     py.sleep(0.2)
-    if py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=2):
+    if py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=10):
         py.sleep(0.5)
     py.click(captcha_fld_img_location)
 

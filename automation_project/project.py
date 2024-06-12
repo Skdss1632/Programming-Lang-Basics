@@ -58,7 +58,7 @@ def schedule_task_at_specific_time():
     view_cancellation_img_path = get_image_path("review_journey_image")
     py.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=60)
     py.scroll(-2.5)
-    py.sleep(0.1)
+    py.sleep(0.3)
     click_captcha_fld()
 
     payment_yellow_img_path = get_image_path("payment_yellow_image")
