@@ -44,7 +44,6 @@ def schedule_task_at_specific_time():
 
     passenger_detail_img_path = get_image_path("passenger_details_image")
     passenger_names = get_booking_details("passenger_names")
-    blue_tick = get_image_path("blue_tick_image")
     select_passenger_from_master_lst(passenger_name=passenger_names,
                                      passenger_details_img_path=passenger_detail_img_path)
 

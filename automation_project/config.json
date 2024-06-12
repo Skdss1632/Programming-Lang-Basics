@@ -8,13 +8,13 @@
     "destination_station": "spj",
     "travel_date": "13/06/2024",
     "passenger_names": [
-      "sourav kumar"
+      "sourav kumar", "mahesh ray"
     ],
     "is_general": true,
     "is_tatkal": false,
     "is_premium_tatkal": false,
-    "is_sleeper": true,
-    "is_ac_3_tier": false,
+    "is_sleeper": false,
+    "is_ac_3_tier": true,
     "is_ac_tier_3_economy": false,
     "is_ticket_waiting": true,
     "is_ticket_available": false
@@ -27,7 +27,7 @@
     "reset_filter_image": "reset_filter_txt.png",
     "train_name_image": "train_name_with_btn_1.png",
     "sleeper_btn_image": "sleeper_btn.png",
-    "ac_3_tier_btn_image": "tier_3_ac.png",
+    "ac_3_tier_btn_image": "ac_3_tier.png",
     "ac_3_economy_image": "ac_3_economy.png",
     "waiting_list_image": "waiting_list.png",
     "available_ticket_image": "available_ticket.png",

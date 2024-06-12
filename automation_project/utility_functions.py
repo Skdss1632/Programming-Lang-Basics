@@ -135,7 +135,7 @@ def select_ticket_type_from_dropdown():
 def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
     password_filled_img_path = get_image_path("password_filled_image")
     try:
-        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.90, minSearchTime=2)
+        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=2)
         # If password filled image is found, skip the rest of the code
     except py.ImageNotFoundException:
         try:
@@ -154,16 +154,21 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
         # Check if either image is found
         if small_sign_in_btn or large_sign_in_btn:
             for image, text in [(username_image_path, username), (password_image_path, password)]:
-                field_location = py.locateCenterOnScreen(image=image, confidence=0.85, minSearchTime=25)
+                field_location = py.locateCenterOnScreen(image=image, confidence=0.90, minSearchTime=25)
                 py.click(field_location)
-                py.hotkey("ctrl", "a")
-                py.press('backspace')
+                # py.hotkey("ctrl", "a")
+                # py.press('backspace')
                 py.write(text)
 
-    enter_captcha_fld_img = get_image_path("enter_captcha_fld_image")
-    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90,
-                                                             minSearchTime=60)
-    py.click(enter_captcha_fld_img_location)
+    captcha_fld_img = get_image_path("enter_captcha_fld_image")
+    captcha_fld_img_location = py.locateCenterOnScreen(image=captcha_fld_img, confidence=0.90,
+                                                  minSearchTime=60)
+    py.sleep(0.2)
+    py.moveTo(captcha_fld_img_location)
+    py.sleep(0.2)
+    if py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=2):
+        py.sleep(0.5)
+    py.click(captcha_fld_img_location)
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
@@ -237,7 +242,9 @@ def click_on_coach_on_selected_train():
         coach_type_img_path = get_image_path("ac_3_tier_btn_image")
     elif get_image_path("ac_3_economy_image"):
         coach_type_img_path = get_image_path("ac_3_economy_image")
+
     btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.95))
+    py.moveTo(btn_location[0])
     py.click(btn_location[0])
     print("total no of sleeper btn visible on ui", len(btn_location))
 
