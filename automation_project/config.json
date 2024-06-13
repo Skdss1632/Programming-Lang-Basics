@@ -4,9 +4,9 @@
     "password": "Sourav99#"
   },
   "booking_details": {
-    "source_station": "ndls",
-    "destination_station": "spj",
-    "travel_date": "13/08/2024",
+    "source_station": "ddu",
+    "destination_station": "brc",
+    "travel_date": "14/06/2024",
     "passenger_names": [
       "mritunjoy kumar"
     ],
@@ -16,8 +16,8 @@
     "is_sleeper": false,
     "is_ac_3_tier": true,
     "is_ac_tier_3_economy": false,
-    "is_ticket_waiting": false,
-    "is_ticket_available": true
+    "is_ticket_waiting": true,
+    "is_ticket_available": false
   },
   "image_paths": {
     "username_field_image": "username_fld.png",

@@ -37,19 +37,22 @@ def input_details():
 
 
 def schedule_task_at_specific_time():
+    # py.sleep(2)
     click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
 
-    dark_color_book_now_img_path = get_image_path("book_now_image")
-    click_book_now_inside_select_train(book_now_img_path=dark_color_book_now_img_path)
+    book_now_img_path = get_image_path("book_now_image")
+    scroll_until_element_visible_not_visible(book_now_img_path)
+    click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
 
     passenger_detail_img_path = get_image_path("passenger_details_image")
     passenger_names = get_booking_details("passenger_names")
+    py.sleep(0.3)
     select_passenger_from_master_lst(passenger_name=passenger_names,
                                      passenger_details_img_path=passenger_detail_img_path)
 
-    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal") or get_booking_details("is_general"):
+    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
         click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
 
     continue_btn_img_path = get_image_path("continue_button_image")
@@ -83,11 +86,11 @@ def schedule_task_at_specific_time():
 
 
 # Execute the input details function
-input_details()
+# input_details()
 schedule_task_at_specific_time()
 
 # Schedule the task to run at 07:25 AM every day
-# schedule.every().day.at("11:00:00").do(schedule_task_at_specific_time)
+# schedule.every().day.at("08:40:40").do(schedule_task_at_specific_time)
 #
 # while True:
 #     schedule.run_pending()

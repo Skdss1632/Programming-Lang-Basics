@@ -23,7 +23,8 @@ def open_url():
 
 
 def click_book_now_inside_select_train(book_now_img_path: str):
-    book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=5)
+    book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=60)
+    py.moveTo(book_now_location)
     py.click(book_now_location)
 
 
