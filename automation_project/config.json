@@ -6,18 +6,18 @@
   "booking_details": {
     "source_station": "ndls",
     "destination_station": "spj",
-    "travel_date": "14/06/2024",
+    "travel_date": "13/08/2024",
     "passenger_names": [
       "mritunjoy kumar"
     ],
     "is_general": true,
     "is_tatkal": false,
     "is_premium_tatkal": false,
-    "is_sleeper": true,
-    "is_ac_3_tier": false,
+    "is_sleeper": false,
+    "is_ac_3_tier": true,
     "is_ac_tier_3_economy": false,
-    "is_ticket_waiting": true,
-    "is_ticket_available": false
+    "is_ticket_waiting": false,
+    "is_ticket_available": true
   },
   "image_paths": {
     "username_field_image": "username_fld.png",

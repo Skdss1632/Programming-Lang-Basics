@@ -49,9 +49,8 @@ def schedule_task_at_specific_time():
     select_passenger_from_master_lst(passenger_name=passenger_names,
                                      passenger_details_img_path=passenger_detail_img_path)
 
-    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
-        txt_img_path = get_image_path("book_only_if_get_confirm_berth")
-        click_book_only_if_confirm_berth_alloted(txt_img_path)
+    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal") or get_booking_details("is_general"):
+        click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
 
     continue_btn_img_path = get_image_path("continue_button_image")
     scroll_until_element_visible_not_visible(img_path=continue_btn_img_path)
