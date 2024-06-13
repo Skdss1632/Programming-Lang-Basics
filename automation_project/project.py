@@ -37,7 +37,7 @@ def input_details():
 
 
 def schedule_task_at_specific_time():
-    py.sleep(2)
+    # py.sleep(2)
     click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
@@ -48,7 +48,6 @@ def schedule_task_at_specific_time():
 
     passenger_detail_img_path = get_image_path("passenger_details_image")
     passenger_names = get_booking_details("passenger_names")
-    py.sleep(1)
     select_passenger_from_master_lst(passenger_names=passenger_names,
                                      passenger_details_img_path=passenger_detail_img_path)
 
@@ -84,12 +83,15 @@ def schedule_task_at_specific_time():
     click_confirm_btn_inside_otp(img_path=confirm_btn_img_path, otp_fld_img_path=otp_fld_img_path)
 
 
-# Execute the input details function
 # input_details()
 schedule_task_at_specific_time()
 
+
 # Schedule the task to run at 07:25 AM every day
-# schedule.every().day.at("08:40:40").do(schedule_task_at_specific_time)
-#
+if get_booking_details("is_ac_3_tier"):
+    time = "10:00:00"
+else:
+    time = "11:00:00"
+# schedule.every().day.at(time).do(schedule_task_at_specific_time)
 # while True:
 #     schedule.run_pending()

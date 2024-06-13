@@ -42,7 +42,7 @@ def select_passenger_from_master_lst(passenger_names: list, passenger_details_im
     py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=60)
     try:
         py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                                              confidence=0.90, minSearchTime=5)
+                                                              confidence=0.90, minSearchTime=2)
 
     except py.ImageNotFoundException:
         cross_location = py.locateCenterOnScreen(image=get_image_path("cross_image"), confidence=0.90, minSearchTime=60)
@@ -56,9 +56,9 @@ def select_passenger_from_master_lst(passenger_names: list, passenger_details_im
                                                               confidence=0.90, minSearchTime=60)
         py.click(passenger_name_input_fld_location)
         py.write(name)
-        py.sleep(0.5)
+        py.sleep(1)
         py.press("down")
-        py.sleep(0.1)
+        py.sleep(0.5)
         py.press("enter")
         if name != passenger_names[-1]:
             add_passenger_location = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.80,
