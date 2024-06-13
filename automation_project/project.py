@@ -32,7 +32,7 @@ def input_details():
 
     train_name_img_path = get_image_path("train_name_image")
     scroll_until_element_visible_not_visible(img_path=train_name_img_path)
-    py.sleep(0.1)
+    py.sleep(0.2)
     # py.sleep(8)
 
 
@@ -65,11 +65,17 @@ def schedule_task_at_specific_time():
 
     payment_yellow_img_path = get_image_path("payment_yellow_image")
     py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=60)
+    py.sleep(1)
 
     irctc_e_wallet_img_path = get_image_path("irctc_e_wallet_image")
     click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
 
-    pay_n_book_img_path = get_image_path("pay_n_book_img_image")
+    # verify irctc e wallet btn is clicked
+    an_amt_of_10_applicable_txt_image = get_image_path("an_amt_of_10_applicable_txt_image")
+    py.locateCenterOnScreen(image=an_amt_of_10_applicable_txt_image, confidence=0.90, minSearchTime=60)
+
+    pay_n_book_img_path = get_image_path("pay_n_book_image")
+    scroll_until_element_visible_not_visible(pay_n_book_img_path)
     click_pay_n_book(img_path=pay_n_book_img_path)
 
     confirm_btn_img_path = get_image_path("confirm_btn_image")
@@ -82,7 +88,7 @@ input_details()
 schedule_task_at_specific_time()
 
 # Schedule the task to run at 07:25 AM every day
-# schedule.every().day.at("07:18:00").do(schedule_task_at_specific_time)
+# schedule.every().day.at("11:00:00").do(schedule_task_at_specific_time)
 #
 # while True:
 #     schedule.run_pending()

@@ -6,15 +6,15 @@
   "booking_details": {
     "source_station": "ndls",
     "destination_station": "spj",
-    "travel_date": "13/06/2024",
+    "travel_date": "14/06/2024",
     "passenger_names": [
-      "sourav kumar", "mahesh ray"
+      "mritunjoy kumar"
     ],
     "is_general": true,
     "is_tatkal": false,
     "is_premium_tatkal": false,
-    "is_sleeper": false,
-    "is_ac_3_tier": true,
+    "is_sleeper": true,
+    "is_ac_3_tier": false,
     "is_ac_tier_3_economy": false,
     "is_ticket_waiting": true,
     "is_ticket_available": false
@@ -25,7 +25,7 @@
     "premium_tatkal_image": "premium_tatkal.png",
     "tatkal_image": "tatkal.png",
     "reset_filter_image": "reset_filter_txt.png",
-    "train_name_image": "train_name_with_btn_1.png",
+    "train_name_image": "train_name_with_btn_2.png",
     "sleeper_btn_image": "sleeper_btn.png",
     "ac_3_tier_btn_image": "ac_3_tier.png",
     "ac_3_economy_image": "ac_3_economy.png",
@@ -38,7 +38,7 @@
     "review_journey_image": "review_journey_yellow_img.png",
     "payment_yellow_image": "payment_yellow_img.png",
     "irctc_ewallet_image": "irctc_ewallet.png",
-    "pay_n_book_img_image": "pay_n_book.png",
+    "pay_n_book_image": "pay_n_book.png",
     "confirm_btn_image": "confirm_btn.png",
     "otp_image": "otp_fld.png",
     "enter_captcha_fld_image": "enter_captcha_fld.png",
@@ -60,6 +60,7 @@
     "source_station_image": "source_station.png",
     "blue_color_in_dropdwn_image": "blue_color_in_dropdwn.png",
     "destination_image": "destination_img.png",
-    "login_btn_image": "login_btn.png"
+    "login_btn_image": "login_btn.png",
+    "an_amt_of_10_applicable_txt_image": "an_amt_of_10_applicable_txt.png"
   }
 }

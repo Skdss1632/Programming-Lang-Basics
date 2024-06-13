@@ -86,6 +86,7 @@ def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: 
 
 def click_irctc_e_wallet(img_path: str):
     wallet_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=60)
+    py.moveTo(wallet_location)
     py.click(wallet_location)
 
 
@@ -220,12 +221,12 @@ def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
 def scroll_until_element_visible_not_visible(img_path: str):
     i = -1
     while True:
-        i -= 1
         py.scroll(i)
         try:
-            if py.locateCenterOnScreen(image=img_path, confidence=0.80) is not None:
+            if py.locateCenterOnScreen(image=img_path, confidence=0.90) is not None:
                 return True
         except py.ImageNotFoundException:
+            i -= 5
             # Image not found, continue loop
             pass
 
