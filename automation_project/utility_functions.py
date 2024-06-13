@@ -24,7 +24,6 @@ def open_url():
 
 def click_book_now_inside_select_train(book_now_img_path: str):
     book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=60)
-    py.moveTo(book_now_location)
     py.click(book_now_location)
 
 
@@ -39,10 +38,11 @@ def click_on_wl_or_avalible_btn():
     py.click(wl_or_available_location)
 
 
-def select_passenger_from_master_lst(passenger_name: list, passenger_details_img_path: str):
+def select_passenger_from_master_lst(passenger_names: list, passenger_details_img_path: str):
     py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=60)
     try:
-        py.locateCenterOnScreen(image=get_image_path("india_text_image"), confidence=0.90, minSearchTime=0.001)
+        py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                                                              confidence=0.90, minSearchTime=5)
 
     except py.ImageNotFoundException:
         cross_location = py.locateCenterOnScreen(image=get_image_path("cross_image"), confidence=0.90, minSearchTime=60)
@@ -51,17 +51,16 @@ def select_passenger_from_master_lst(passenger_name: list, passenger_details_img
                                                          minSearchTime=60)
         py.click(add_passenger_location)
 
-    for name in passenger_name:
+    for name in passenger_names:
         passenger_name_input_fld_location = py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
                                                               confidence=0.90, minSearchTime=60)
-
         py.click(passenger_name_input_fld_location)
         py.write(name)
         py.sleep(0.5)
         py.press("down")
         py.sleep(0.1)
         py.press("enter")
-        if name != passenger_name[-1]:
+        if name != passenger_names[-1]:
             add_passenger_location = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.80,
                                                        minSearchTime=60)
             py.click(add_passenger_location)

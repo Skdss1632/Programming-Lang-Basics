@@ -37,7 +37,7 @@ def input_details():
 
 
 def schedule_task_at_specific_time():
-    # py.sleep(2)
+    py.sleep(2)
     click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
@@ -48,8 +48,8 @@ def schedule_task_at_specific_time():
 
     passenger_detail_img_path = get_image_path("passenger_details_image")
     passenger_names = get_booking_details("passenger_names")
-    py.sleep(0.3)
-    select_passenger_from_master_lst(passenger_name=passenger_names,
+    py.sleep(1)
+    select_passenger_from_master_lst(passenger_names=passenger_names,
                                      passenger_details_img_path=passenger_detail_img_path)
 
     if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
@@ -67,7 +67,6 @@ def schedule_task_at_specific_time():
 
     payment_yellow_img_path = get_image_path("payment_yellow_image")
     py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=60)
-    py.sleep(1)
 
     irctc_e_wallet_img_path = get_image_path("irctc_e_wallet_image")
     click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
