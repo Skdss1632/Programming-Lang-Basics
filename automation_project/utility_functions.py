@@ -219,8 +219,12 @@ def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
 
 
 def scroll_until_element_visible_not_visible(img_path: str):
+    if get_image_path("train_name_image"):
+        i = -1
+    else:
+        i = -3
     while True:
-        py.scroll(-3)
+        py.scroll(i)
         # py.scroll(-1)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.90) is not None:

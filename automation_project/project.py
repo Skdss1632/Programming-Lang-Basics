@@ -83,7 +83,7 @@ def schedule_task_at_specific_time():
     click_confirm_btn_inside_otp(img_path=confirm_btn_img_path, otp_fld_img_path=otp_fld_img_path)
 
 
-# input_details()
+input_details()
 schedule_task_at_specific_time()
 
 
@@ -92,6 +92,6 @@ if get_booking_details("is_ac_3_tier"):
     time = "10:00:00"
 else:
     time = "11:00:00"
-# schedule.every().day.at(time).do(schedule_task_at_specific_time)
-# while True:
-#     schedule.run_pending()
+schedule.every().day.at(time).do(schedule_task_at_specific_time)
+while True:
+    schedule.run_pending()
