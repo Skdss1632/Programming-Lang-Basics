@@ -56,24 +56,27 @@ def schedule_task_at_specific_time():
 
     continue_btn_img_path = get_image_path("continue_button_image")
     scroll_until_element_visible_not_visible(img_path=continue_btn_img_path, train_name_img_path="")
+    if get_booking_details("is_payment_with_upi"):
+        click_pay_with_upi()
+
+    # click continue btn inside passenger details
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
 
-    view_cancellation_img_path = get_image_path("review_journey_image")
-    py.locateCenterOnScreen(image=view_cancellation_img_path, confidence=0.90, minSearchTime=60)
-    py.scroll(-2.5)
+    # click continue btn inside review journey or captcha fld
+    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=60)
+    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path, train_name_img_path="")
     py.sleep(0.3)
     click_captcha_fld()
 
-    payment_yellow_img_path = get_image_path("payment_yellow_image")
-    py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=60)
-
+    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=60)
     py.sleep(1)
-    irctc_e_wallet_img_path = get_image_path("irctc_e_wallet_image")
-    click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
 
-    # verify irctc e wallet btn is clicked
-    an_amt_of_10_applicable_txt_image = get_image_path("an_amt_of_10_applicable_txt_image")
-    py.locateCenterOnScreen(image=an_amt_of_10_applicable_txt_image, confidence=0.90, minSearchTime=60)
+    if get_booking_details("is_payment_with_upi"):
+        click_bhim_upi_ssd()
+        click_pay_using_bhim_paytm_txt()
+    else:
+        click_irctc_e_wallet(img_path=get_image_path("irctc_e_wallet_image"))
+        is_irctc_wallet_clicked()
 
     pay_n_book_img_path = get_image_path("pay_n_book_image")
     scroll_until_element_visible_not_visible(pay_n_book_img_path, train_name_img_path="")

@@ -8,7 +8,7 @@
     "destination_station": "spj",
     "travel_date": "14/06/2024",
     "passenger_names": [
-      "mritunjoy kumar"
+      "mritunjoy kumar", "sourav kumar", "sadhana devi", "mahesh ray"
     ],
     "is_general": true,
     "is_tatkal": false,
@@ -18,7 +18,8 @@
     "is_ac_tier_3_economy": false,
     "is_ticket_available": false,
     "is_ticket_waiting": true,
-    "is_read_and_write_otp_from_mail": true
+    "is_read_and_write_otp_from_mail": true,
+    "is_payment_with_upi": true
   },
   "image_paths": {
     "username_field_image": "username_fld.png",
@@ -65,6 +66,9 @@
     "an_amt_of_10_applicable_txt_image": "an_amt_of_10_applicable_txt.png",
     "otp_txt_in_mail_image":"otp_txt_in_mail.png",
     "your_one_tym_otp_txt_image": "your_one_tym_otp_txt.png",
-    "delete_icon_of_mail_image": "delete_icon_of_mail.png"
+    "delete_icon_of_mail_image": "delete_icon_of_mail.png",
+    "pay_with_upi_checkbox_image": "pay_with_upi_checkbox.png",
+    "bhim_upi_txt_image": "bhim_upi_txt.png",
+    "pay_using_bhim_paytm_txt_image": "pay_using_bhim_paytm_txt.png"
   }
 }

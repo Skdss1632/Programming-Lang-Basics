@@ -67,6 +67,10 @@ def select_passenger_from_master_lst(passenger_names: list, passenger_details_im
             py.click(add_passenger_location)
 
 
+def input_passenger_names():
+    pass
+
+
 def click_book_only_if_confirm_berth_alloted(img_path: str):
     scroll_until_element_visible_not_visible(img_path=img_path)
     txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
@@ -294,6 +298,51 @@ def read_and_write_otp_from_mail():
     for string in otp:
         py.write(string)
     print(otp)
+
+
+def read_and_fill_otp():
+   # Path to Tesseract executable (you may need to change this based on your system)
+    pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
+
+    def solve_captcha(image_path):
+        # Open the captcha image
+        with Image.open(image_path) as img:
+            # Convert the image to grayscale for better OCR accuracy
+            img = img.convert('L')
+
+            # Use pytesseract to perform OCR on the image
+            captcha_text = pytesseract.image_to_string(img)
+
+            return captcha_text.strip()
+
+    # Example usage:
+    captcha_text = solve_captcha('captcha.png')
+    print("Captcha Text:", captcha_text)
+
+
+def click_pay_with_upi():
+    payment_with_upi_loc = py.locateCenterOnScreen(image=get_image_path("pay_with_upi_checkbox_image"), confidence=0.90,
+                                                    minSearchTime=25)
+    py.moveTo(payment_with_upi_loc)
+    py.click(payment_with_upi_loc)
+
+
+def click_bhim_upi_ssd():
+    click_bhim_upi_ssd_loc = py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
+                                                   minSearchTime=25)
+    py.moveTo(click_bhim_upi_ssd_loc)
+    py.click(click_bhim_upi_ssd_loc)
+
+
+def is_irctc_wallet_clicked():
+    # verify irctc e wallet btn is clicked
+    py.locateCenterOnScreen(image=get_image_path("an_amt_of_10_applicable_txt_image"), confidence=0.90, minSearchTime=60)
+
+
+def click_pay_using_bhim_paytm_txt():
+    pay_using_bhim_paytm_loc = py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"), confidence=0.90, minSearchTime=60)
+    py.moveTo(pay_using_bhim_paytm_loc)
+    py.click(pay_using_bhim_paytm_loc)
 
 
 
