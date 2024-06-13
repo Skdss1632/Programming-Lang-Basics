@@ -17,7 +17,8 @@
     "is_ac_3_tier": false,
     "is_ac_tier_3_economy": false,
     "is_ticket_available": false,
-    "is_ticket_waiting": true
+    "is_ticket_waiting": true,
+    "is_read_and_write_otp_from_mail": true
   },
   "image_paths": {
     "username_field_image": "username_fld.png",
@@ -61,6 +62,9 @@
     "blue_color_in_dropdwn_image": "blue_color_in_dropdwn.png",
     "destination_image": "destination_img.png",
     "login_btn_image": "login_btn.png",
-    "an_amt_of_10_applicable_txt_image": "an_amt_of_10_applicable_txt.png"
+    "an_amt_of_10_applicable_txt_image": "an_amt_of_10_applicable_txt.png",
+    "otp_txt_in_mail_image":"otp_txt_in_mail.png",
+    "your_one_tym_otp_txt_image": "your_one_tym_otp_txt.png",
+    "delete_icon_of_mail_image": "delete_icon_of_mail.png"
   }
 }

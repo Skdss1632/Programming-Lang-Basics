@@ -37,13 +37,13 @@ def input_details():
 
 
 def schedule_task_at_specific_time():
-    # py.sleep(2)
+    py.sleep(2)
     click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
 
     book_now_img_path = get_image_path("book_now_image")
-    scroll_until_element_visible_not_visible(book_now_img_path)
+    scroll_until_element_visible_not_visible(book_now_img_path, train_name_img_path="")
     click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
 
     passenger_detail_img_path = get_image_path("passenger_details_image")
@@ -55,7 +55,7 @@ def schedule_task_at_specific_time():
         click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
 
     continue_btn_img_path = get_image_path("continue_button_image")
-    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path)
+    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path, train_name_img_path="")
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
 
     view_cancellation_img_path = get_image_path("review_journey_image")
@@ -67,6 +67,7 @@ def schedule_task_at_specific_time():
     payment_yellow_img_path = get_image_path("payment_yellow_image")
     py.locateCenterOnScreen(image=payment_yellow_img_path, confidence=0.90, minSearchTime=60)
 
+    py.sleep(1)
     irctc_e_wallet_img_path = get_image_path("irctc_e_wallet_image")
     click_irctc_e_wallet(img_path=irctc_e_wallet_img_path)
 
@@ -75,15 +76,17 @@ def schedule_task_at_specific_time():
     py.locateCenterOnScreen(image=an_amt_of_10_applicable_txt_image, confidence=0.90, minSearchTime=60)
 
     pay_n_book_img_path = get_image_path("pay_n_book_image")
-    scroll_until_element_visible_not_visible(pay_n_book_img_path)
+    scroll_until_element_visible_not_visible(pay_n_book_img_path, train_name_img_path="")
     click_pay_n_book(img_path=pay_n_book_img_path)
 
-    confirm_btn_img_path = get_image_path("confirm_btn_image")
-    otp_fld_img_path = get_image_path("otp_fld_image")
-    click_confirm_btn_inside_otp(img_path=confirm_btn_img_path, otp_fld_img_path=otp_fld_img_path)
+    click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"), no_of_clicks=1)
+    if get_booking_details("is_read_and_write_otp_from_mail"):
+        read_and_write_otp_from_mail()
+
+    click_confirm_btn_inside_otp(confirm_btn_img_path=get_image_path("confirm_btn_image"))
 
 
-input_details()
+# input_details()
 schedule_task_at_specific_time()
 
 

@@ -5,6 +5,7 @@ from PIL import Image
 import schedule
 import time
 import datetime
+import pyperclip
 
 parent_img_path = "/home/intern/Documents/gitlearning//Programming_Lang_Basics/automation_project/irctc_images/"
 # Load configuration from JSON file
@@ -211,15 +212,19 @@ def click_pay_n_book(img_path: str):
     py.click(pay_n_book_location)
 
 
-def click_confirm_btn_inside_otp(img_path: str, otp_fld_img_path: str):
-    otp_fld_location = py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=60)
-    py.click(otp_fld_location)
-    # btn_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=10)
+def click_confirm_btn_inside_otp(confirm_btn_img_path: str):
+    pass
+    # btn_location = py.locateCenterOnScreen(image=confirm_btn_img_path, confidence=0.80, minSearchTime=10)
     # py.click(btn_location)
 
 
-def scroll_until_element_visible_not_visible(img_path: str):
-    if get_image_path("train_name_image"):
+def click_otp_fld(otp_fld_img_path: str, no_of_clicks: int):
+    otp_fld_location = py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=60)
+    py.click(otp_fld_location, clicks=no_of_clicks)
+
+
+def scroll_until_element_visible_not_visible(img_path: str, train_name_img_path: str):
+    if train_name_img_path:
         i = -1
     else:
         i = -3
@@ -268,3 +273,27 @@ def click_captcha_fld():
                                                              minSearchTime=25)
     py.moveTo(enter_captcha_fld_img_location)
     py.click(enter_captcha_fld_img_location)
+
+
+def read_and_write_otp_from_mail():
+    py.hotkey("ctrl", "tab")
+    otp_txt_in_mail_image = py.locateCenterOnScreen(image=get_image_path("otp_txt_in_mail_image"), confidence=0.90, minSearchTime=25)
+    py.click(otp_txt_in_mail_image)
+    py.locateCenterOnScreen(image=get_image_path("your_one_tym_otp_txt_image"), confidence=0.90,
+                                                    minSearchTime=25)
+    py.moveTo(707, 472)
+    py.click(707, 472, clicks=2)
+    py.hotkey("ctrl", "c")
+    # delete the otp mail after copying it
+    delete_location = py.locateCenterOnScreen(image=get_image_path("delete_icon_of_mail_image"), confidence=0.90,
+                            minSearchTime=25)
+    py.moveTo(delete_location)
+    py.click(delete_location)
+    py.hotkey("ctrl", "tab")
+    otp = pyperclip.paste()
+    for string in otp:
+        py.write(string)
+    print(otp)
+
+
+
