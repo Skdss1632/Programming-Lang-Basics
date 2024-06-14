@@ -4,45 +4,33 @@
     "password": "Sourav99#"
   },
   "booking_details": {
-    "source_station": "ndls",
-    "destination_station": "spj",
-    "travel_date": "14/06/2024",
+    "source_station": "umb",
+    "destination_station": "bju",
+    "travel_date": "15/06/2024",
     "is_general": true,
     "is_tatkal": false,
     "is_premium_tatkal": false,
-    "is_sleeper": true,
-    "is_ac_3_tier": false,
+    "is_sleeper": false,
+    "is_ac_3_tier": true,
     "is_ac_tier_3_economy": false,
     "is_ticket_available": false,
     "is_ticket_waiting": true,
     "is_read_and_write_otp_from_mail": true,
-    "is_payment_with_upi": false,
+    "is_payment_with_upi": true,
+    "no_of_passenger_for_booking": 3,
+    "passenger_phn_no": "",
     "passenger_details": [
       {
-        "NAME": "sourav kumar ",
-        "AGE": 23,
+        "NAME": "sourav kumar",
+        "AGE": 19,
         "GENDER": "Male",
         "SEAT": "",
         "FOOD": ""
       },
       {
-        "NAME": "",
-        "AGE": null,
-        "GENDER": "",
-        "SEAT": "",
-        "FOOD": ""
-      },
-      {
-        "NAME": "",
-        "AGE": null,
-        "GENDER": "",
-        "SEAT": "",
-        "FOOD": ""
-      },
-      {
-        "NAME": "",
-        "AGE": null,
-        "GENDER": "",
+        "NAME": "nishant kr",
+        "AGE": 17,
+        "GENDER": "Female",
         "SEAT": "",
         "FOOD": ""
       }
@@ -54,7 +42,7 @@
     "premium_tatkal_image": "premium_tatkal.png",
     "tatkal_image": "tatkal.png",
     "reset_filter_image": "reset_filter_txt.png",
-    "train_name_image": "train_name_with_btn_2.png",
+    "train_name_image": "train_name_1.png",
     "sleeper_btn_image": "sleeper_btn_image.png",
     "ac_3_tier_btn_image": "ac_3_tier.png",
     "ac_3_economy_image": "ac_3_economy.png",
@@ -80,10 +68,9 @@
     "large_sign_in_btn": "large_sign_in_btn.png",
     "small_sign_in_btn": "small_sign_in_btn.png",
     "passenger_name_input_fld_image": "passenger_name_input_fld.png",
-    "add_passenger_image": "add_passenger.png",
     "cross_image": "cross.png",
     "india_text_image": "india.png",
-    "pay_through_bhim_upi_image": "1.png",
+    "pay_through_bhim_upi_image": "pay_through_bhim_upi_image.png",
     "book_only_if_get_confirm_berth": "book_only_if_get_confirm_berth.png",
     "search_btn_image": "search_btn.png",
     "source_station_image": "source_station.png",
@@ -101,6 +88,8 @@
     "gender_fld_image": "gender_fld.png",
     "gender_dropdown_image": "gender_dropdown.png",
     "clicked_age_fld_image": "clicked_age_fld.png",
-    "connected_us_on_social_media_image": "connected_us_on_scial_media.png"
+    "connected_us_on_social_media_image": "connected_us_on_social_media.png",
+    "catering_option_image": "catering_option.png",
+    "paytm_upi_txt_correct_sign_image": "paytm_upi_txt_correct_sign"
   }
 }
