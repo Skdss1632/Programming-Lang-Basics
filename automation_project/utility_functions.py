@@ -40,64 +40,44 @@ def click_on_wl_or_avalible_btn():
     py.click(wl_or_available_location)
 
 
-def input_passenger_names():
-    # max wait time while tatkal
-    passenger_name_input_fld_loc = py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                                           confidence=0.90, minSearchTime=120)
-    py.click(passenger_name_input_fld_loc)
+def input_passenger_names(no_of_passenger_for_booking: int):
+#     catering_loc = ""
+#     try:
+#         # select no food if catering option avl
+#         py.locateCenterOnScreen(image=get_image_path("catering_option_image"), confidence=0.90)
+#         py.press("tab", presses=5)
+#         py.press("right", presses=3)
+#
+#     except py.ImageNotFoundException:
+#         print("No catering option")
+
+    py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                            confidence=0.90, minSearchTime=120)
     passenger_details = get_passenger_details()
+    i = 0
     for passenger in passenger_details:
         passenger_name = passenger.get("NAME")
-        if passenger_name == "":
-            break
+        py.write(passenger_name)
+        py.press("tab")
+        py.write(str(passenger.get("AGE")))
+        py.press("tab")
+        if passenger.get("GENDER") == "Female":
+            py.press('right', presses=2)
         else:
-            age_fld_loc = list(py.locateAllOnScreen(image=get_image_path("age_fld_image"),
-                                                    confidence=0.90))
-            gender_fld_loc = list(py.locateAllOnScreen(image=get_image_path("gender_fld_image"),
-                                                       confidence=0.90))
-            # write name
-            py.write(passenger_name)
-            # write age
-            py.click(age_fld_loc[0])
-            py.locateCenterOnScreen(image=get_image_path("clicked_age_fld_image"),
-                                    confidence=0.85, minSearchTime=20)
-            py.write(str(passenger.get("AGE")))
+            py.press('right')
 
-            # select gender
-            py.click(gender_fld_loc[0])
-            py.locateCenterOnScreen(image=get_image_path("gender_dropdown_image"),
-                                    confidence=0.90, minSearchTime=20)
-            if passenger.get("GENDER") == "Male":
-                no_of_press_down = 1
-            else:
-                no_of_press_down = 2
-            py.press("down", presses=no_of_press_down)
+        if passenger_name != "nishant kr":
+            py.press("tab", presses=3)
             py.press("enter")
-
-            if passenger.get("NAME") != "nidhi kumari":
-                scroll_until_element_visible_not_visible(img_path=get_image_path("add_passenger_image"),
-                                                         no_of_scrolls=-1)
-                py.sleep(0.5)
-                add_passenger_loc = py.locateCenterOnScreen(image=get_image_path("add_passenger_image"),
-                                                            confidence=0.80,
-                                                            minSearchTime=20)
-                py.moveTo(add_passenger_loc)
-                py.click(add_passenger_loc)
-                # validating after clicking on add pass, pass name input fld appear or not
-                py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                        confidence=0.90, minSearchTime=20)
+            # there is delay in appearing passenger detail input fld after clicking on add pass detail so verify the img first then perform action
+            py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                                    confidence=0.90, minSearchTime=120)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
     scroll_until_element_visible_not_visible(img_path=img_path, no_of_scrolls=-2)
     txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     py.click(txt_location)
-
-
-def click_continue_btn_inside_passenger_details(continue_btn_img_path: str):
-    btn_location = py.locateCenterOnScreen(image=continue_btn_img_path, confidence=0.90, minSearchTime=60)
-    py.moveTo(btn_location)
-    py.click(btn_location)
 
 
 def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: str):
@@ -117,13 +97,6 @@ def click_search_btn():
     sign_in_btn = py.locateCenterOnScreen(image=get_image_path("search_btn_image"), confidence=0.90,
                                           minSearchTime=60)
     py.click(sign_in_btn)
-
-
-def input_travel_date(tatkal_book_date: str):
-    py.click(x=764, y=426)
-    clear_input_fld()
-    py.write(tatkal_book_date)
-    py.press("enter")
 
 
 def clear_input_fld():
@@ -156,63 +129,101 @@ def select_ticket_type_from_dropdown():
         py.click(ticket_type_location)
 
 
-def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
-    password_filled_img_path = get_image_path("password_filled_image")
-    try:
-        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=5)
-        # If password filled image is found, skip the rest of the code
-    except py.ImageNotFoundException:
-        try:
-            # Try locating the images on the screen
-            large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
-                                                        minSearchTime=5)
-        except py.ImageNotFoundException:
-            large_sign_in_btn = None
+# def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
+#     password_filled_img_path = get_image_path("password_filled_image")
+#     try:
+#         py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=5)
+#         # If password filled image is found, skip the rest of the code
+#     except py.ImageNotFoundException:
+#         try:
+#             # Try locating the images on the screen
+#             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
+#                                                         minSearchTime=5)
+#         except py.ImageNotFoundException:
+#             large_sign_in_btn = None
+#
+#         try:
+#             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
+#                                                         minSearchTime=5)
+#         except py.ImageNotFoundException:
+#             small_sign_in_btn = None
+#
+#         # Check if either image is found
+#         if small_sign_in_btn or large_sign_in_btn:
+#             for image, text in [(username_image_path, username), (password_image_path, password)]:
+#                 field_location = py.locateCenterOnScreen(image=image, confidence=0.85, minSearchTime=25)
+#                 py.click(field_location)
+#                 # py.hotkey("ctrl", "a")
+#                 # py.press('backspace')
+#                 py.write(text)
+#         # go inside captcha fld
+#         py.press("tab", presses=2)
 
-        try:
-            small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
-                                                        minSearchTime=5)
-        except py.ImageNotFoundException:
-            small_sign_in_btn = None
 
-        # Check if either image is found
-        if small_sign_in_btn or large_sign_in_btn:
-            for image, text in [(username_image_path, username), (password_image_path, password)]:
-                field_location = py.locateCenterOnScreen(image=image, confidence=0.85, minSearchTime=25)
-                py.click(field_location)
-                # py.hotkey("ctrl", "a")
-                # py.press('backspace')
-                py.write(text)
-
-    captcha_fld_img = get_image_path("enter_captcha_fld_image")
-    captcha_fld_img_location = py.locateCenterOnScreen(image=captcha_fld_img, confidence=0.90,
-                                                       minSearchTime=60)
-
-    py.moveTo(captcha_fld_img_location)
-    py.click(captcha_fld_img_location)
+# def input_irctc_account(username: str, password: str):
+#     password_filled_img_path = get_image_path("password_filled_image")
+#     try:
+#         py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=5)
+#         # If password filled image is found, skip the rest of the code
+#     except py.ImageNotFoundException:
+#         try:
+#             # Try locating the images on the screen
+#             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
+#                                                         minSearchTime=5)
+#         except py.ImageNotFoundException:
+#             large_sign_in_btn = None
+#
+#         try:
+#             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
+#                                                         minSearchTime=5)
+#         except py.ImageNotFoundException:
+#             small_sign_in_btn = None
+#
+#         # Check if either image is found
+#         if small_sign_in_btn or large_sign_in_btn:
+#             py.sleep(1)
+#             py.hotkey("ctrl", "a")
+#             py.press('backspace')
+#             py.write(username)
+#             py.press('tab')
+#             py.write(password)
+#             # go inside captcha fld
+#             py.press("tab", presses=2)
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
-    from_location = py.locateCenterOnScreen(image=get_image_path("source_station_image"), confidence=0.90,
+    # go inside source station input fld
+    source_loc = py.locateCenterOnScreen(image=get_image_path("source_station_image"), confidence=0.90,
                                             minSearchTime=60)
-    py.click(from_location)
-    py.write(source_station)
-    blue_location = py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.90,
-                                            minSearchTime=60)
-    py.moveTo(blue_location)
-    py.click(blue_location)
+    py.moveTo(source_loc)
+    py.click(source_loc)
+    py.write(source_station, interval=0.1)
+    py.sleep(1)
+    py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85,
+                                            minSearchTime=10)
+    py.press("enter")
 
-    destination_location = py.locateCenterOnScreen(image=get_image_path("destination_image"),
-                                                   confidence=0.90,
-                                                   minSearchTime=60)
-    py.click(destination_location)
-    py.write(destination)
+    # go inside destination input fld
+    py.press("tab", presses=2)
+    py.write(destination, interval=0.1)
+    py.sleep(1)
+    py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85, minSearchTime=10)
     py.sleep(0.5)
-    blue_location = py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.90,
-                                            minSearchTime=60)
-    py.moveTo(blue_location)
-    py.sleep(0.5)
-    py.click(blue_location)
+    py.press("enter")
+
+    # enter travel date
+    py.press("tab", presses=1)
+    py.write(get_booking_details("travel_date"))
+    py.press("enter")
+
+
+
+    # # go to general dropdwn
+    # py.press("tab", presses=2)
+    # if get_booking_details("is_tatkal"):
+    #     py.press("up", presses=2)
+    # if get_booking_details("is_premium_tatkal"):
+    #     py.press("up")
 
 
 def open_chrome_browser_with_irctc_page():
@@ -229,10 +240,9 @@ def click_login_btn():
     py.click(login_btn_location)
 
 
-def click_pay_n_book(img_path: str):
-    pay_n_book_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
-    py.moveTo(pay_n_book_location)
-    py.click(pay_n_book_location)
+def click_pay_n_book(no_of_press: int):
+    py.press("tab", presses=no_of_press)
+    py.press("enter")
 
 
 def click_confirm_btn_inside_otp(confirm_btn_img_path: str):
@@ -241,11 +251,10 @@ def click_confirm_btn_inside_otp(confirm_btn_img_path: str):
     # py.click(btn_location)
 
 
-def click_otp_fld(otp_fld_img_path: str, no_of_clicks: int):
+def click_otp_fld(otp_fld_img_path: str):
     # max wait time while tatkal
-    otp_fld_location = py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=120)
-    py.moveTo(otp_fld_location)
-    py.click(otp_fld_location, clicks=no_of_clicks)
+    py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=120)
+    py.press("tab")
 
 
 def scroll_until_element_visible_not_visible(img_path: str, no_of_scrolls=-3):
@@ -269,7 +278,7 @@ def click_on_coach_on_selected_train():
     elif get_image_path("ac_3_economy_image"):
         coach_type_img_path = get_image_path("ac_3_economy_image")
 
-    btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.88))
+    btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.95))
     print(btn_location)
     py.moveTo(btn_location[0])
     py.click(btn_location[0])
@@ -289,10 +298,7 @@ def get_credentials(credentials_key: str):
 
 
 def click_captcha_fld():
-    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=get_image_path("enter_captcha_fld_image"), confidence=0.90,
-                                                             minSearchTime=25)
-    py.moveTo(enter_captcha_fld_img_location)
-    py.click(enter_captcha_fld_img_location)
+    py.press("tab", presses=7)
 
 
 def read_and_write_otp_from_mail():
@@ -358,11 +364,30 @@ def is_irctc_wallet_clicked():
 
 
 def click_pay_using_bhim_paytm_txt():
-    pay_using_bhim_paytm_loc = py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"),
+    py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"),
                                                        confidence=0.90, minSearchTime=60)
-    py.moveTo(pay_using_bhim_paytm_loc)
-    py.click(pay_using_bhim_paytm_loc)
+    py.press("tab", presses=2)
+    py.click("enter")
+    py.locateCenterOnScreen(image=get_image_path("paytm_upi_txt_correct_sign_image"),
+                            confidence=0.90, minSearchTime=15)
 
 
 def get_passenger_details():
     return config["booking_details"]["passenger_details"]
+
+
+def click_continue_btn_inside_pass_details():
+    if get_booking_details("is_payment_with_upi"):
+        no_of_press = 2
+    elif get_booking_details("passenger_phn_no") != "":
+        no_of_press = 7
+    else:
+        no_of_press = 9
+    py.press("tab", presses=no_of_press)
+    py.press("enter")
+
+
+def input_passenger_phn_no():
+    if get_booking_details("passenger_phn_no") != "":
+        py.press("tab", presses=6)
+        py.write(get_booking_details("passenger_phn_no"))

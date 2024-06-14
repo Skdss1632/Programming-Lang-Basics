@@ -7,24 +7,15 @@ def input_details():
     open_chrome_browser_with_irctc_page()
     click_login_btn()
     py.sleep(3)
-    # # validate login popup open or not
-    # otp_fld_location = py.locateCenterOnScreen(image=, confidence=0.80, minSearchTime=10)
-
-    username_field_image = get_image_path("username_field_image")
-    password_field_image = get_image_path("password_field_image")
     username = get_credentials("username")
     password = get_credentials("password")
-    input_irctc_account(username=username, password=password, username_image_path=username_field_image,
-                        password_image_path=password_field_image)
+    # input_irctc_account(username=username, password=password)
 
     source_station = get_booking_details("source_station")
     destination_station = get_booking_details("destination_station")
     input_source_n_destination_station(source_station=source_station, destination=destination_station)
 
-    select_ticket_type_from_dropdown()
-
-    tatkal_book_date = get_booking_details("travel_date")
-    input_travel_date(tatkal_book_date=tatkal_book_date)
+    # select_ticket_type_from_dropdown()
 
     reset_filter_txt_img_path = get_image_path("reset_filter_image")
     py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=60)
@@ -38,32 +29,31 @@ def input_details():
 
 def schedule_task_at_specific_time():
     py.sleep(2)
-    click_on_coach_on_selected_train()
+    # click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
+    scroll_until_element_visible_not_visible(img_path=get_image_path("book_now_image"), no_of_scrolls=-1)
+    click_book_now_inside_select_train(book_now_img_path=get_image_path("book_now_image"))
 
-    book_now_img_path = get_image_path("book_now_image")
-    scroll_until_element_visible_not_visible(book_now_img_path, no_of_scrolls=-1)
-    click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
+    # if want to perform any action inside pass details count the presses from gender
+    input_passenger_names(no_of_passenger_for_booking=get_booking_details("no_of_passenger_for_booking"))
 
-    input_passenger_names()
+    input_passenger_phn_no()
 
     if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
         click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
 
-    # scroll to continue btn inside pass details
-    continue_btn_img_path = get_image_path("continue_button_image")
-    scroll_until_element_visible_not_visible(img_path=get_image_path("continue_button_image"))
     if get_booking_details("is_payment_with_upi"):
+        scroll_until_element_visible_not_visible(img_path=get_image_path("pay_through_bhim_upi_image"))
         click_pay_with_upi()
 
     # click continue btn inside passenger details
-    click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
+    click_continue_btn_inside_pass_details()
+
     # max wait time while tatkal
     py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=120)
-
+    # click captcha fld
     py.sleep(1)
-    scroll_until_element_visible_not_visible(img_path=get_image_path("connected_us_on_social_media_image"))
     click_captcha_fld()
 
     py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
@@ -72,16 +62,14 @@ def schedule_task_at_specific_time():
     if get_booking_details("is_payment_with_upi"):
         click_bhim_upi_ssd()
         click_pay_using_bhim_paytm_txt()
+        click_pay_n_book(no_of_press=4)
     else:
         # if want to pay with wallet verify you have wallet and have required amt in it
         click_irctc_e_wallet(img_path=get_image_path("irctc_e_wallet_image"))
         is_irctc_wallet_clicked()
+        click_pay_n_book(no_of_press=10)
 
-    pay_n_book_img_path = get_image_path("pay_n_book_image")
-    scroll_until_element_visible_not_visible(pay_n_book_img_path)
-    click_pay_n_book(img_path=pay_n_book_img_path)
-
-    click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"), no_of_clicks=1)
+    click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))
     if get_booking_details("is_read_and_write_otp_from_mail"):
         read_and_write_otp_from_mail()
 
@@ -91,13 +79,23 @@ def schedule_task_at_specific_time():
 #     # input_details()
 #     schedule_task_at_specific_time()
 #     # py.hotkey("ctrl", "w")
-
+# input_details()
 schedule_task_at_specific_time()
+
+
+
+
+
+
+
+
+
+
 # Schedule the task to run at 11:00:00 AM for sleeper and 10:00:00 AM  every day
-# if get_booking_details("is_ac_3_tier"):
-#     time = "10:00:00"
-# else:
-#     time = "11:00:00"
-# schedule.every().day.at(time).do(schedule_task_at_specific_time)
-# while True:
-#     schedule.run_pending()
+if get_booking_details("is_ac_3_tier") or get_booking_details("is_ac_tier_3_economy"):
+    time = "10:00:00"
+else:
+    time = "11:00:00"
+schedule.every().day.at(time).do(schedule_task_at_specific_time)
+while True:
+    schedule.run_pending()
