@@ -31,19 +31,19 @@ def input_details():
     py.sleep(1)
 
     train_name_img_path = get_image_path("train_name_image")
-    scroll_until_element_visible_not_visible(img_path=train_name_img_path, train_name_img_path=train_name_img_path)
+    scroll_until_element_visible_not_visible(img_path=train_name_img_path, no_of_scrolls=-1)
     py.sleep(0.2)
     # py.sleep(8)
 
 
 def schedule_task_at_specific_time():
-    # py.sleep(2)
+    py.sleep(2)
     click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
 
     book_now_img_path = get_image_path("book_now_image")
-    scroll_until_element_visible_not_visible(book_now_img_path, train_name_img_path="")
+    scroll_until_element_visible_not_visible(book_now_img_path, no_of_scrolls=-1)
     click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
 
     input_passenger_names()
@@ -53,20 +53,20 @@ def schedule_task_at_specific_time():
 
     # scroll to continue btn inside pass details
     continue_btn_img_path = get_image_path("continue_button_image")
-    scroll_until_element_visible_not_visible(img_path=get_image_path("continue_button_image"), train_name_img_path="")
+    scroll_until_element_visible_not_visible(img_path=get_image_path("continue_button_image"))
     if get_booking_details("is_payment_with_upi"):
         click_pay_with_upi()
 
     # click continue btn inside passenger details
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
-
-    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=60)
+    # max wait time while tatkal
+    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=120)
 
     py.sleep(1)
-    scroll_until_element_visible_not_visible(img_path=get_image_path("connected_us_on_social_media_image"), train_name_img_path="")
+    scroll_until_element_visible_not_visible(img_path=get_image_path("connected_us_on_social_media_image"))
     click_captcha_fld()
 
-    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=60)
+    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
     py.sleep(1)
 
     if get_booking_details("is_payment_with_upi"):
@@ -78,28 +78,26 @@ def schedule_task_at_specific_time():
         is_irctc_wallet_clicked()
 
     pay_n_book_img_path = get_image_path("pay_n_book_image")
-    scroll_until_element_visible_not_visible(pay_n_book_img_path, train_name_img_path="")
+    scroll_until_element_visible_not_visible(pay_n_book_img_path)
     click_pay_n_book(img_path=pay_n_book_img_path)
 
     click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"), no_of_clicks=1)
     if get_booking_details("is_read_and_write_otp_from_mail"):
         read_and_write_otp_from_mail()
 
-    click_confirm_btn_inside_otp(confirm_btn_img_path=get_image_path("confirm_btn_image"))
-
 
 # Run the program 20 times
-for _ in range(20):
-    input_details()
-    schedule_task_at_specific_time()
-    py.hotkey("ctrl", "w")
+# for _ in range(20):
+#     # input_details()
+#     schedule_task_at_specific_time()
+#     # py.hotkey("ctrl", "w")
 
-
-# Schedule the task to run at 07:25 AM every day
-if get_booking_details("is_ac_3_tier"):
-    time = "10:00:00"
-else:
-    time = "11:00:00"
-schedule.every().day.at(time).do(schedule_task_at_specific_time)
-while True:
-    schedule.run_pending()
+schedule_task_at_specific_time()
+# Schedule the task to run at 11:00:00 AM for sleeper and 10:00:00 AM  every day
+# if get_booking_details("is_ac_3_tier"):
+#     time = "10:00:00"
+# else:
+#     time = "11:00:00"
+# schedule.every().day.at(time).do(schedule_task_at_specific_time)
+# while True:
+#     schedule.run_pending()

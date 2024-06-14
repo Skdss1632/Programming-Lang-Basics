@@ -25,6 +25,7 @@ def open_url():
 
 def click_book_now_inside_select_train(book_now_img_path: str):
     book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=60)
+    py.moveTo(book_now_location)
     py.click(book_now_location)
 
 
@@ -39,42 +40,14 @@ def click_on_wl_or_avalible_btn():
     py.click(wl_or_available_location)
 
 
-def select_passenger_from_master_lst(passenger_names: list, passenger_details_img_path: str):
-    py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=60)
-    try:
-        py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                          confidence=0.90, minSearchTime=2)
-
-    except py.ImageNotFoundException:
-        cross_location = py.locateCenterOnScreen(image=get_image_path("cross_image"), confidence=0.90, minSearchTime=60)
-        py.click(cross_location)
-        add_passenger_location = py.locateCenterOnScreen(image=get_image_path("add_passenger_image"), confidence=0.90,
-                                                         minSearchTime=60)
-        py.click(add_passenger_location)
-
-    for name in passenger_names:
-        passenger_name_input_fld_location = py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                                              confidence=0.90, minSearchTime=60)
-        py.click(passenger_name_input_fld_location)
-        py.write(name)
-        py.sleep(1)
-        py.press("down")
-        py.sleep(0.5)
-        py.press("enter")
-        if name != passenger_names[-1]:
-            add_passenger_location = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.80,
-                                                       minSearchTime=60)
-            py.click(add_passenger_location)
-
-
 def input_passenger_names():
+    # max wait time while tatkal
     passenger_name_input_fld_loc = py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                                           confidence=0.90, minSearchTime=15)
+                                                           confidence=0.90, minSearchTime=120)
     py.click(passenger_name_input_fld_loc)
     passenger_details = get_passenger_details()
     for passenger in passenger_details:
         passenger_name = passenger.get("NAME")
-        # write name
         if passenger_name == "":
             break
         else:
@@ -87,13 +60,13 @@ def input_passenger_names():
             # write age
             py.click(age_fld_loc[0])
             py.locateCenterOnScreen(image=get_image_path("clicked_age_fld_image"),
-                                    confidence=0.85, minSearchTime=15)
+                                    confidence=0.85, minSearchTime=20)
             py.write(str(passenger.get("AGE")))
 
             # select gender
             py.click(gender_fld_loc[0])
             py.locateCenterOnScreen(image=get_image_path("gender_dropdown_image"),
-                                    confidence=0.90, minSearchTime=15)
+                                    confidence=0.90, minSearchTime=20)
             if passenger.get("GENDER") == "Male":
                 no_of_press_down = 1
             else:
@@ -102,27 +75,33 @@ def input_passenger_names():
             py.press("enter")
 
             if passenger.get("NAME") != "nidhi kumari":
-                add_passenger_loc = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.90,
-                                                      minSearchTime=15)
+                scroll_until_element_visible_not_visible(img_path=get_image_path("add_passenger_image"),
+                                                         no_of_scrolls=-1)
+                py.sleep(0.5)
+                add_passenger_loc = py.locateCenterOnScreen(image=get_image_path("add_passenger_image"),
+                                                            confidence=0.80,
+                                                            minSearchTime=20)
+                py.moveTo(add_passenger_loc)
                 py.click(add_passenger_loc)
                 # validating after clicking on add pass, pass name input fld appear or not
-                py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                  confidence=0.90, minSearchTime=15)
+                py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                                        confidence=0.90, minSearchTime=20)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
-    scroll_until_element_visible_not_visible(img_path=img_path, train_name_img_path="")
+    scroll_until_element_visible_not_visible(img_path=img_path, no_of_scrolls=-2)
     txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     py.click(txt_location)
 
 
 def click_continue_btn_inside_passenger_details(continue_btn_img_path: str):
     btn_location = py.locateCenterOnScreen(image=continue_btn_img_path, confidence=0.90, minSearchTime=60)
+    py.moveTo(btn_location)
     py.click(btn_location)
 
 
 def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: str):
-    scroll_until_element_visible_not_visible(img_path=img_path)
+    scroll_until_element_visible_not_visible(img_path=img_path, no_of_scrolls=3)
     py.sleep(captcha_fill_delay)
     button_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     py.click(button_location)
@@ -252,6 +231,7 @@ def click_login_btn():
 
 def click_pay_n_book(img_path: str):
     pay_n_book_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    py.moveTo(pay_n_book_location)
     py.click(pay_n_book_location)
 
 
@@ -262,17 +242,15 @@ def click_confirm_btn_inside_otp(confirm_btn_img_path: str):
 
 
 def click_otp_fld(otp_fld_img_path: str, no_of_clicks: int):
-    otp_fld_location = py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=60)
+    # max wait time while tatkal
+    otp_fld_location = py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=120)
+    py.moveTo(otp_fld_location)
     py.click(otp_fld_location, clicks=no_of_clicks)
 
 
-def scroll_until_element_visible_not_visible(img_path: str, train_name_img_path: str):
-    if train_name_img_path:
-        i = -3
-    else:
-        i = -3
+def scroll_until_element_visible_not_visible(img_path: str, no_of_scrolls=-3):
     while True:
-        py.scroll(i)
+        py.scroll(no_of_scrolls)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.90) is not None:
                 return True
@@ -291,9 +269,10 @@ def click_on_coach_on_selected_train():
     elif get_image_path("ac_3_economy_image"):
         coach_type_img_path = get_image_path("ac_3_economy_image")
 
-    btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.95))
-    py.moveTo(btn_location[1])
-    py.click(btn_location[1])
+    btn_location = list(py.locateAllOnScreen(image=coach_type_img_path, grayscale=False, confidence=0.88))
+    print(btn_location)
+    py.moveTo(btn_location[0])
+    py.click(btn_location[0])
     print("total no of sleeper btn visible on ui", len(btn_location))
 
 
@@ -319,7 +298,7 @@ def click_captcha_fld():
 def read_and_write_otp_from_mail():
     py.hotkey("ctrl", "tab")
     otp_txt_in_mail_image = py.locateCenterOnScreen(image=get_image_path("otp_txt_in_mail_image"), confidence=0.90,
-                                                    minSearchTime=25)
+                                                    minSearchTime=120)
     py.click(otp_txt_in_mail_image)
     py.locateCenterOnScreen(image=get_image_path("your_one_tym_otp_txt_image"), confidence=0.90,
                             minSearchTime=25)
@@ -328,7 +307,7 @@ def read_and_write_otp_from_mail():
     py.hotkey("ctrl", "c")
     # delete the otp mail after copying it
     delete_location = py.locateCenterOnScreen(image=get_image_path("delete_icon_of_mail_image"), confidence=0.90,
-                                              minSearchTime=25)
+                                              minSearchTime=15)
     py.moveTo(delete_location)
     py.click(delete_location)
     py.hotkey("ctrl", "tab")
