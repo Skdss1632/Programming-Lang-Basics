@@ -7,9 +7,6 @@
     "source_station": "ndls",
     "destination_station": "spj",
     "travel_date": "14/06/2024",
-    "passenger_names": [
-      "mritunjoy kumar", "sourav kumar", "sadhana devi", "mahesh ray"
-    ],
     "is_general": true,
     "is_tatkal": false,
     "is_premium_tatkal": false,
@@ -19,7 +16,37 @@
     "is_ticket_available": false,
     "is_ticket_waiting": true,
     "is_read_and_write_otp_from_mail": true,
-    "is_payment_with_upi": true
+    "is_payment_with_upi": false,
+    "passenger_details": [
+      {
+        "NAME": "sourav kumar ",
+        "AGE": 23,
+        "GENDER": "Male",
+        "SEAT": "",
+        "FOOD": ""
+      },
+      {
+        "NAME": "",
+        "AGE": null,
+        "GENDER": "",
+        "SEAT": "",
+        "FOOD": ""
+      },
+      {
+        "NAME": "",
+        "AGE": null,
+        "GENDER": "",
+        "SEAT": "",
+        "FOOD": ""
+      },
+      {
+        "NAME": "",
+        "AGE": null,
+        "GENDER": "",
+        "SEAT": "",
+        "FOOD": ""
+      }
+    ]
   },
   "image_paths": {
     "username_field_image": "username_fld.png",
@@ -28,7 +55,7 @@
     "tatkal_image": "tatkal.png",
     "reset_filter_image": "reset_filter_txt.png",
     "train_name_image": "train_name_with_btn_2.png",
-    "sleeper_btn_image": "sleeper_btn.png",
+    "sleeper_btn_image": "sleeper_btn_image.png",
     "ac_3_tier_btn_image": "ac_3_tier.png",
     "ac_3_economy_image": "ac_3_economy.png",
     "waiting_list_image": "waiting_list.png",
@@ -64,11 +91,16 @@
     "destination_image": "destination_img.png",
     "login_btn_image": "login_btn.png",
     "an_amt_of_10_applicable_txt_image": "an_amt_of_10_applicable_txt.png",
-    "otp_txt_in_mail_image":"otp_txt_in_mail.png",
+    "otp_txt_in_mail_image": "otp_txt_in_mail.png",
     "your_one_tym_otp_txt_image": "your_one_tym_otp_txt.png",
     "delete_icon_of_mail_image": "delete_icon_of_mail.png",
     "pay_with_upi_checkbox_image": "pay_with_upi_checkbox.png",
     "bhim_upi_txt_image": "bhim_upi_txt.png",
-    "pay_using_bhim_paytm_txt_image": "pay_using_bhim_paytm_txt.png"
+    "pay_using_bhim_paytm_txt_image": "pay_using_bhim_paytm_txt.png",
+    "age_fld_image": "age_fld.png",
+    "gender_fld_image": "gender_fld.png",
+    "gender_dropdown_image": "gender_dropdown.png",
+    "clicked_age_fld_image": "clicked_age_fld.png",
+    "connected_us_on_social_media_image": "connected_us_on_scial_media.png"
   }
 }

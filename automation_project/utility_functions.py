@@ -43,7 +43,7 @@ def select_passenger_from_master_lst(passenger_names: list, passenger_details_im
     py.locateCenterOnScreen(image=passenger_details_img_path, confidence=0.90, minSearchTime=60)
     try:
         py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                                              confidence=0.90, minSearchTime=2)
+                          confidence=0.90, minSearchTime=2)
 
     except py.ImageNotFoundException:
         cross_location = py.locateCenterOnScreen(image=get_image_path("cross_image"), confidence=0.90, minSearchTime=60)
@@ -68,7 +68,49 @@ def select_passenger_from_master_lst(passenger_names: list, passenger_details_im
 
 
 def input_passenger_names():
-    pass
+    passenger_name_input_fld_loc = py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                                                     confidence=0.90, minSearchTime=15)
+    py.click(passenger_name_input_fld_loc)
+    passenger = ""
+    passenger_details = get_passenger_details()
+    for passenger in passenger_details:
+        # write name
+        if not passenger.get("NAME"):
+            break
+        else:
+            age_fld_loc = list(py.locateAllOnScreen(image=get_image_path("age_fld_image"),
+                                                    confidence=0.90))
+            gender_fld_loc = list(py.locateAllOnScreen(image=get_image_path("gender_fld_image"),
+                                                       confidence=0.90))
+            # write name
+            py.write(passenger.get("NAME"))
+            # write age
+            py.click(age_fld_loc[0])
+            py.locateCenterOnScreen(image=get_image_path("clicked_age_fld_image"),
+                                    confidence=0.85, minSearchTime=15)
+            py.write(str(passenger.get("AGE")))
+
+            # select gender
+            py.click(gender_fld_loc[0])
+            py.locateCenterOnScreen(image=get_image_path("gender_dropdown_image"),
+                                    confidence=0.90, minSearchTime=15)
+            if passenger.get("GENDER") == "Male":
+                no_of_press_down = 1
+            else:
+                no_of_press_down = 2
+            py.press("down", presses=no_of_press_down)
+            py.press("enter")
+
+    # if food is null do not click on add passenger
+    if not passenger.get("FOOD") == "":
+        add_passenger_loc = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.90,
+                                              minSearchTime=15)
+        py.click(add_passenger_loc)
+        # validating after clicking on add pass, pass name input fld appear or not
+        py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                          confidence=0.90, minSearchTime=15)
+
+
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
@@ -168,7 +210,7 @@ def input_irctc_account(username: str, password: str, username_image_path: str, 
 
     captcha_fld_img = get_image_path("enter_captcha_fld_image")
     captcha_fld_img_location = py.locateCenterOnScreen(image=captcha_fld_img, confidence=0.90,
-                                                  minSearchTime=60)
+                                                       minSearchTime=60)
 
     py.moveTo(captcha_fld_img_location)
     py.click(captcha_fld_img_location)
@@ -281,16 +323,17 @@ def click_captcha_fld():
 
 def read_and_write_otp_from_mail():
     py.hotkey("ctrl", "tab")
-    otp_txt_in_mail_image = py.locateCenterOnScreen(image=get_image_path("otp_txt_in_mail_image"), confidence=0.90, minSearchTime=25)
+    otp_txt_in_mail_image = py.locateCenterOnScreen(image=get_image_path("otp_txt_in_mail_image"), confidence=0.90,
+                                                    minSearchTime=25)
     py.click(otp_txt_in_mail_image)
     py.locateCenterOnScreen(image=get_image_path("your_one_tym_otp_txt_image"), confidence=0.90,
-                                                    minSearchTime=25)
+                            minSearchTime=25)
     py.moveTo(707, 472)
     py.click(707, 472, clicks=2)
     py.hotkey("ctrl", "c")
     # delete the otp mail after copying it
     delete_location = py.locateCenterOnScreen(image=get_image_path("delete_icon_of_mail_image"), confidence=0.90,
-                            minSearchTime=25)
+                                              minSearchTime=25)
     py.moveTo(delete_location)
     py.click(delete_location)
     py.hotkey("ctrl", "tab")
@@ -301,7 +344,7 @@ def read_and_write_otp_from_mail():
 
 
 def read_and_fill_otp():
-   # Path to Tesseract executable (you may need to change this based on your system)
+    # Path to Tesseract executable (you may need to change this based on your system)
     pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 
     def solve_captcha(image_path):
@@ -322,27 +365,30 @@ def read_and_fill_otp():
 
 def click_pay_with_upi():
     payment_with_upi_loc = py.locateCenterOnScreen(image=get_image_path("pay_with_upi_checkbox_image"), confidence=0.90,
-                                                    minSearchTime=25)
+                                                   minSearchTime=25)
     py.moveTo(payment_with_upi_loc)
     py.click(payment_with_upi_loc)
 
 
 def click_bhim_upi_ssd():
     click_bhim_upi_ssd_loc = py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
-                                                   minSearchTime=25)
+                                                     minSearchTime=25)
     py.moveTo(click_bhim_upi_ssd_loc)
     py.click(click_bhim_upi_ssd_loc)
 
 
 def is_irctc_wallet_clicked():
     # verify irctc e wallet btn is clicked
-    py.locateCenterOnScreen(image=get_image_path("an_amt_of_10_applicable_txt_image"), confidence=0.90, minSearchTime=60)
+    py.locateCenterOnScreen(image=get_image_path("an_amt_of_10_applicable_txt_image"), confidence=0.90,
+                            minSearchTime=60)
 
 
 def click_pay_using_bhim_paytm_txt():
-    pay_using_bhim_paytm_loc = py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"), confidence=0.90, minSearchTime=60)
+    pay_using_bhim_paytm_loc = py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"),
+                                                       confidence=0.90, minSearchTime=60)
     py.moveTo(pay_using_bhim_paytm_loc)
     py.click(pay_using_bhim_paytm_loc)
 
 
-
+def get_passenger_details():
+    return config["booking_details"]["passenger_details"]

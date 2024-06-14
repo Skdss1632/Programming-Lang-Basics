@@ -46,10 +46,12 @@ def schedule_task_at_specific_time():
     scroll_until_element_visible_not_visible(book_now_img_path, train_name_img_path="")
     click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
 
-    passenger_detail_img_path = get_image_path("passenger_details_image")
-    passenger_names = get_booking_details("passenger_names")
-    select_passenger_from_master_lst(passenger_names=passenger_names,
-                                     passenger_details_img_path=passenger_detail_img_path)
+    # passenger_detail_img_path = get_image_path("passenger_details_image")
+    # passenger_names = get_booking_details("passenger_names")
+    # select_passenger_from_master_lst(passenger_names=passenger_names,
+    #                                  passenger_details_img_path=passenger_detail_img_path)
+
+    input_passenger_names()
 
     if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
         click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
@@ -62,10 +64,8 @@ def schedule_task_at_specific_time():
     # click continue btn inside passenger details
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
 
-    # click continue btn inside review journey or captcha fld
-    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=60)
-    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path, train_name_img_path="")
-    py.sleep(0.3)
+    py.sleep(1)
+    scroll_until_element_visible_not_visible(img_path=get_image_path("connected_us_on_social_media_image"), train_name_img_path="")
     click_captcha_fld()
 
     py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=60)
@@ -75,6 +75,7 @@ def schedule_task_at_specific_time():
         click_bhim_upi_ssd()
         click_pay_using_bhim_paytm_txt()
     else:
+        # if want to pay with wallet verify you have wallet and have required amt in it
         click_irctc_e_wallet(img_path=get_image_path("irctc_e_wallet_image"))
         is_irctc_wallet_clicked()
 
