@@ -69,13 +69,13 @@ def select_passenger_from_master_lst(passenger_names: list, passenger_details_im
 
 def input_passenger_names():
     passenger_name_input_fld_loc = py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                                     confidence=0.90, minSearchTime=15)
+                                                           confidence=0.90, minSearchTime=15)
     py.click(passenger_name_input_fld_loc)
-    passenger = ""
     passenger_details = get_passenger_details()
     for passenger in passenger_details:
+        passenger_name = passenger.get("NAME")
         # write name
-        if not passenger.get("NAME"):
+        if passenger_name == "":
             break
         else:
             age_fld_loc = list(py.locateAllOnScreen(image=get_image_path("age_fld_image"),
@@ -83,7 +83,7 @@ def input_passenger_names():
             gender_fld_loc = list(py.locateAllOnScreen(image=get_image_path("gender_fld_image"),
                                                        confidence=0.90))
             # write name
-            py.write(passenger.get("NAME"))
+            py.write(passenger_name)
             # write age
             py.click(age_fld_loc[0])
             py.locateCenterOnScreen(image=get_image_path("clicked_age_fld_image"),
@@ -101,20 +101,17 @@ def input_passenger_names():
             py.press("down", presses=no_of_press_down)
             py.press("enter")
 
-    # if food is null do not click on add passenger
-    if not passenger.get("FOOD") == "":
-        add_passenger_loc = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.90,
-                                              minSearchTime=15)
-        py.click(add_passenger_loc)
-        # validating after clicking on add pass, pass name input fld appear or not
-        py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                          confidence=0.90, minSearchTime=15)
-
-
+            if passenger.get("NAME") != "nidhi kumari":
+                add_passenger_loc = py.locateOnScreen(image=get_image_path("add_passenger_image"), confidence=0.90,
+                                                      minSearchTime=15)
+                py.click(add_passenger_loc)
+                # validating after clicking on add pass, pass name input fld appear or not
+                py.locateOnScreen(image=get_image_path("passenger_name_input_fld_image"),
+                                  confidence=0.90, minSearchTime=15)
 
 
 def click_book_only_if_confirm_berth_alloted(img_path: str):
-    scroll_until_element_visible_not_visible(img_path=img_path)
+    scroll_until_element_visible_not_visible(img_path=img_path, train_name_img_path="")
     txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
     py.click(txt_location)
 
@@ -183,26 +180,26 @@ def select_ticket_type_from_dropdown():
 def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
     password_filled_img_path = get_image_path("password_filled_image")
     try:
-        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=10)
+        py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=5)
         # If password filled image is found, skip the rest of the code
     except py.ImageNotFoundException:
         try:
             # Try locating the images on the screen
             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
-                                                        minSearchTime=10)
+                                                        minSearchTime=5)
         except py.ImageNotFoundException:
             large_sign_in_btn = None
 
         try:
             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
-                                                        minSearchTime=10)
+                                                        minSearchTime=5)
         except py.ImageNotFoundException:
             small_sign_in_btn = None
 
         # Check if either image is found
         if small_sign_in_btn or large_sign_in_btn:
             for image, text in [(username_image_path, username), (password_image_path, password)]:
-                field_location = py.locateCenterOnScreen(image=image, confidence=0.90, minSearchTime=25)
+                field_location = py.locateCenterOnScreen(image=image, confidence=0.85, minSearchTime=25)
                 py.click(field_location)
                 # py.hotkey("ctrl", "a")
                 # py.press('backspace')
@@ -271,12 +268,11 @@ def click_otp_fld(otp_fld_img_path: str, no_of_clicks: int):
 
 def scroll_until_element_visible_not_visible(img_path: str, train_name_img_path: str):
     if train_name_img_path:
-        i = -1
+        i = -3
     else:
         i = -3
     while True:
         py.scroll(i)
-        # py.scroll(-1)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.90) is not None:
                 return True
@@ -314,8 +310,7 @@ def get_credentials(credentials_key: str):
 
 
 def click_captcha_fld():
-    enter_captcha_fld_img = get_image_path("enter_captcha_fld_image")
-    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=enter_captcha_fld_img, confidence=0.90,
+    enter_captcha_fld_img_location = py.locateCenterOnScreen(image=get_image_path("enter_captcha_fld_image"), confidence=0.90,
                                                              minSearchTime=25)
     py.moveTo(enter_captcha_fld_img_location)
     py.click(enter_captcha_fld_img_location)

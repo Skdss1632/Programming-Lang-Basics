@@ -31,13 +31,13 @@ def input_details():
     py.sleep(1)
 
     train_name_img_path = get_image_path("train_name_image")
-    scroll_until_element_visible_not_visible(img_path=train_name_img_path)
+    scroll_until_element_visible_not_visible(img_path=train_name_img_path, train_name_img_path=train_name_img_path)
     py.sleep(0.2)
     # py.sleep(8)
 
 
 def schedule_task_at_specific_time():
-    py.sleep(2)
+    # py.sleep(2)
     click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
@@ -46,23 +46,21 @@ def schedule_task_at_specific_time():
     scroll_until_element_visible_not_visible(book_now_img_path, train_name_img_path="")
     click_book_now_inside_select_train(book_now_img_path=book_now_img_path)
 
-    # passenger_detail_img_path = get_image_path("passenger_details_image")
-    # passenger_names = get_booking_details("passenger_names")
-    # select_passenger_from_master_lst(passenger_names=passenger_names,
-    #                                  passenger_details_img_path=passenger_detail_img_path)
-
     input_passenger_names()
 
     if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
         click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
 
+    # scroll to continue btn inside pass details
     continue_btn_img_path = get_image_path("continue_button_image")
-    scroll_until_element_visible_not_visible(img_path=continue_btn_img_path, train_name_img_path="")
+    scroll_until_element_visible_not_visible(img_path=get_image_path("continue_button_image"), train_name_img_path="")
     if get_booking_details("is_payment_with_upi"):
         click_pay_with_upi()
 
     # click continue btn inside passenger details
     click_continue_btn_inside_passenger_details(continue_btn_img_path=continue_btn_img_path)
+
+    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=60)
 
     py.sleep(1)
     scroll_until_element_visible_not_visible(img_path=get_image_path("connected_us_on_social_media_image"), train_name_img_path="")
@@ -90,8 +88,11 @@ def schedule_task_at_specific_time():
     click_confirm_btn_inside_otp(confirm_btn_img_path=get_image_path("confirm_btn_image"))
 
 
-# input_details()
-schedule_task_at_specific_time()
+# Run the program 20 times
+for _ in range(20):
+    input_details()
+    schedule_task_at_specific_time()
+    py.hotkey("ctrl", "w")
 
 
 # Schedule the task to run at 07:25 AM every day
