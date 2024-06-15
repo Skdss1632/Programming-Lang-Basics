@@ -11,9 +11,49 @@ import datetime
 
 
 parent_img_path = "/home/intern/Documents/gitlearning//Programming_Lang_Basics/automation_project/irctc_images/"
-# Load configuration from JSON file
-with open('config.json', 'r') as f:
-    config = json.load(f)
+with open('json_config/automation_img_filenames.json', 'r') as f:
+    img_config = json.load(f)
+
+with open('json_config/booking_config.json', 'r') as f:
+    booking_config = json.load(f)
+
+with open('json_config/login_credentials.json', 'r') as f:
+    login_credentials = json.load(f)
+
+with open('json_config/passenger_data.json', 'r') as f:
+    passenger_data = json.load(f)
+
+
+def get_coach_booking_preferences(key: str):
+    return booking_config["coach_booking_preferences"].get(key)
+
+
+def get_ticket_type_selection(key: str):
+    return booking_config["ticket_type_selection"].get(key)
+
+
+def get_ticket_availability_status(key: str):
+    return booking_config["ticket_availability_status"].get(key)
+
+
+def get_otp_and_payment_options(key: str):
+    return booking_config["otp_and_payment_options"].get(key)
+
+
+def get_passenger_details():
+    return passenger_data["passenger_details"]
+
+
+def get_booking_details(key: str):
+    return booking_config["booking_details"].get(key)
+
+
+def get_image_path(image_name: str):
+    return parent_img_path + img_config["image_file_name"][image_name]
+
+
+def get_login_credentials(credentials_key: str):
+    return login_credentials["credentials"][credentials_key]
 
 
 def click_browser():
@@ -39,9 +79,9 @@ def click_book_now_inside_select_train(book_now_img_path: str):
 
 def click_on_wl_or_avalible_btn():
     wl_or_available_img_path = ""
-    if get_booking_details("is_ticket_waiting"):
+    if get_ticket_availability_status("is_ticket_waiting"):
         wl_or_available_img_path = get_image_path("waiting_list_image")
-    elif get_booking_details("is_ticket_available"):
+    elif get_ticket_availability_status("is_ticket_available"):
         wl_or_available_img_path = get_image_path("available_ticket_image")
     wl_or_available_location = py.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
                                                        minSearchTime=60)
@@ -74,7 +114,7 @@ def input_passenger_names(no_of_passenger_for_booking: int):
         else:
             py.press('right')
 
-        if passenger_name != "rahul kr":
+        if passenger_name != "sourav":
             py.press("tab", presses=3)
             py.press("enter")
             # there is delay in appearing passenger detail input fld after clicking on add pass detail so verify the img first then perform action
@@ -87,9 +127,9 @@ no_of_press = 0
 
 def click_book_only_if_confirm_berth_alloted():
     global no_of_press
-    if get_booking_details("passenger_phn_no") != "":
+    if get_passenger_phn_no() != "":
         no_of_press = 4
-    elif get_booking_details("passenger_phn_no") == "":
+    elif get_passenger_phn_no() == "":
         no_of_press = 10
     py.press("tab", presses=no_of_press)
     py.press("space")
@@ -121,15 +161,15 @@ def clear_input_fld():
 
 def select_ticket_type_from_dropdown():
     ticket_type_location = ""
-    if get_booking_details("is_general"):
+    if get_coach_booking_preferences("is_general"):
         pass  # Do nothing for "general"
 
-    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
+    if get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         # Click on general to reset or ensure the dropdown is in a known state
         general_img_location = py.locateCenterOnScreen(image=get_image_path("general_image"), confidence=0.90,
                                                        minSearchTime=15)
         py.click(general_img_location)
-        if get_booking_details("is_premium_tatkal"):
+        if get_ticket_type_selection("is_premium_tatkal"):
             general_blue_location = py.locateCenterOnScreen(image=get_image_path("general_blue_image"), confidence=0.90,
                                                             minSearchTime=15)
             py.moveTo(general_blue_location)
@@ -138,7 +178,7 @@ def select_ticket_type_from_dropdown():
             ticket_type_location = py.locateCenterOnScreen(image=get_image_path("premium_tatkal_image"),
                                                            confidence=0.90,
                                                            minSearchTime=15)
-        if get_booking_details("is_tatkal"):
+        if get_ticket_type_selection("is_tatkal"):
             ticket_type_location = py.locateCenterOnScreen(image=get_image_path("tatkal_image"), confidence=0.90,
                                                            minSearchTime=15)
         py.click(ticket_type_location)
@@ -235,7 +275,7 @@ def input_source_n_destination_station(source_station: str, destination: str):
     # py.press("tab", presses=2)
     # if get_booking_details("is_tatkal"):
     #     py.press("up", presses=2)
-    # if get_booking_details("is_premium_tatkal"):
+    # if get_ticket_type_selection("is_premium_tatkal"):
     #     py.press("up")
 
 
@@ -265,7 +305,7 @@ def click_otp_fld(otp_fld_img_path: str):
 
 
 def scroll_until_element_visible_not_visible(img_path: str, no_of_scrolls=-3):
-    for _ in range(10):
+    for _ in range(20):
         py.scroll(no_of_scrolls)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.90) is not None:
@@ -278,9 +318,9 @@ def scroll_until_element_visible_not_visible(img_path: str, no_of_scrolls=-3):
 def click_on_coach_on_selected_train():
     """click on sleeper or third ac or any other coach if you pass img path to this func"""
     coach_type_img_path = ""
-    if get_booking_details("is_sleeper"):
+    if get_coach_booking_preferences("is_sleeper"):
         coach_type_img_path = get_image_path("sleeper_btn_image")
-    elif get_booking_details("is_ac_3_tier"):
+    elif get_coach_booking_preferences("is_ac_3_tier"):
         coach_type_img_path = get_image_path("ac_3_tier_btn_image")
     elif get_image_path("ac_3_economy_image"):
         coach_type_img_path = get_image_path("ac_3_economy_image")
@@ -290,18 +330,6 @@ def click_on_coach_on_selected_train():
     py.moveTo(btn_location[0])
     py.click(btn_location[0])
     print("total no of sleeper btn visible on ui", len(btn_location))
-
-
-def get_image_path(image_name):
-    return parent_img_path + config["image_paths"][image_name]
-
-
-def get_booking_details(booking_key: str):
-    return config["booking_details"][booking_key]
-
-
-def get_credentials(credentials_key: str):
-    return config["credentials"][credentials_key]
 
 
 def click_captcha_fld():
@@ -355,7 +383,7 @@ def read_and_fill_otp():
 
 def click_pay_with_upi():
     global no_of_press
-    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
+    if get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         no_of_press = 6
     py.press("tab", presses=no_of_press)
     py.press("down")
@@ -383,17 +411,13 @@ def click_pay_using_bhim_paytm_txt():
     #                         confidence=0.90, minSearchTime=15)
 
 
-def get_passenger_details():
-    return config["booking_details"]["passenger_details"]
-
-
 def click_continue_btn_inside_pass_details():
     global no_of_press
     # if is_payment_with_upi True then cursor is inside pay through bhim upi count the tab press from there
-    if get_booking_details("is_payment_with_upi"):
+    if get_otp_and_payment_options("is_payment_with_upi"):
         no_of_press = 2
     # if tatkal True then currently cursor is inside this checkbox-- book only if i et confirm berth
-    elif get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
+    elif get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         no_of_press = 8
     # if not tatkal and phn no == "" then count the tab press from gender box
     else:
@@ -402,7 +426,15 @@ def click_continue_btn_inside_pass_details():
     py.press("enter")
 
 
+def get_passenger_phn_no():
+    return passenger_data.get("passenger_phn_no")
+
+
 def input_passenger_phn_no():
-    if get_booking_details("passenger_phn_no") != "":
+    passenger_phn_no = get_passenger_phn_no()
+    if passenger_phn_no:
         py.press("tab", presses=6)
-        py.write(get_booking_details("passenger_phn_no"))
+        py.write(passenger_phn_no)
+
+
+

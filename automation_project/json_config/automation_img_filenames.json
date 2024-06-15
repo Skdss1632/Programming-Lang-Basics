@@ -1,42 +1,5 @@
 {
-  "credentials": {
-    "username": "skdss16321",
-    "password": "Sourav99#"
-  },
-  "booking_details": {
-    "source_station": "umb",
-    "destination_station": "bju",
-    "travel_date": "15/06/2024",
-    "is_general": false,
-    "is_tatkal": true,
-    "is_premium_tatkal": false,
-    "is_sleeper": false,
-    "is_ac_3_tier": true,
-    "is_ac_tier_3_economy": false,
-    "is_ticket_available": true,
-    "is_ticket_waiting": false,
-    "is_read_and_write_otp_from_mail": true,
-    "is_payment_with_upi": false,
-    "no_of_passenger_for_booking": 3,
-    "passenger_phn_no": "9572841588",
-    "passenger_details": [
-      {
-        "NAME": "sourav kumar",
-        "AGE": 20,
-        "GENDER": "Male",
-        "SEAT": "",
-        "FOOD": ""
-      },
-      {
-        "NAME": "nishant kr",
-        "AGE": 20,
-        "GENDER": "Female",
-        "SEAT": "",
-        "FOOD": ""
-      }
-    ]
-  },
-  "image_paths": {
+  "image_file_name": {
     "username_field_image": "username_fld.png",
     "password_field_image": "password_fld.png",
     "premium_tatkal_image": "premium_tatkal.png",
