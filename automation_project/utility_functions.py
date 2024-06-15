@@ -2,10 +2,13 @@ import pyautogui as py
 import json
 import pytesseract
 from PIL import Image
+import pyperclip
+import os
+import platform
 import schedule
 import time
 import datetime
-import pyperclip
+
 
 parent_img_path = "/home/intern/Documents/gitlearning//Programming_Lang_Basics/automation_project/irctc_images/"
 # Load configuration from JSON file
@@ -14,8 +17,13 @@ with open('config.json', 'r') as f:
 
 
 def click_browser():
-    browser_location = py.locateCenterOnScreen(image=get_image_path("chrome_image"), confidence=0.80, minSearchTime=5)
-    py.click(browser_location)
+    system = platform.system()
+    if system == "Windows":
+        os.system("start chrome")
+    elif system == "Linux":
+        os.system("google-chrome &")
+    else:
+        raise NotImplementedError("Unsupported operating system")
 
 
 def open_url():
@@ -41,15 +49,15 @@ def click_on_wl_or_avalible_btn():
 
 
 def input_passenger_names(no_of_passenger_for_booking: int):
-#     catering_loc = ""
-#     try:
-#         # select no food if catering option avl
-#         py.locateCenterOnScreen(image=get_image_path("catering_option_image"), confidence=0.90)
-#         py.press("tab", presses=5)
-#         py.press("right", presses=3)
-#
-#     except py.ImageNotFoundException:
-#         print("No catering option")
+    #     catering_loc = ""
+    #     try:
+    #         # select no food if catering option avl
+    #         py.locateCenterOnScreen(image=get_image_path("catering_option_image"), confidence=0.90)
+    #         py.press("tab", presses=5)
+    #         py.press("right", presses=3)
+    #
+    #     except py.ImageNotFoundException:
+    #         print("No catering option")
 
     py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
                             confidence=0.90, minSearchTime=120)
@@ -66,7 +74,7 @@ def input_passenger_names(no_of_passenger_for_booking: int):
         else:
             py.press('right')
 
-        if passenger_name != "nishant kr":
+        if passenger_name != "rahul kr":
             py.press("tab", presses=3)
             py.press("enter")
             # there is delay in appearing passenger detail input fld after clicking on add pass detail so verify the img first then perform action
@@ -90,19 +98,19 @@ def click_book_only_if_confirm_berth_alloted():
 def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: str):
     scroll_until_element_visible_not_visible(img_path=img_path, no_of_scrolls=3)
     py.sleep(captcha_fill_delay)
-    button_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
+    button_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=240)
     py.click(button_location)
 
 
 def click_irctc_e_wallet(img_path: str):
-    wallet_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=60)
+    wallet_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=240)
     py.moveTo(wallet_location)
     py.click(wallet_location)
 
 
 def click_search_btn():
     sign_in_btn = py.locateCenterOnScreen(image=get_image_path("search_btn_image"), confidence=0.90,
-                                          minSearchTime=60)
+                                          minSearchTime=240)
     py.click(sign_in_btn)
 
 
@@ -201,13 +209,13 @@ def select_ticket_type_from_dropdown():
 def input_source_n_destination_station(source_station: str, destination: str):
     # go inside source station input fld
     source_loc = py.locateCenterOnScreen(image=get_image_path("source_station_image"), confidence=0.90,
-                                            minSearchTime=60)
+                                         minSearchTime=240)
     py.moveTo(source_loc)
     py.click(source_loc)
     py.write(source_station, interval=0.1)
     py.sleep(1)
     py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85,
-                                            minSearchTime=10)
+                            minSearchTime=10)
     py.press("enter")
 
     # go inside destination input fld
@@ -222,8 +230,6 @@ def input_source_n_destination_station(source_station: str, destination: str):
     py.press("tab", presses=1)
     py.write(get_booking_details("travel_date"))
     py.press("enter")
-
-
 
     # # go to general dropdwn
     # py.press("tab", presses=2)
@@ -250,12 +256,6 @@ def click_login_btn():
 def click_pay_n_book(no_of_press: int):
     py.press("tab", presses=no_of_press)
     py.press("enter")
-
-
-def click_confirm_btn_inside_otp(confirm_btn_img_path: str):
-    pass
-    # btn_location = py.locateCenterOnScreen(image=confirm_btn_img_path, confidence=0.80, minSearchTime=10)
-    # py.click(btn_location)
 
 
 def click_otp_fld(otp_fld_img_path: str):
@@ -309,6 +309,8 @@ def click_captcha_fld():
 
 
 def read_and_write_otp_from_mail():
+    """this function reads otp from mail
+     and writes it to otp box work only if only two tabs are open in browser one is mail and another is booking web"""
     py.hotkey("ctrl", "tab")
     otp_txt_in_mail_image = py.locateCenterOnScreen(image=get_image_path("otp_txt_in_mail_image"), confidence=0.90,
                                                     minSearchTime=120)
@@ -325,8 +327,9 @@ def read_and_write_otp_from_mail():
     py.click(delete_location)
     py.hotkey("ctrl", "tab")
     otp = pyperclip.paste()
-    for string in otp:
-        py.write(string)
+    py.write(otp)
+    # go to confirm btn
+    py.press("tab")
     print(otp)
 
 
@@ -360,7 +363,7 @@ def click_pay_with_upi():
 
 def click_bhim_upi_ssd():
     loc = py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
-                                                     minSearchTime=25)
+                                  minSearchTime=25)
     py.moveTo(loc)
     py.click(loc)
 
@@ -368,12 +371,12 @@ def click_bhim_upi_ssd():
 def is_irctc_wallet_clicked():
     # verify irctc e wallet btn is clicked
     py.locateCenterOnScreen(image=get_image_path("an_amt_of_10_applicable_txt_image"), confidence=0.90,
-                            minSearchTime=60)
+                            minSearchTime=240)
 
 
 def click_pay_using_bhim_paytm_txt():
     py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"),
-                                                       confidence=0.90, minSearchTime=60)
+                            confidence=0.90, minSearchTime=240)
     py.press("tab", presses=2)
     py.press("enter")
     # py.locateCenterOnScreen(image=get_image_path("paytm_upi_txt_correct_sign_image"),

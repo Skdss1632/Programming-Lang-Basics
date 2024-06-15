@@ -50,12 +50,13 @@ def schedule_task_at_specific_time():
     click_continue_btn_inside_pass_details()
 
     # here page start buffering
-    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=120)
+    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=240)
     # click captcha fld
     py.sleep(1)
     click_captcha_fld()
+    # press enter manually after filling captcha
 
-    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
+    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=240)
     py.sleep(1)
 
     if get_booking_details("is_payment_with_upi"):
@@ -74,7 +75,7 @@ def schedule_task_at_specific_time():
         read_and_write_otp_from_mail()
 
 
-# input_details()
+
 # schedule_task_at_specific_time()
 
 
@@ -88,7 +89,7 @@ def schedule_task_at_specific_time():
 
 # Schedule the task to run at 11:00:00 AM for sleeper and 10:00:00 AM  every day
 if get_booking_details("is_ac_3_tier") or get_booking_details("is_ac_tier_3_economy"):
-    time = "07:27:00"
+    time = "10:00:00"
 else:
     time = "11:00:00"
 schedule.every().day.at(time).do(schedule_task_at_specific_time)
