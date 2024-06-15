@@ -54,10 +54,9 @@ def schedule_task_at_specific_time():
     # click captcha fld
     py.sleep(1)
     click_captcha_fld()
-    py.sleep(1)
 
-    payment_yellow_loc = py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
-    py.click(payment_yellow_loc)
+    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
+    py.sleep(1)
 
     if get_booking_details("is_payment_with_upi"):
         click_bhim_upi_ssd()
@@ -75,13 +74,8 @@ def schedule_task_at_specific_time():
         read_and_write_otp_from_mail()
 
 
-# Run the program 20 times
-# for _ in range(20):
-#     # input_details()
-#     schedule_task_at_specific_time()
-#     # py.hotkey("ctrl", "w")
 # input_details()
-schedule_task_at_specific_time()
+# schedule_task_at_specific_time()
 
 
 
@@ -94,7 +88,7 @@ schedule_task_at_specific_time()
 
 # Schedule the task to run at 11:00:00 AM for sleeper and 10:00:00 AM  every day
 if get_booking_details("is_ac_3_tier") or get_booking_details("is_ac_tier_3_economy"):
-    time = "10:00:00"
+    time = "07:27:00"
 else:
     time = "11:00:00"
 schedule.every().day.at(time).do(schedule_task_at_specific_time)

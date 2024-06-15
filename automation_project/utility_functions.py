@@ -359,10 +359,10 @@ def click_pay_with_upi():
 
 
 def click_bhim_upi_ssd():
-    py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
+    loc = py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
                                                      minSearchTime=25)
-    py.press("tab", presses=4)
-    py.press("enter")
+    py.moveTo(loc)
+    py.click(loc)
 
 
 def is_irctc_wallet_clicked():
