@@ -7,29 +7,29 @@
     "source_station": "umb",
     "destination_station": "bju",
     "travel_date": "15/06/2024",
-    "is_general": true,
-    "is_tatkal": false,
+    "is_general": false,
+    "is_tatkal": true,
     "is_premium_tatkal": false,
     "is_sleeper": false,
     "is_ac_3_tier": true,
     "is_ac_tier_3_economy": false,
-    "is_ticket_available": false,
-    "is_ticket_waiting": true,
+    "is_ticket_available": true,
+    "is_ticket_waiting": false,
     "is_read_and_write_otp_from_mail": true,
-    "is_payment_with_upi": true,
+    "is_payment_with_upi": false,
     "no_of_passenger_for_booking": 3,
-    "passenger_phn_no": "",
+    "passenger_phn_no": "9572841588",
     "passenger_details": [
       {
         "NAME": "sourav kumar",
-        "AGE": 19,
+        "AGE": 20,
         "GENDER": "Male",
         "SEAT": "",
         "FOOD": ""
       },
       {
         "NAME": "nishant kr",
-        "AGE": 17,
+        "AGE": 20,
         "GENDER": "Female",
         "SEAT": "",
         "FOOD": ""
@@ -70,7 +70,7 @@
     "passenger_name_input_fld_image": "passenger_name_input_fld.png",
     "cross_image": "cross.png",
     "india_text_image": "india.png",
-    "pay_through_bhim_upi_image": "pay_through_bhim_upi_image.png",
+    "pay_through_bhim_upi_image": "pay_through_bhim_upi.png",
     "book_only_if_get_confirm_berth": "book_only_if_get_confirm_berth.png",
     "search_btn_image": "search_btn.png",
     "source_station_image": "source_station.png",
@@ -90,6 +90,6 @@
     "clicked_age_fld_image": "clicked_age_fld.png",
     "connected_us_on_social_media_image": "connected_us_on_social_media.png",
     "catering_option_image": "catering_option.png",
-    "paytm_upi_txt_correct_sign_image": "paytm_upi_txt_correct_sign"
+    "paytm_upi_txt_correct_sign_image": "paytm_upi_txt_correct_sign.png"
   }
 }

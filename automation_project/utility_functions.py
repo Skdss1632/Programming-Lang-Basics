@@ -74,10 +74,17 @@ def input_passenger_names(no_of_passenger_for_booking: int):
                                     confidence=0.90, minSearchTime=120)
 
 
-def click_book_only_if_confirm_berth_alloted(img_path: str):
-    scroll_until_element_visible_not_visible(img_path=img_path, no_of_scrolls=-2)
-    txt_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=60)
-    py.click(txt_location)
+no_of_press = 0
+
+
+def click_book_only_if_confirm_berth_alloted():
+    global no_of_press
+    if get_booking_details("passenger_phn_no") != "":
+        no_of_press = 4
+    elif get_booking_details("passenger_phn_no") == "":
+        no_of_press = 10
+    py.press("tab", presses=no_of_press)
+    py.press("space")
 
 
 def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: str):
@@ -258,7 +265,7 @@ def click_otp_fld(otp_fld_img_path: str):
 
 
 def scroll_until_element_visible_not_visible(img_path: str, no_of_scrolls=-3):
-    while True:
+    for _ in range(10):
         py.scroll(no_of_scrolls)
         try:
             if py.locateCenterOnScreen(image=img_path, confidence=0.90) is not None:
@@ -344,17 +351,18 @@ def read_and_fill_otp():
 
 
 def click_pay_with_upi():
-    payment_with_upi_loc = py.locateCenterOnScreen(image=get_image_path("pay_with_upi_checkbox_image"), confidence=0.90,
-                                                   minSearchTime=25)
-    py.moveTo(payment_with_upi_loc)
-    py.click(payment_with_upi_loc)
+    global no_of_press
+    if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
+        no_of_press = 6
+    py.press("tab", presses=no_of_press)
+    py.press("down")
 
 
 def click_bhim_upi_ssd():
-    click_bhim_upi_ssd_loc = py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
+    py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
                                                      minSearchTime=25)
-    py.moveTo(click_bhim_upi_ssd_loc)
-    py.click(click_bhim_upi_ssd_loc)
+    py.press("tab", presses=4)
+    py.press("enter")
 
 
 def is_irctc_wallet_clicked():
@@ -367,9 +375,9 @@ def click_pay_using_bhim_paytm_txt():
     py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"),
                                                        confidence=0.90, minSearchTime=60)
     py.press("tab", presses=2)
-    py.click("enter")
-    py.locateCenterOnScreen(image=get_image_path("paytm_upi_txt_correct_sign_image"),
-                            confidence=0.90, minSearchTime=15)
+    py.press("enter")
+    # py.locateCenterOnScreen(image=get_image_path("paytm_upi_txt_correct_sign_image"),
+    #                         confidence=0.90, minSearchTime=15)
 
 
 def get_passenger_details():
@@ -377,12 +385,16 @@ def get_passenger_details():
 
 
 def click_continue_btn_inside_pass_details():
+    global no_of_press
+    # if is_payment_with_upi True then cursor is inside pay through bhim upi count the tab press from there
     if get_booking_details("is_payment_with_upi"):
         no_of_press = 2
-    elif get_booking_details("passenger_phn_no") != "":
-        no_of_press = 7
+    # if tatkal True then currently cursor is inside this checkbox-- book only if i et confirm berth
+    elif get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
+        no_of_press = 8
+    # if not tatkal and phn no == "" then count the tab press from gender box
     else:
-        no_of_press = 9
+        no_of_press = 18
     py.press("tab", presses=no_of_press)
     py.press("enter")
 

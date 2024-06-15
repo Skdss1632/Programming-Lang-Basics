@@ -41,35 +41,36 @@ def schedule_task_at_specific_time():
     input_passenger_phn_no()
 
     if get_booking_details("is_tatkal") or get_booking_details("is_premium_tatkal"):
-        click_book_only_if_confirm_berth_alloted(get_image_path("book_only_if_get_confirm_berth"))
+        click_book_only_if_confirm_berth_alloted()
 
     if get_booking_details("is_payment_with_upi"):
         scroll_until_element_visible_not_visible(img_path=get_image_path("pay_through_bhim_upi_image"))
         click_pay_with_upi()
 
-    # click continue btn inside passenger details
     click_continue_btn_inside_pass_details()
 
-    # max wait time while tatkal
+    # here page start buffering
     py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=120)
     # click captcha fld
     py.sleep(1)
     click_captcha_fld()
-
-    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
     py.sleep(1)
+
+    payment_yellow_loc = py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=120)
+    py.click(payment_yellow_loc)
 
     if get_booking_details("is_payment_with_upi"):
         click_bhim_upi_ssd()
         click_pay_using_bhim_paytm_txt()
         click_pay_n_book(no_of_press=4)
     else:
-        # if want to pay with wallet verify you have wallet and have required amt in it
+        # if want to pay with wallet verify you have created wallet in acc and have required amt in it
         click_irctc_e_wallet(img_path=get_image_path("irctc_e_wallet_image"))
         is_irctc_wallet_clicked()
         click_pay_n_book(no_of_press=10)
+        # if want to pay with wallet need to click on otp fld otherwise not, there is no need to click on otp fld if want to pay with upi just scan qr and pay
+        click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))
 
-    click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))
     if get_booking_details("is_read_and_write_otp_from_mail"):
         read_and_write_otp_from_mail()
 
