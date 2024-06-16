@@ -16,9 +16,7 @@ def input_details():
     input_source_n_destination_station(source_station=source_station, destination=destination_station)
 
     # select_ticket_type_from_dropdown()
-
-    reset_filter_txt_img_path = get_image_path("reset_filter_image")
-    py.locateCenterOnScreen(image=reset_filter_txt_img_path, confidence=0.90, minSearchTime=60)
+    wait_for_element(get_image_path("reset_filter_image"), min_search_time=60)
     py.sleep(1)
 
     train_name_img_path = get_image_path("train_name_image")
@@ -28,7 +26,6 @@ def input_details():
 
 
 def schedule_task_at_specific_time():
-    py.sleep(2)
     # click_on_coach_on_selected_train()
 
     click_on_wl_or_avalible_btn()
@@ -40,7 +37,7 @@ def schedule_task_at_specific_time():
 
     input_passenger_phn_no()
 
-    if get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
+    if get_ticket_availability_status("is_ticket_available"):
         click_book_only_if_confirm_berth_alloted()
 
     if get_otp_and_payment_options("is_payment_with_upi"):
@@ -50,13 +47,13 @@ def schedule_task_at_specific_time():
     click_continue_btn_inside_pass_details()
 
     # here page start buffering
-    py.locateCenterOnScreen(image=get_image_path("review_journey_image"), confidence=0.90, minSearchTime=240)
+    wait_for_element(image_path=get_image_path("review_journey_image"))
     # click captcha fld
     py.sleep(1)
     click_captcha_fld()
     # press enter manually after filling captcha
 
-    py.locateCenterOnScreen(image=get_image_path("payment_yellow_image"), confidence=0.90, minSearchTime=240)
+    wait_for_element(image_path=get_image_path("payment_yellow_image"))
     py.sleep(1)
 
     if get_otp_and_payment_options("is_payment_with_upi"):
@@ -75,19 +72,9 @@ def schedule_task_at_specific_time():
         read_and_write_otp_from_mail()
 
 
-
-schedule_task_at_specific_time()
-
+# schedule_task_at_specific_time()
 
 
-
-
-
-
-
-
-
-# Schedule the task to run at 11:00:00 AM for sleeper and 10:00:00 AM  every day
 if get_coach_booking_preferences("is_ac_3_tier") or get_coach_booking_preferences("is_ac_tier_3_economy"):
     time = "10:00:00"
 else:

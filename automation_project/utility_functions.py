@@ -10,7 +10,7 @@ import time
 import datetime
 
 
-parent_img_path = "/home/intern/Documents/gitlearning//Programming_Lang_Basics/automation_project/irctc_images/"
+parent_img_path = "irctc_images/"
 with open('json_config/automation_img_filenames.json', 'r') as f:
     img_config = json.load(f)
 
@@ -72,20 +72,19 @@ def open_url():
 
 
 def click_book_now_inside_select_train(book_now_img_path: str):
-    book_now_location = py.locateCenterOnScreen(image=book_now_img_path, confidence=0.90, minSearchTime=60)
+    book_now_location = wait_for_element(book_now_img_path)
     py.moveTo(book_now_location)
     py.click(book_now_location)
 
 
 def click_on_wl_or_avalible_btn():
-    wl_or_available_img_path = ""
-    if get_ticket_availability_status("is_ticket_waiting"):
-        wl_or_available_img_path = get_image_path("waiting_list_image")
-    elif get_ticket_availability_status("is_ticket_available"):
+    if get_ticket_availability_status("is_ticket_available"):
         wl_or_available_img_path = get_image_path("available_ticket_image")
-    wl_or_available_location = py.locateCenterOnScreen(image=wl_or_available_img_path, confidence=0.90,
-                                                       minSearchTime=60)
-    py.click(wl_or_available_location)
+    # if ticket is waiting
+    else:
+        wl_or_available_img_path = get_image_path("waiting_list_image")
+    wl_or_available_loc = wait_for_element(wl_or_available_img_path)
+    py.click(wl_or_available_loc)
 
 
 def input_passenger_names(no_of_passenger_for_booking: int):
@@ -98,9 +97,7 @@ def input_passenger_names(no_of_passenger_for_booking: int):
     #
     #     except py.ImageNotFoundException:
     #         print("No catering option")
-
-    py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                            confidence=0.90, minSearchTime=120)
+    wait_for_element(image_path=get_image_path("passenger_name_input_fld_image"))
     passenger_details = get_passenger_details()
     i = 0
     for passenger in passenger_details:
@@ -114,12 +111,11 @@ def input_passenger_names(no_of_passenger_for_booking: int):
         else:
             py.press('right')
 
-        if passenger_name != "sourav":
+        if passenger_name != "gourav":
             py.press("tab", presses=3)
             py.press("enter")
             # there is delay in appearing passenger detail input fld after clicking on add pass detail so verify the img first then perform action
-            py.locateCenterOnScreen(image=get_image_path("passenger_name_input_fld_image"),
-                                    confidence=0.90, minSearchTime=120)
+            wait_for_element(image_path=get_image_path("passenger_name_input_fld_image"))
 
 
 no_of_press = 0
@@ -138,19 +134,18 @@ def click_book_only_if_confirm_berth_alloted():
 def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: str):
     scroll_until_element_visible_not_visible(img_path=img_path, no_of_scrolls=3)
     py.sleep(captcha_fill_delay)
-    button_location = py.locateCenterOnScreen(image=img_path, confidence=0.90, minSearchTime=240)
+    button_location = wait_for_element(image_path=img_path)
     py.click(button_location)
 
 
 def click_irctc_e_wallet(img_path: str):
-    wallet_location = py.locateCenterOnScreen(image=img_path, confidence=0.80, minSearchTime=240)
+    wallet_location = wait_for_element(image_path=img_path)
     py.moveTo(wallet_location)
     py.click(wallet_location)
 
 
 def click_search_btn():
-    sign_in_btn = py.locateCenterOnScreen(image=get_image_path("search_btn_image"), confidence=0.90,
-                                          minSearchTime=240)
+    sign_in_btn = wait_for_element(image_path=get_image_path("sign_in_btn_image"))
     py.click(sign_in_btn)
 
 
@@ -166,21 +161,16 @@ def select_ticket_type_from_dropdown():
 
     if get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         # Click on general to reset or ensure the dropdown is in a known state
-        general_img_location = py.locateCenterOnScreen(image=get_image_path("general_image"), confidence=0.90,
-                                                       minSearchTime=15)
-        py.click(general_img_location)
+        general_img_loc = get_image_path(image_name="general_image")
+        py.click(general_img_loc)
         if get_ticket_type_selection("is_premium_tatkal"):
-            general_blue_location = py.locateCenterOnScreen(image=get_image_path("general_blue_image"), confidence=0.90,
-                                                            minSearchTime=15)
-            py.moveTo(general_blue_location)
+            general_blue_loc = wait_for_element("general_blue_image")
+            py.moveTo(general_blue_loc)
             py.scroll(-0.3)
 
-            ticket_type_location = py.locateCenterOnScreen(image=get_image_path("premium_tatkal_image"),
-                                                           confidence=0.90,
-                                                           minSearchTime=15)
+            ticket_type_location = wait_for_element(get_image_path("premium_tatkal_image"))
         if get_ticket_type_selection("is_tatkal"):
-            ticket_type_location = py.locateCenterOnScreen(image=get_image_path("tatkal_image"), confidence=0.90,
-                                                           minSearchTime=15)
+            ticket_type_location = wait_for_element(get_image_path("tatkal_image"))
         py.click(ticket_type_location)
 
 
@@ -248,21 +238,19 @@ def select_ticket_type_from_dropdown():
 
 def input_source_n_destination_station(source_station: str, destination: str):
     # go inside source station input fld
-    source_loc = py.locateCenterOnScreen(image=get_image_path("source_station_image"), confidence=0.90,
-                                         minSearchTime=240)
+    source_loc = wait_for_element(get_image_path("source_station_image"))
     py.moveTo(source_loc)
     py.click(source_loc)
     py.write(source_station, interval=0.1)
     py.sleep(1)
-    py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85,
-                            minSearchTime=10)
+    wait_for_element(image_path=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85, min_search_time=10)
     py.press("enter")
 
     # go inside destination input fld
     py.press("tab", presses=2)
     py.write(destination, interval=0.1)
     py.sleep(1)
-    py.locateCenterOnScreen(image=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85, minSearchTime=10)
+    wait_for_element(image_path=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85, min_search_time=10)
     py.sleep(0.5)
     py.press("enter")
 
@@ -288,9 +276,8 @@ def open_chrome_browser_with_irctc_page():
 def click_login_btn():
     # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
     # not and click on it
-    login_btn_location = py.locateCenterOnScreen(image=get_image_path("login_btn_image"), confidence=0.90,
-                                                 minSearchTime=25)
-    py.click(login_btn_location)
+    login_btn_loc = wait_for_element(image_path=get_image_path("login_btn_image"), min_search_time=25)
+    py.click(login_btn_loc)
 
 
 def click_pay_n_book(no_of_press: int):
@@ -300,7 +287,7 @@ def click_pay_n_book(no_of_press: int):
 
 def click_otp_fld(otp_fld_img_path: str):
     # max wait time while tatkal
-    py.locateCenterOnScreen(image=otp_fld_img_path, confidence=0.80, minSearchTime=120)
+    wait_for_element(otp_fld_img_path, confidence=0.80, min_search_time=120)
     py.press("tab")
 
 
@@ -340,19 +327,16 @@ def read_and_write_otp_from_mail():
     """this function reads otp from mail
      and writes it to otp box work only if only two tabs are open in browser one is mail and another is booking web"""
     py.hotkey("ctrl", "tab")
-    otp_txt_in_mail_image = py.locateCenterOnScreen(image=get_image_path("otp_txt_in_mail_image"), confidence=0.90,
-                                                    minSearchTime=120)
+    otp_txt_in_mail_image = wait_for_element(get_image_path("otp_txt_in_mail_image"), min_search_time=120)
     py.click(otp_txt_in_mail_image)
-    py.locateCenterOnScreen(image=get_image_path("your_one_tym_otp_txt_image"), confidence=0.90,
-                            minSearchTime=25)
+    wait_for_element(get_image_path("your_one_tym_otp_txt_image"), min_search_time=25)
     py.moveTo(707, 472)
     py.click(707, 472, clicks=2)
     py.hotkey("ctrl", "c")
     # delete the otp mail after copying it
-    delete_location = py.locateCenterOnScreen(image=get_image_path("delete_icon_of_mail_image"), confidence=0.90,
-                                              minSearchTime=15)
-    py.moveTo(delete_location)
-    py.click(delete_location)
+    delete_loc = wait_for_element(get_image_path("delete_icon_of_mail_image"), min_search_time=15)
+    py.moveTo(delete_loc)
+    py.click(delete_loc)
     py.hotkey("ctrl", "tab")
     otp = pyperclip.paste()
     py.write(otp)
@@ -390,25 +374,20 @@ def click_pay_with_upi():
 
 
 def click_bhim_upi_ssd():
-    loc = py.locateCenterOnScreen(image=get_image_path("bhim_upi_txt_image"), confidence=0.90,
-                                  minSearchTime=25)
+    loc = wait_for_element(get_image_path("bhim_upi_txt_image"), min_search_time=25)
     py.moveTo(loc)
     py.click(loc)
 
 
 def is_irctc_wallet_clicked():
     # verify irctc e wallet btn is clicked
-    py.locateCenterOnScreen(image=get_image_path("an_amt_of_10_applicable_txt_image"), confidence=0.90,
-                            minSearchTime=240)
+    wait_for_element(get_image_path("an_amt_of_10_applicable_txt_image"))
 
 
 def click_pay_using_bhim_paytm_txt():
-    py.locateCenterOnScreen(image=get_image_path("pay_using_bhim_paytm_txt_image"),
-                            confidence=0.90, minSearchTime=240)
+    wait_for_element("pay_using_bhim_paytm_txt_image")
     py.press("tab", presses=2)
     py.press("enter")
-    # py.locateCenterOnScreen(image=get_image_path("paytm_upi_txt_correct_sign_image"),
-    #                         confidence=0.90, minSearchTime=15)
 
 
 def click_continue_btn_inside_pass_details():
@@ -437,4 +416,5 @@ def input_passenger_phn_no():
         py.write(passenger_phn_no)
 
 
-
+def wait_for_element(image_path, confidence=0.90, min_search_time=240):
+    return py.locateCenterOnScreen(image=image_path, confidence=confidence, minSearchTime=min_search_time)
