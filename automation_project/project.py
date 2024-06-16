@@ -1,4 +1,4 @@
-from Programming_Lang_Basics.automation_project.utility_functions import *  # Custom utility functions
+from utility_functions import *
 
 
 def input_details():
