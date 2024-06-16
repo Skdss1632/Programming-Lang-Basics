@@ -33,7 +33,7 @@ def schedule_task_at_specific_time():
     click_book_now_inside_select_train(book_now_img_path=get_image_path("book_now_image"))
 
     # if want to perform any action inside pass details count the presses from gender
-    input_passenger_names(no_of_passenger_for_booking=get_booking_details("no_of_passenger_for_booking"))
+    input_passenger_names()
 
     input_passenger_phn_no()
 
@@ -72,7 +72,7 @@ def schedule_task_at_specific_time():
         read_and_write_otp_from_mail()
 
 
-# schedule_task_at_specific_time()
+schedule_task_at_specific_time()
 
 
 if get_coach_booking_preferences("is_ac_3_tier") or get_coach_booking_preferences("is_ac_tier_3_economy"):

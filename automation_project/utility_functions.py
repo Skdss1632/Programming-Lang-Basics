@@ -11,17 +11,17 @@ import datetime
 
 
 parent_img_path = "irctc_images/"
-with open('json_config/automation_img_filenames.json', 'r') as f:
-    img_config = json.load(f)
 
-with open('json_config/booking_config.json', 'r') as f:
-    booking_config = json.load(f)
 
-with open('json_config/login_credentials.json', 'r') as f:
-    login_credentials = json.load(f)
+def load_json(file_path):
+    with open(file_path, 'r') as f:
+        return json.load(f)
 
-with open('json_config/passenger_data.json', 'r') as f:
-    passenger_data = json.load(f)
+
+img_config = load_json('json_config/automation_img_filenames.json')
+booking_config = load_json('json_config/booking_config.json')
+login_credentials = load_json('json_config/login_credentials.json')
+passenger_data = load_json('json_config/passenger_data.json')
 
 
 def get_coach_booking_preferences(key: str):
@@ -87,31 +87,20 @@ def click_on_wl_or_avalible_btn():
     py.click(wl_or_available_loc)
 
 
-def input_passenger_names(no_of_passenger_for_booking: int):
-    #     catering_loc = ""
-    #     try:
-    #         # select no food if catering option avl
-    #         py.locateCenterOnScreen(image=get_image_path("catering_option_image"), confidence=0.90)
-    #         py.press("tab", presses=5)
-    #         py.press("right", presses=3)
-    #
-    #     except py.ImageNotFoundException:
-    #         print("No catering option")
+def input_passenger_names():
     wait_for_element(image_path=get_image_path("passenger_name_input_fld_image"))
-    passenger_details = get_passenger_details()
-    i = 0
-    for passenger in passenger_details:
+    passenger_details: list = get_passenger_details()
+    total_passengers = len(passenger_details)
+    for idx, passenger in enumerate(passenger_details):
         passenger_name = passenger.get("NAME")
         py.write(passenger_name)
         py.press("tab")
         py.write(str(passenger.get("AGE")))
         py.press("tab")
-        if passenger.get("GENDER") == "Female":
-            py.press('right', presses=2)
-        else:
-            py.press('right')
-
-        if passenger_name != "gourav":
+        gender_presses = 2 if passenger.get("GENDER") == "Female" else 1
+        py.press('right', presses=gender_presses)
+        # if passenger name is the last name in list then do not click on add pass
+        if idx < total_passengers - 1:
             py.press("tab", presses=3)
             py.press("enter")
             # there is delay in appearing passenger detail input fld after clicking on add pass detail so verify the img first then perform action
@@ -172,68 +161,6 @@ def select_ticket_type_from_dropdown():
         if get_ticket_type_selection("is_tatkal"):
             ticket_type_location = wait_for_element(get_image_path("tatkal_image"))
         py.click(ticket_type_location)
-
-
-# def input_irctc_account(username: str, password: str, username_image_path: str, password_image_path):
-#     password_filled_img_path = get_image_path("password_filled_image")
-#     try:
-#         py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=5)
-#         # If password filled image is found, skip the rest of the code
-#     except py.ImageNotFoundException:
-#         try:
-#             # Try locating the images on the screen
-#             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
-#                                                         minSearchTime=5)
-#         except py.ImageNotFoundException:
-#             large_sign_in_btn = None
-#
-#         try:
-#             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
-#                                                         minSearchTime=5)
-#         except py.ImageNotFoundException:
-#             small_sign_in_btn = None
-#
-#         # Check if either image is found
-#         if small_sign_in_btn or large_sign_in_btn:
-#             for image, text in [(username_image_path, username), (password_image_path, password)]:
-#                 field_location = py.locateCenterOnScreen(image=image, confidence=0.85, minSearchTime=25)
-#                 py.click(field_location)
-#                 # py.hotkey("ctrl", "a")
-#                 # py.press('backspace')
-#                 py.write(text)
-#         # go inside captcha fld
-#         py.press("tab", presses=2)
-
-
-# def input_irctc_account(username: str, password: str):
-#     password_filled_img_path = get_image_path("password_filled_image")
-#     try:
-#         py.locateCenterOnScreen(image=password_filled_img_path, confidence=0.75, minSearchTime=5)
-#         # If password filled image is found, skip the rest of the code
-#     except py.ImageNotFoundException:
-#         try:
-#             # Try locating the images on the screen
-#             large_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("large_sign_in_btn"), confidence=0.90,
-#                                                         minSearchTime=5)
-#         except py.ImageNotFoundException:
-#             large_sign_in_btn = None
-#
-#         try:
-#             small_sign_in_btn = py.locateCenterOnScreen(image=get_image_path("small_sign_in_btn"), confidence=0.90,
-#                                                         minSearchTime=5)
-#         except py.ImageNotFoundException:
-#             small_sign_in_btn = None
-#
-#         # Check if either image is found
-#         if small_sign_in_btn or large_sign_in_btn:
-#             py.sleep(1)
-#             py.hotkey("ctrl", "a")
-#             py.press('backspace')
-#             py.write(username)
-#             py.press('tab')
-#             py.write(password)
-#             # go inside captcha fld
-#             py.press("tab", presses=2)
 
 
 def input_source_n_destination_station(source_station: str, destination: str):
