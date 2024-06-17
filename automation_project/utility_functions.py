@@ -246,8 +246,12 @@ def click_on_coach_on_selected_train():
     print("total no of sleeper btn visible on ui", len(btn_location))
 
 
-def click_captcha_fld():
-    py.press("tab", presses=7)
+def click_captcha_fld(is_ad_blocker_enabled: bool):
+    if is_ad_blocker_enabled:
+        press = 5
+    else:
+        press = 7
+    py.press("tab", presses=press)
 
 
 def read_and_write_otp_from_mail():

@@ -48,13 +48,14 @@ def schedule_task_at_specific_time():
 
     # here page start buffering
     wait_for_element(image_path=get_image_path("review_journey_image"))
-    # click captcha fld
-    py.sleep(1)
-    click_captcha_fld()
+    # if ad blocker extension installed on browser no need to sleep here for 1 sec
+    # py.sleep(1)
+    click_captcha_fld(is_ad_blocker_enabled=True)
     # press enter manually after filling captcha
 
     wait_for_element(image_path=get_image_path("payment_yellow_image"))
-    py.sleep(1)
+    # if ad blocker extension installed on browser no need to sleep here for 1 sec
+    # py.sleep(1)
 
     if get_otp_and_payment_options("is_payment_with_upi"):
         click_bhim_upi_ssd()
@@ -65,7 +66,7 @@ def schedule_task_at_specific_time():
         click_irctc_e_wallet(img_path=get_image_path("irctc_e_wallet_image"))
         is_irctc_wallet_clicked()
         click_pay_n_book(no_of_press=10)
-        # if want to pay with wallet need to click on otp fld otherwise not, there is no need to click on otp fld if want to pay with upi just scan qr and pay
+        # if want to pay with wallet need to click on otp fld otherwise not, if want to pay with upi just scan qr and pay
         click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))
 
     if get_otp_and_payment_options("is_read_and_write_otp_from_mail"):
