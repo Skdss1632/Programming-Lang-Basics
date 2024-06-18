@@ -24,13 +24,10 @@ def schedule_task_at_specific_time():
     # if ad blocker extension installed on browser no need to sleep here for 1 sec
     # py.sleep(1)
     if get_otp_and_payment_options("is_payment_with_upi"):
-        click_bhim_upi_ssd()
-        click_pay_using_bhim_paytm_txt()
+        select_bhim_upi_ssd_for_upi_pay()
         click_pay_n_book(no_of_press=4)
     else:
-        # if want to pay with wallet verify you have created wallet in acc and have required amt in it
-        click_irctc_e_wallet(img_path=get_image_path("irctc_e_wallet_image"))
-        is_irctc_wallet_clicked()
+        click_irctc_e_wallet()
         click_pay_n_book(no_of_press=10)
         # if want to pay with wallet need to click on otp fld otherwise not, if want to pay with upi just scan qr and pay
         click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))

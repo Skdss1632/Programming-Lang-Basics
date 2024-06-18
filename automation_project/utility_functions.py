@@ -127,12 +127,6 @@ def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: 
     py.click(button_location)
 
 
-def click_irctc_e_wallet(img_path: str):
-    wallet_location = wait_for_element(image_path=img_path)
-    py.moveTo(wallet_location)
-    py.click(wallet_location)
-
-
 def click_search_btn():
     sign_in_btn = wait_for_element(image_path=get_image_path("sign_in_btn_image"))
     py.click(sign_in_btn)
@@ -284,22 +278,6 @@ def click_pay_with_upi():
     py.press("down")
 
 
-def click_bhim_upi_ssd():
-    loc = wait_for_element(get_image_path("bhim_upi_txt_image"), min_search_time=25)
-    py.moveTo(loc)
-    py.click(loc)
-
-
-def is_irctc_wallet_clicked():
-    # verify irctc e wallet btn is clicked
-    wait_for_element(get_image_path("an_amt_of_10_applicable_txt_image"))
-
-
-def click_pay_using_bhim_paytm_txt():
-    py.press("tab", presses=2)
-    py.press("enter")
-
-
 def click_continue_btn_inside_pass_details():
     global no_of_press
     # if is_payment_with_upi True then cursor is inside pay through bhim upi count the tab press from there
@@ -335,8 +313,6 @@ def click_mouse_position():
 
 
 def read_n_write_otp_from_kde_sms():
-    opt_fld_loc = wait_for_element(get_image_path("otp_fld_image"))
-    py.click(opt_fld_loc)
     # open kde sms
     py.hotkey("ctrl", "alt", "s")
     py.click(wait_for_element(get_image_path("kde_otp_txt_image")))
@@ -371,3 +347,20 @@ def get_captcha_text():
         extracted_text = pytesseract.image_to_string(gray_screenshot)
         py.write(extracted_text)
 
+
+def select_bhim_upi_ssd_for_upi_pay():
+    loc = wait_for_element(get_image_path("bhim_upi_txt_image"), min_search_time=25)
+    py.moveTo(loc)
+    py.click(loc)
+    # click pay using bhim upi ssd
+    py.press("tab", presses=2)
+    py.press("enter")
+
+
+def click_irctc_e_wallet():
+    # if want to pay with wallet verify you have created wallet in acc and have required amt in it
+    wallet_location = wait_for_element(image_path=get_image_path("irctc_e_wallet_image"))
+    py.moveTo(wallet_location)
+    py.click(wallet_location)
+    # verify irctc e wallet btn is clicked
+    wait_for_element(get_image_path("an_amt_of_10_applicable_txt_image"))
