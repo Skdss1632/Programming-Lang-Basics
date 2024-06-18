@@ -14,8 +14,8 @@
     "is_ticket_waiting": false
   },
   "otp_and_payment_options": {
-    "is_read_and_write_otp_from_mail": false,
-    "is_payment_with_upi": true
+    "is_read_and_write_otp_from_sms": true,
+    "is_payment_with_upi": false
   },
   "booking_details": {
     "source_station": "umb",

@@ -1,4 +1,7 @@
+from utility_functions import *
 
-from Programming_Lang_Basics.automation_project.utility_functions import *
-py.sleep(2)
-click_on_coach_on_selected_train()
+
+py.sleep(3)
+print(py.position())
+read_n_write_otp_from_kde_sms()
+# py.press("right")

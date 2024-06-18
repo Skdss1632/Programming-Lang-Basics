@@ -258,8 +258,7 @@ def read_and_write_otp_from_mail():
     """this function reads otp from mail
      and writes it to otp box work only if only two tabs are open in browser one is mail and another is booking web"""
     py.hotkey("ctrl", "tab")
-    otp_txt_in_mail_image = wait_for_element(get_image_path("otp_txt_in_mail_image"), min_search_time=120)
-    py.click(otp_txt_in_mail_image)
+    py.click(wait_for_element(get_image_path("otp_txt_in_mail_image"), min_search_time=120))
     wait_for_element(get_image_path("your_one_tym_otp_txt_image"), min_search_time=25)
     py.moveTo(707, 472)
     py.click(707, 472, clicks=2)
@@ -316,7 +315,6 @@ def is_irctc_wallet_clicked():
 
 
 def click_pay_using_bhim_paytm_txt():
-    wait_for_element("pay_using_bhim_paytm_txt_image")
     py.press("tab", presses=2)
     py.press("enter")
 
@@ -349,3 +347,31 @@ def input_passenger_phn_no():
 
 def wait_for_element(image_path, confidence=0.90, min_search_time=240):
     return py.locateCenterOnScreen(image=image_path, confidence=confidence, minSearchTime=min_search_time)
+
+
+def click_mouse_position():
+    py.click(py.position())
+
+
+def read_n_write_otp_from_kde_sms():
+    py.click(wait_for_element(get_image_path("otp_fld_image")))
+    # open kde sms
+    py.hotkey("ctrl", "alt", "s")
+    py.click(wait_for_element(get_image_path("kde_otp_txt_image")))
+    py.press("down")
+    py.press("enter")
+    # wait for the otp
+    wait_for_element(get_image_path("kde_connect_blue_color_otp_txt_image"))
+    py.click(434, 168, clicks=2)
+    py.hotkey("ctrl", "c")
+    # close kde sms
+    py.hotkey("alt", "f4")
+    # open chrome
+    py.hotkey("shift", "alt", "c")
+    wait_for_element(get_image_path("otp_fld_image"), confidence=0.80)
+    otp = pyperclip.paste()
+    py.write(otp)
+    # go inside continue btn and then hit enter
+    # py.press("tab")
+    # py.press("enter")
+    print(otp)

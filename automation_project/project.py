@@ -1,33 +1,9 @@
 from utility_functions import *
 
 
-def input_details():
-    """Automates the process of inputting details on the IRCTC page.
-    if you want to book ticket in another train take that train ss and pass the img path train_name_image"""
-    open_chrome_browser_with_irctc_page()
-    click_login_btn()
-    py.sleep(3)
-    username = get_login_credentials("username")
-    password = get_login_credentials("password")
-    # input_irctc_account(username=username, password=password)
-
-    source_station = get_booking_details("source_station")
-    destination_station = get_booking_details("destination_station")
-    input_source_n_destination_station(source_station=source_station, destination=destination_station)
-
-    # select_ticket_type_from_dropdown()
-    wait_for_element(get_image_path("reset_filter_image"), min_search_time=60)
-    py.sleep(1)
-
-    train_name_img_path = get_image_path("train_name_image")
-    scroll_until_element_visible_not_visible(img_path=train_name_img_path, no_of_scrolls=-1)
-    py.sleep(0.2)
-    # py.sleep(8)
-
-
 def schedule_task_at_specific_time():
-    # click_on_coach_on_selected_train()
-
+    # py.sleep(5)
+    # click_mouse_position()
     click_on_wl_or_avalible_btn()
     scroll_until_element_visible_not_visible(img_path=get_image_path("book_now_image"), no_of_scrolls=-1)
     click_book_now_inside_select_train(book_now_img_path=get_image_path("book_now_image"))
@@ -69,7 +45,9 @@ def schedule_task_at_specific_time():
         # if want to pay with wallet need to click on otp fld otherwise not, if want to pay with upi just scan qr and pay
         click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))
 
-    if get_otp_and_payment_options("is_read_and_write_otp_from_mail"):
+    if get_otp_and_payment_options("is_read_and_write_otp_from_sms"):
+        read_n_write_otp_from_kde_sms()
+    else:
         read_and_write_otp_from_mail()
 
 
