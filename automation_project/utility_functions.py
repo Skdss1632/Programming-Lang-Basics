@@ -1,7 +1,7 @@
 import pyautogui as py
 import json
 import pytesseract
-from PIL import Image
+from PIL import Image, ImageGrab
 import pyperclip
 import os
 import platform
@@ -258,7 +258,8 @@ def read_and_write_otp_from_mail():
     """this function reads otp from mail
      and writes it to otp box work only if only two tabs are open in browser one is mail and another is booking web"""
     py.hotkey("ctrl", "tab")
-    py.click(wait_for_element(get_image_path("otp_txt_in_mail_image"), min_search_time=120))
+    loc = wait_for_element(get_image_path("otp_txt_in_mail_image"), min_search_time=120)
+    py.click(loc)
     wait_for_element(get_image_path("your_one_tym_otp_txt_image"), min_search_time=25)
     py.moveTo(707, 472)
     py.click(707, 472, clicks=2)
@@ -273,26 +274,6 @@ def read_and_write_otp_from_mail():
     # go to confirm btn
     py.press("tab")
     print(otp)
-
-
-def read_and_fill_otp():
-    # Path to Tesseract executable (you may need to change this based on your system)
-    pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
-
-    def solve_captcha(image_path):
-        # Open the captcha image
-        with Image.open(image_path) as img:
-            # Convert the image to grayscale for better OCR accuracy
-            img = img.convert('L')
-
-            # Use pytesseract to perform OCR on the image
-            captcha_text = pytesseract.image_to_string(img)
-
-            return captcha_text.strip()
-
-    # Example usage:
-    captcha_text = solve_captcha('captcha.png')
-    print("Captcha Text:", captcha_text)
 
 
 def click_pay_with_upi():
@@ -354,7 +335,8 @@ def click_mouse_position():
 
 
 def read_n_write_otp_from_kde_sms():
-    py.click(wait_for_element(get_image_path("otp_fld_image")))
+    opt_fld_loc = wait_for_element(get_image_path("otp_fld_image"))
+    py.click(opt_fld_loc)
     # open kde sms
     py.hotkey("ctrl", "alt", "s")
     py.click(wait_for_element(get_image_path("kde_otp_txt_image")))
@@ -375,3 +357,17 @@ def read_n_write_otp_from_kde_sms():
     # py.press("tab")
     # py.press("enter")
     print(otp)
+
+
+def get_captcha_text():
+    # Take a screenshot (you need to have the image copied to the clipboard)
+    screenshot = ImageGrab.grabclipboard()
+    # Check if screenshot is None
+    if screenshot is not None:
+        # Convert the screenshot to grayscale
+        gray_screenshot = screenshot.convert('L')
+
+        # Use pytesseract to extract text from the screenshot
+        extracted_text = pytesseract.image_to_string(gray_screenshot)
+        py.write(extracted_text)
+
