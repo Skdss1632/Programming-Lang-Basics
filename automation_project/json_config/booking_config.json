@@ -6,21 +6,21 @@
   },
   "ticket_type_selection": {
     "is_general": false,
-    "is_tatkal": true,
-    "is_premium_tatkal": false
+    "is_tatkal": false,
+    "is_premium_tatkal": true
   },
   "ticket_availability_status": {
     "is_ticket_available": true,
     "is_ticket_waiting": false
   },
   "otp_and_payment_options": {
-    "is_read_and_write_otp_from_sms": true,
-    "is_payment_with_upi": false
+    "is_read_and_write_otp_from_sms": false,
+    "is_payment_with_upi": true
   },
   "booking_details": {
     "source_station": "umb",
     "destination_station": "bju",
     "travel_date": "15/06/2024",
-    "no_of_passenger_for_booking": 2
+    "no_of_passenger_for_booking": 1
   }
 }

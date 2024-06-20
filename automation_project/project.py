@@ -27,12 +27,11 @@ def schedule_task_at_specific_time():
     else:
         click_irctc_e_wallet()
         click_pay_n_book(no_of_press=10)
-        # if want to pay with wallet need to click on otp fld otherwise not, if want to pay with upi just scan qr and pay
+        # if want to pay with wallet need to click on otp fld otherwise not,
+        # if want to pay with upi just scan qr and pay
         click_otp_fld(otp_fld_img_path=get_image_path("otp_fld_image"))
     if get_otp_and_payment_options("is_read_and_write_otp_from_sms"):
         read_n_write_otp_from_kde_sms()
-    else:
-        read_and_write_otp_from_mail()
 
 
 schedule_task_at_specific_time()

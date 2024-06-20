@@ -349,7 +349,7 @@ def get_captcha_text():
 
 
 def select_bhim_upi_ssd_for_upi_pay():
-    loc = wait_for_element(get_image_path("bhim_upi_txt_image"), min_search_time=25)
+    loc = wait_for_element(get_image_path("bhim_upi_txt_image"))
     py.moveTo(loc)
     py.click(loc)
     # click pay using paytm txt
