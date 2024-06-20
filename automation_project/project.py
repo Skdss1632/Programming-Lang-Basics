@@ -11,10 +11,8 @@ def schedule_task_at_specific_time():
     if get_ticket_availability_status("is_ticket_available"):
         click_book_only_if_confirm_berth_alloted()
     if get_otp_and_payment_options("is_payment_with_upi"):
-        scroll_until_element_visible_not_visible(img_path=get_image_path("pay_through_bhim_upi_image"))
         click_pay_with_upi()
     click_continue_btn_inside_pass_details()
-    # here page start buffering
     wait_for_element(image_path=get_image_path("review_journey_image"))
     # if ad blocker extension installed on browser no need to sleep here for 1 sec
     # py.sleep(1)
@@ -37,7 +35,7 @@ def schedule_task_at_specific_time():
         read_and_write_otp_from_mail()
 
 
-# schedule_task_at_specific_time()
+schedule_task_at_specific_time()
 
 
 if get_coach_booking_preferences("is_ac_3_tier") or get_coach_booking_preferences("is_ac_tier_3_economy"):
