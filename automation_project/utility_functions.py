@@ -148,7 +148,8 @@ def open_chrome_browser_with_irctc_page():
     click_browser()
     # open chrome with shortcut key
     # py.hotkey("shift", "alt", "c")
-    wait_for_element(get_image_path("validate_chrome_open_image"), confidence=0.60, min_search_time=10)
+    # wait_for_element(get_image_path("validate_chrome_open_image"), confidence=0.60, min_search_time=10)
+    py.sleep(1)
     py.hotkey("ctrl", "t")
     open_url()
 
