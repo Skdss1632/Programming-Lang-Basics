@@ -1,9 +1,22 @@
 from utility_functions import *
 
 
+def input_journey_details():
+    open_chrome_browser_with_irctc_page()
+    click_login_btn()
+    source_station = get_booking_details("source_station")
+    destination_station = get_booking_details("destination_station")
+    travel_date = get_booking_details("travel_date")
+    input_source_n_destination_station_n_travel_date(source_station=source_station, destination_station=destination_station, travel_date=travel_date)
+    select_ticket_type_from_dropdwn()
+    modify_search_loc = wait_for_element(get_image_path("modify_search_image"))
+    py.click(modify_search_loc)
+
+
 def schedule_task_at_specific_time():
     # click_mouse_position()
     click_on_wl_or_avalible_btn()
+    scroll_until_element_visible_not_visible(img_path=get_image_path("book_now_image"), no_of_scrolls=-1)
     click_book_now_inside_select_train(book_now_img_path=get_image_path("book_now_image"))
     # if want to perform any action inside pass details count the presses from gender
     input_passenger_names()
@@ -34,6 +47,7 @@ def schedule_task_at_specific_time():
         read_n_write_otp_from_kde_sms()
 
 
+input_journey_details()
 schedule_task_at_specific_time()
 
 

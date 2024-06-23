@@ -6,8 +6,6 @@ import pyperclip
 import os
 import platform
 import schedule
-import time
-import datetime
 
 
 parent_img_path = "irctc_images/"
@@ -82,9 +80,8 @@ def click_on_wl_or_avalible_btn():
         wl_or_available_img_path = get_image_path("available_ticket_image")
     # if ticket is waiting
     else:
-        wl_or_available_img_path = get_image_path("waiting_list_image")
-    wl_or_available_loc = wait_for_element(wl_or_available_img_path)
-    py.click(wl_or_available_loc)
+        wl_or_available_loc = wait_for_element(get_image_path("waiting_list_image"))
+        py.click(wl_or_available_loc)
 
 
 def input_passenger_names():
@@ -103,7 +100,7 @@ def input_passenger_names():
         if idx < total_passengers - 1:
             py.press("tab", presses=3)
             py.press("enter")
-            # there is delay in appearing passenger detail input fld after clicking on add pass detail so verify the img first then perform action
+            # there is delay in appearing passenger detail input fld after clicking on add pass detail, so verify the img first then perform action
             wait_for_element(image_path=get_image_path("passenger_name_input_fld_image"))
 
 
@@ -117,6 +114,7 @@ def click_book_only_if_confirm_berth_alloted():
     elif get_passenger_phn_no() == "":
         no_of_press = 10
     py.press("tab", presses=no_of_press)
+    # pressing space to select checkbox
     py.press("space")
 
 
@@ -137,59 +135,32 @@ def clear_input_fld():
     py.press('backspace')
 
 
-def select_ticket_type_from_dropdown():
-    ticket_type_location = ""
-    if get_coach_booking_preferences("is_general"):
-        pass  # Do nothing for "general"
-
-    if get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
-        # Click on general to reset or ensure the dropdown is in a known state
-        general_img_loc = get_image_path(image_name="general_image")
-        py.click(general_img_loc)
-        if get_ticket_type_selection("is_premium_tatkal"):
-            general_blue_loc = wait_for_element("general_blue_image")
-            py.moveTo(general_blue_loc)
-            py.scroll(-0.3)
-
-            ticket_type_location = wait_for_element(get_image_path("premium_tatkal_image"))
-        if get_ticket_type_selection("is_tatkal"):
-            ticket_type_location = wait_for_element(get_image_path("tatkal_image"))
-        py.click(ticket_type_location)
-
-
-def input_source_n_destination_station(source_station: str, destination: str):
+def input_source_n_destination_station_n_travel_date(source_station: str, destination_station: str, travel_date: str):
     # go inside source station input fld
     source_loc = wait_for_element(get_image_path("source_station_image"))
     py.moveTo(source_loc)
     py.click(source_loc)
     py.write(source_station, interval=0.1)
-    py.sleep(1)
-    wait_for_element(image_path=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85, min_search_time=10)
+    py.sleep(0.5)
     py.press("enter")
 
     # go inside destination input fld
     py.press("tab", presses=2)
-    py.write(destination, interval=0.1)
-    py.sleep(1)
-    wait_for_element(image_path=get_image_path("blue_color_in_dropdwn_image"), confidence=0.85, min_search_time=10)
+    py.write(destination_station, interval=0.1)
     py.sleep(0.5)
     py.press("enter")
 
     # enter travel date
-    py.press("tab", presses=1)
-    py.write(get_booking_details("travel_date"))
+    py.press("tab")
+    py.write(travel_date)
     py.press("enter")
-
-    # # go to general dropdwn
-    # py.press("tab", presses=2)
-    # if get_booking_details("is_tatkal"):
-    #     py.press("up", presses=2)
-    # if get_ticket_type_selection("is_premium_tatkal"):
-    #     py.press("up")
 
 
 def open_chrome_browser_with_irctc_page():
     click_browser()
+    # open chrome with shortcut key
+    # py.hotkey("shift", "alt", "c")
+    wait_for_element(get_image_path("validate_chrome_open_image"), confidence=0.70, min_search_time=10)
     py.hotkey("ctrl", "t")
     open_url()
 
@@ -197,7 +168,9 @@ def open_chrome_browser_with_irctc_page():
 def click_login_btn():
     # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
     # not and click on it
+    py.sleep(2.5)
     login_btn_loc = wait_for_element(image_path=get_image_path("login_btn_image"), min_search_time=25)
+    py.moveTo(login_btn_loc)
     py.click(login_btn_loc)
 
 
@@ -272,8 +245,14 @@ def read_and_write_otp_from_mail():
 
 def click_pay_with_upi():
     global no_of_press
-    if get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
+    passenger_phn_no = get_passenger_phn_no()
+    if passenger_phn_no:
+        no_of_press = 5
+    elif get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         no_of_press = 6
+    # if general
+    else:
+        no_of_press = 11
     py.press("tab", presses=no_of_press)
     py.press("down")
 
@@ -283,7 +262,7 @@ def click_continue_btn_inside_pass_details():
     # if is_payment_with_upi True then cursor is inside pay through bhim upi count the tab press from there
     if get_otp_and_payment_options("is_payment_with_upi"):
         no_of_press = 2
-    # if tatkal True then currently cursor is inside this checkbox-- book only if i et confirm berth
+    # if tatkal True then currently cursor is inside this checkbox-- book only if confirm berth are alloted confirm berth
     elif get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         no_of_press = 8
     # if not tatkal and phn no == "" then count the tab press from gender box
@@ -304,7 +283,7 @@ def input_passenger_phn_no():
         py.write(passenger_phn_no)
 
 
-def wait_for_element(image_path, confidence=0.90, min_search_time=240):
+def wait_for_element(image_path, confidence=0.90, min_search_time=25):
     return py.locateCenterOnScreen(image=image_path, confidence=confidence, minSearchTime=min_search_time)
 
 
@@ -364,3 +343,17 @@ def click_irctc_e_wallet():
     py.click(wallet_location)
     # verify irctc e wallet btn is clicked
     wait_for_element(get_image_path("an_amt_of_10_applicable_txt_image"))
+
+
+def select_ticket_type_from_dropdwn():
+    if not get_ticket_type_selection("is_general"):
+        press = 0
+        dropdwn_loc = wait_for_element(get_image_path("ticket_type_dropdwn_image"))
+        py.click(dropdwn_loc)
+        if get_ticket_type_selection("is_tatkal"):
+            press = 2
+        if get_ticket_type_selection("is_premium_tatkal"):
+            press = 1
+        py.press("up", presses=press)
+        py.press("enter")
+

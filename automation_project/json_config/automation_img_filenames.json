@@ -22,8 +22,6 @@
     "otp_image": "otp_fld.png",
     "password_filled_image": "password_filled.png",
     "irctc_e_wallet_image": "irctc_e_wallet.png",
-    "general_blue_image": "general_blue.png",
-    "general_image": "general_type_book.png",
     "chrome_image": "chrome.png",
     "large_sign_in_btn": "large_sign_in_btn.png",
     "small_sign_in_btn": "small_sign_in_btn.png",
@@ -45,6 +43,9 @@
     "paytm_upi_txt_correct_sign_image": "paytm_upi_txt_correct_sign.png",
     "otp_fld_image": "otp_fld.png",
     "kde_otp_txt_image": "kde_otp_txt.png",
-    "kde_connect_blue_color_otp_txt_image": "kde_connect_blue_color_otp_txt.png"
+    "kde_connect_blue_color_otp_txt_image": "kde_connect_blue_color_otp_txt.png",
+    "ticket_type_dropdwn_image": "ticket_type_dropdwn.png",
+    "modify_search_image": "modify_search.png",
+    "validate_chrome_open_image": "validate_chrome_open.png"
   }
 }

@@ -5,22 +5,20 @@
     "is_ac_tier_3_economy": false
   },
   "ticket_type_selection": {
-    "is_general": false,
+    "is_general": true,
     "is_tatkal": false,
-    "is_premium_tatkal": true
+    "is_premium_tatkal": false
   },
   "ticket_availability_status": {
-    "is_ticket_available": true,
-    "is_ticket_waiting": false
+    "is_ticket_available": false
   },
   "otp_and_payment_options": {
     "is_read_and_write_otp_from_sms": false,
     "is_payment_with_upi": true
   },
   "booking_details": {
-    "source_station": "umb",
-    "destination_station": "bju",
-    "travel_date": "15/06/2024",
-    "no_of_passenger_for_booking": 1
+    "source_station": "dss",
+    "destination_station": "ndls",
+    "travel_date": "24/06/2024"
   }
 }
