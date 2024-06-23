@@ -131,13 +131,11 @@ def input_source_n_destination_station_n_travel_date(source_station: str, destin
     py.moveTo(source_loc)
     py.click(source_loc)
     py.write(source_station, interval=0.1)
-    py.sleep(0.5)
     py.press("enter")
 
     # go inside destination input fld
     py.press("tab", presses=2)
     py.write(destination_station, interval=0.1)
-    py.sleep(0.5)
     py.press("enter")
 
     # enter travel date
