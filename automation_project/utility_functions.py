@@ -273,7 +273,7 @@ def input_passenger_phn_no():
         py.write(passenger_phn_no)
 
 
-def wait_for_element(image_path, confidence=0.90, min_search_time=25):
+def wait_for_element(image_path, confidence=0.90, min_search_time=240):
     return py.locateCenterOnScreen(image=image_path, confidence=confidence, minSearchTime=min_search_time)
 
 
