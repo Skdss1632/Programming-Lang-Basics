@@ -2,6 +2,7 @@ from utility_functions import *
 
 
 def input_journey_details():
+    print("automation started, filling journey details...")
     open_chrome_browser_with_irctc_page()
     click_login_btn()
     source_station = get_booking_details("source_station")
@@ -14,6 +15,7 @@ def input_journey_details():
 
 
 def schedule_task_at_specific_time():
+    print("click on any coach either sleeper or ac within 3 minute to continue within...")
     # click_mouse_position()
     click_on_wl_or_avalible_btn()
     scroll_until_element_visible_not_visible(img_path=get_image_path("book_now_image"), no_of_scrolls=-1)
