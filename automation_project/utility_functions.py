@@ -125,16 +125,6 @@ def click_continue_btn_inside_review_journey(captcha_fill_delay: int, img_path: 
     py.click(button_location)
 
 
-def click_search_btn():
-    sign_in_btn = wait_for_element(image_path=get_image_path("sign_in_btn_image"))
-    py.click(sign_in_btn)
-
-
-def clear_input_fld():
-    py.hotkey("ctrl", "a")
-    py.press('backspace')
-
-
 def input_source_n_destination_station_n_travel_date(source_station: str, destination_station: str, travel_date: str):
     # go inside source station input fld
     source_loc = wait_for_element(get_image_path("source_station_image"))
