@@ -16,10 +16,10 @@ def load_json(file_path):
         return json.load(f)
 
 
-img_config = load_json('json_config/automation_img_filenames.json')
-booking_config = load_json('json_config/booking_config.json')
-login_credentials = load_json('json_config/login_credentials.json')
-passenger_data = load_json('json_config/passenger_data.json')
+img_config = load_json('../json_config/automation_img_filenames.json')
+booking_config = load_json('../json_config/booking_config.json')
+login_credentials = load_json('../json_config/login_credentials.json')
+passenger_data = load_json('../json_config/passenger_data.json')
 
 
 def get_coach_booking_preferences(key: str):

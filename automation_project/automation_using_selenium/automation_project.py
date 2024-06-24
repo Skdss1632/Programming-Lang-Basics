@@ -1,20 +1,27 @@
-from selenium import webdriver
+import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
-# Specify the path to the ChromeDriver executable
-driver = webdriver.Chrome(executable_path='/path/to/chromedriver')
-driver.get('http://example.com')
+# Use undetected-chromedriver to create a WebDriver instance
+options = uc.ChromeOptions()
+options.add_argument("--headless")  # Optional: Run Chrome in headless mode
+driver = uc.Chrome(options=options)
+
+# Maximize the window (optional)
+driver.maximize_window()
+
+# Navigate to the desired URL
+driver.get('https://help.ipfoxy.com/docs/Developer-API')
 
 try:
+    # Wait for the presence of the element with the specified ID
     element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "element_id"))
+        ec.presence_of_element_located((By.ID, "element_id"))
     )
 except TimeoutException:
     print("Loading took too much time!")
 
+# Close the WebDriver instance
 driver.quit()
