@@ -15,7 +15,7 @@ def input_journey_details():
 
 
 def schedule_task_at_specific_time():
-    print("click on any coach either sleeper or ac within 3 minute to continue within...")
+    print("click on any coach either sleeper or ac within 3 minute to continue...")
     # click_mouse_position()
     click_on_wl_or_avalible_btn()
     scroll_until_element_visible_not_visible(img_path=get_image_path("book_now_image"), no_of_scrolls=-1)
@@ -32,7 +32,7 @@ def schedule_task_at_specific_time():
     # if ad blocker extension installed on browser no need to sleep here for 1 sec
     # py.sleep(1)
     click_captcha_fld(is_ad_blocker_enabled=True)
-    # press enter manually after filling captcha
+    # press (enter key) manually after filling captcha
     wait_for_element(image_path=get_image_path("payment_yellow_image"))
     # if ad blocker extension installed on browser no need to sleep here for 1 sec
     # py.sleep(1)

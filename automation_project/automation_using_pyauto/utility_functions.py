@@ -70,18 +70,18 @@ def open_url():
 
 
 def click_book_now_inside_select_train(book_now_img_path: str):
-    book_now_location = wait_for_element(book_now_img_path)
-    py.moveTo(book_now_location)
-    py.click(book_now_location)
+    book_now_loc = wait_for_element(book_now_img_path)
+    py.moveTo(book_now_loc)
+    py.click(book_now_loc)
 
 
 def click_on_wl_or_avalible_btn():
     if get_ticket_availability_status("is_ticket_available"):
-        wl_or_available_img_path = get_image_path("available_ticket_image")
+        wl_or_available_loc = wait_for_element("available_ticket_image")
     # if ticket is waiting
     else:
         wl_or_available_loc = wait_for_element(get_image_path("waiting_list_image"))
-        py.click(wl_or_available_loc)
+    py.click(wl_or_available_loc)
 
 
 def input_passenger_names():
@@ -96,7 +96,7 @@ def input_passenger_names():
         py.press("tab")
         gender_presses = 2 if passenger.get("GENDER") == "Female" else 1
         py.press('right', presses=gender_presses)
-        # if passenger name is the last name in list then do not click on add pass
+        # if passenger name is the last name in list then do not click on add passenger
         if idx < total_passengers - 1:
             py.press("tab", presses=3)
             py.press("enter")
@@ -114,7 +114,7 @@ def click_book_only_if_confirm_berth_alloted():
     elif get_passenger_phn_no() == "":
         no_of_press = 10
     py.press("tab", presses=no_of_press)
-    # pressing space to select checkbox
+    # pressing space KEY to select checkbox
     py.press("space")
 
 
@@ -156,7 +156,7 @@ def open_chrome_browser_with_irctc_page():
 
 def click_login_btn():
     # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
-    # not and click on it
+    # not
     py.sleep(2.5)
     login_btn_loc = wait_for_element(image_path=get_image_path("login_btn_image"), min_search_time=25)
     py.moveTo(login_btn_loc)
@@ -169,7 +169,6 @@ def click_pay_n_book(no_of_press: int):
 
 
 def click_otp_fld(otp_fld_img_path: str):
-    # max wait time while tatkal
     wait_for_element(otp_fld_img_path, confidence=0.80, min_search_time=120)
     py.press("tab")
 
@@ -211,8 +210,9 @@ def click_captcha_fld(is_ad_blocker_enabled: bool):
 
 
 def read_and_write_otp_from_mail():
-    """this function reads otp from mail
-     and writes it to otp box work only if only two tabs are open in browser one is mail and another is booking web"""
+    """this function read and write otp from the mail
+    it works only if two tabs are open in browser one is mail and another is irctc web page,
+    if you have option read and write otp from the sms if you have linux bcz getting otp on mail sometimes takes time"""
     py.hotkey("ctrl", "tab")
     loc = wait_for_element(get_image_path("otp_txt_in_mail_image"), min_search_time=120)
     py.click(loc)
@@ -298,6 +298,7 @@ def read_n_write_otp_from_kde_sms():
     otp = pyperclip.paste()
     py.write(otp)
     # go inside continue btn and then hit enter
+    # do not remove this comment as of now if remove it maybe book ticket auto if you run program
     # py.press("tab")
     # py.press("enter")
     print(otp)
@@ -306,7 +307,6 @@ def read_n_write_otp_from_kde_sms():
 def get_captcha_text():
     # Take a screenshot (you need to have the image copied to the clipboard)
     screenshot = ImageGrab.grabclipboard()
-    # Check if screenshot is None
     if screenshot is not None:
         # Convert the screenshot to grayscale
         gray_screenshot = screenshot.convert('L')
@@ -326,7 +326,6 @@ def select_bhim_upi_ssd_for_upi_pay():
 
 
 def click_irctc_e_wallet():
-    # if want to pay with wallet verify you have created wallet in acc and have required amt in it
     wallet_location = wait_for_element(image_path=get_image_path("irctc_e_wallet_image"))
     py.moveTo(wallet_location)
     py.click(wallet_location)
