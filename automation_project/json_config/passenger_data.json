@@ -1,12 +1,12 @@
 {
  "passenger_details": [
       {
-        "NAME": "kartik jha",
+        "NAME": "",
         "AGE": 21,
         "GENDER": "Male",
         "SEAT": "",
         "FOOD": ""
       }
     ],
-  "passenger_phn_no": "9572847235"
+   "passenger_phn_no": "1234567891"
 }

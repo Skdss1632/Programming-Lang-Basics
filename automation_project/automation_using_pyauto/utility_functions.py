@@ -254,6 +254,8 @@ def click_continue_btn_inside_pass_details():
     # if tatkal True then currently cursor is inside this checkbox-- book only if confirm berth are alloted confirm berth
     elif get_ticket_type_selection("is_tatkal") or get_ticket_type_selection("is_premium_tatkal"):
         no_of_press = 8
+    elif get_passenger_phn_no():
+        no_of_press = 7
     # if not tatkal and phn no == "" then count the tab press from gender box
     else:
         no_of_press = 18
