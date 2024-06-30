@@ -77,7 +77,7 @@ def click_book_now_inside_select_train(book_now_img_path: str):
 
 def click_on_wl_or_avalible_btn():
     if get_ticket_availability_status("is_ticket_available"):
-        wl_or_available_loc = wait_for_element("available_ticket_image")
+        wl_or_available_loc = wait_for_element(get_image_path("available_ticket_image"))
     # if ticket is waiting
     else:
         wl_or_available_loc = wait_for_element(get_image_path("waiting_list_image"))
@@ -158,7 +158,7 @@ def click_login_btn():
     # verifying that after opening the url login btn is present, if login btn present url loaded successfully otherwise
     # not
     py.sleep(2.5)
-    login_btn_loc = wait_for_element(image_path=get_image_path("login_btn_image"), min_search_time=25)
+    login_btn_loc = wait_for_element(image_path=get_image_path("login_btn_image"))
     py.moveTo(login_btn_loc)
     py.click(login_btn_loc)
 
